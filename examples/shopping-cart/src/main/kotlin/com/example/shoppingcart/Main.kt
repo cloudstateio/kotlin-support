@@ -6,6 +6,7 @@ import io.cloudstate.kotlinsupport.annotations.CommandHandler
 import io.cloudstate.kotlinsupport.annotations.EventHandler
 
 import io.cloudstate.kotlinsupport.cloudstate
+import io.cloudstate.kotlinsupport.logger
 import io.cloudstate.kotlinsupport.services.eventsourced.EventSourcedEntity
 import java.util.stream.Collectors
 
@@ -25,13 +26,13 @@ class Main {
                 //port = 8088
 
                 registerEventSourcedEntity {
-                    entityService = ShoppingCartEntityService()
+                    entityService = ShoppingCartEntityService::class.java
 
                     descriptor = Shoppingcart.getDescriptor().findServiceByName("ShoppingCart")
                     additionalDescriptors = arrayOf(
                             com.example.shoppingcart.persistence.Domain.getDescriptor())
 
-                    //snapshotEvery = 1
+                    snapshotEvery = 1
                     persistenceId = "shopping-cart"
                 }
 
@@ -44,10 +45,12 @@ class Main {
         }
     }
 
-    class ShoppingCartEntityService : EventSourcedEntity() {
+    class ShoppingCartEntityService(entityId: String) : EventSourcedEntity(entityId) {
         private var state: MutableMap<String, Shoppingcart.LineItem> = mutableMapOf()
 
         override fun create(): Handler {
+            //Simulate initial data -> state[entityId] = Shoppingcart.LineItem.newBuilder().setName("item").build()
+
             val handler = Handler()
             handler.snapshot = {
                 snapshot<Domain.Cart> {

@@ -14,15 +14,12 @@ import akka.stream.ActorMaterializer;
 import io.cloudstate.kotlinsupport.initializers.CloudStateInitializer;
 import io.cloudstate.kotlinsupport.protocol.EntityDiscoveryService;
 import io.cloudstate.kotlinsupport.protocol.EventSourcedService;
-import io.cloudstate.kotlinsupport.protocol.handlers.EventSourcedEntityHandler;
 import io.cloudstate.kotlinsupport.protocol.handlers.EventSourcedRouterHandler;
-import io.cloudstate.kotlinsupport.services.eventsourced.EventSourcedEntity;
 import io.cloudstate.protocol.EntityDiscoveryHandlerFactory;
 import io.cloudstate.protocol.EventSourcedHandlerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
@@ -69,16 +66,19 @@ public class CloudStateRunner {
     public CompletionStage<ServerBinding> start() throws Exception {
         log.debug("Found {} services for register", services.size());
 
-        final List<EntityWrapper> eventSourcedServices = services.entrySet()
-                .stream().filter(e -> EntityType.EventSourced.equals(e.getValue().getInitializer().getEntityType()))
-                .map(e -> e.getValue())
-                .map(func -> {
-                    ActorRef ref = system.actorOf(Props.create(EventSourcedEntityHandler.class, func), func.getEntityName());
-                    return new EntityWrapper(func, ref);
-                })
-                .collect(Collectors.toList());
+        // Split map into two other map. One(true) contains eventSourced services, and Other(false) contains crdt services
+        // TODO: This should be reviewed when other types of services are implemented.
+        final Map<Boolean, Map<String, CloudStateInitializer.EntityFunction>> groupServices = services.entrySet()
+                .stream()
+                .collect(Collectors.partitioningBy(
+                        e -> EntityType.EventSourced.equals(e.getValue().getInitializer().getEntityType()), // this splits the map into 2 parts
+                        Collectors.toMap(
+                                Map.Entry::getKey,
+                                Map.Entry::getValue
+                        )
+                ));
 
-        final ActorRef handlerActor = system.actorOf(Props.create(EventSourcedRouterHandler.class, eventSourcedServices));
+        final ActorRef handlerActor = system.actorOf(Props.create(EventSourcedRouterHandler.class, groupServices.get(true)));
 
         Function<HttpRequest, CompletionStage<HttpResponse>> serviceHandlers = getHttpRequestCompletionStageFunction(handlerActor);
 
@@ -100,32 +100,6 @@ public class CloudStateRunner {
                 EventSourcedHandlerFactory.create(new EventSourcedService(initializer, handlerActor), materializer, system);
 
         return ServiceHandler.concatOrNotFound(entityDiscoveryService, eventSourcedService);
-    }
-
-    public class EntityWrapper{
-        private CloudStateInitializer.EntityFunction entityFunction;
-        private ActorRef ref;
-
-        public EntityWrapper(CloudStateInitializer.EntityFunction entityFunction, ActorRef ref) {
-            this.entityFunction = entityFunction;
-            this.ref = ref;
-        }
-
-        public CloudStateInitializer.EntityFunction getEntityFunction() {
-            return entityFunction;
-        }
-
-        public void setEntityFunction(CloudStateInitializer.EntityFunction entityFunction) {
-            this.entityFunction = entityFunction;
-        }
-
-        public ActorRef getRef() {
-            return ref;
-        }
-
-        public void setRef(ActorRef ref) {
-            this.ref = ref;
-        }
     }
 
 }

@@ -20,18 +20,18 @@ class CloudStateInitializer {
 
     fun registerEventSourcedEntity(eventSourcedInitializer: EventSourcedEntityInitializer.() -> Unit) {
         eventSourcedInit.eventSourcedInitializer()
-        eventSourcedInit?.entityService?.let { services.put(eventSourcedInit.descriptor?.fullName, EntityFunction(eventSourcedInit, eventSourcedInit.type?.typeStr, eventSourcedInit.descriptor?.fullName)) }
+        eventSourcedInit.entityService.let { services.put(eventSourcedInit.descriptor?.fullName, EntityFunction(eventSourcedInit, eventSourcedInit.type!!.typeStr, eventSourcedInit.descriptor!!.fullName)) }
     }
 
     fun registerCrdtEntity(crdtInitializer: CrdtEntityInitializer.() -> Unit) {
         crdtSourcedInit.crdtInitializer()
-        crdtSourcedInit?.statefulService?.let { services.put(crdtSourcedInit.descriptor?.fullName, EntityFunction(crdtSourcedInit, crdtSourcedInit.type?.typeStr, crdtSourcedInit.descriptor?.fullName)) }
+        crdtSourcedInit.statefulService.let { services.put(crdtSourcedInit.descriptor?.fullName, EntityFunction(crdtSourcedInit, crdtSourcedInit.type!!.typeStr, crdtSourcedInit.descriptor!!.fullName)) }
     }
 
     fun getServices(): Map<String?, EntityFunction> {
         return services
     }
 
-    data class EntityFunction(val initializer: Initializer, val entityType: String?, val entityName: String?)
+    data class EntityFunction(val initializer: Initializer, val entityType: String, val entityName: String)
 
 }

@@ -10,7 +10,7 @@
     <parent>
         <groupId>io.cloudstate</groupId>
         <artifactId>kotlin-support</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.2-SNAPSHOT</version>
     </parent>
 
     <modules>

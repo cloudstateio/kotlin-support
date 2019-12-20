@@ -1,9 +1,11 @@
 package io.cloudstate.kotlinsupport.services.eventsourced
 
 import io.cloudstate.kotlinsupport.Context
+import io.cloudstate.kotlinsupport.logger
 import io.cloudstate.kotlinsupport.services.StatefulService
 
-abstract class EventSourcedEntity: StatefulService {
+abstract class EventSourcedEntity(val entityId: String): StatefulService {
+    val log = logger()
     private var context: EventSourcedEntityHandlerContext? = null
 
     override fun setContext(context: Context) {
@@ -22,8 +24,10 @@ abstract class EventSourcedEntity: StatefulService {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    inline fun <reified T> snapshot(crossinline body: () -> T) {
-
+    inline fun <reified T> snapshot(crossinline body: () -> T): T {
+        val b = body()
+        log.debug("Return of a user function is: {}", b)
+        return b
     }
 
     inline fun <reified T> handleSnapshot(crossinline body: (T) -> Unit) {}

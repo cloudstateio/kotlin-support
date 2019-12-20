@@ -6,7 +6,7 @@
 
     <groupId>io.cloudstate</groupId>
     <artifactId>shopping-cart</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
 
     <properties>
         <main.class>com.example.shoppingcart.Main</main.class>
@@ -18,6 +18,12 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
+            <version>${kotlin.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>io.cloudstate</groupId>
             <artifactId>cloudstate-kotlin-support</artifactId>
@@ -172,9 +178,7 @@
                     </container>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
-
     
 </project>
