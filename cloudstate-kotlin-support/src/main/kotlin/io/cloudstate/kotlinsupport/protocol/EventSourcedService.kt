@@ -15,9 +15,8 @@ class EventSourcedService(
         private val initializer: CloudStateInitializer,
         private val handler: ActorRef) : EventSourced {
 
-
     override fun handle(streamIn: Source<EventSourcedProto.EventSourcedStreamIn, NotUsed>?): Source<EventSourcedProto.EventSourcedStreamOut, NotUsed> =
-        streamIn!!.log("CloudState-User")
+        streamIn!!.log("Cloudstate-User")
                 .withAttributes(
                         Attributes.createLogLevels(
                                 Logging.InfoLevel(), // onElement

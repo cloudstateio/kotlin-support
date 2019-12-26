@@ -4,9 +4,15 @@ import io.cloudstate.kotlinsupport.Context
 import io.cloudstate.kotlinsupport.logger
 import io.cloudstate.kotlinsupport.services.StatefulService
 
-abstract class EventSourcedEntity(val entityId: String): StatefulService {
+abstract class FunctionalEventSourcedEntity(val entityId: String): StatefulService {
     val log = logger()
     private var context: EventSourcedEntityHandlerContext? = null
+
+    var handler: Handler? = null
+
+    init {
+       this. handler = create()
+    }
 
     override fun setContext(context: Context) {
         this.context = context as EventSourcedEntityHandlerContext
@@ -34,13 +40,17 @@ abstract class EventSourcedEntity(val entityId: String): StatefulService {
 
     inline fun <reified T> eventHandler(crossinline body: (T) -> Unit) {}
 
-    inline fun <reified T> commandResultHandler(crossinline body: () -> T) {}
+    inline fun <reified T> commandResultHandler(crossinline body: () -> T): T {
+        val b = body()
+        log.debug("Return of a user function is: {}", b)
+        return b
+    }
 
     inline fun <reified T> commandActionHandler(crossinline body: (T) -> Any) {}
 
     abstract fun create(): Handler
 
-    class Handler {
+    class Handler(val entityId: String) {
 
         lateinit var snapshot: () -> Any
         lateinit var handleSnapshot: (Any) -> Unit
