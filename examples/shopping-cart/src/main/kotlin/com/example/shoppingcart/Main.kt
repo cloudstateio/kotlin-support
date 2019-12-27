@@ -1,6 +1,5 @@
 package com.example.shoppingcart
 
-import com.example.shoppingcart.persistence.Domain
 import com.google.protobuf.Empty
 import io.cloudstate.kotlinsupport.annotations.CommandHandler
 import io.cloudstate.kotlinsupport.annotations.EventHandler
@@ -10,7 +9,11 @@ import io.cloudstate.kotlinsupport.cloudstate
 import io.cloudstate.kotlinsupport.services.eventsourced.AnnotationEventSourcedEntity
 import io.cloudstate.kotlinsupport.services.eventsourced.FunctionalEventSourcedEntity
 import java.util.stream.Collectors
-import com.example.shoppingcart.persistence.Domain.ItemRemoved as ItemRemoved
+
+import com.example.shoppingcart.persistence.Domain
+import com.example.shoppingcart.persistence.Domain.LineItem as DomainLineItem
+import com.example.shoppingcart.persistence.Domain.ItemAdded as DomainItemAdded
+import com.example.shoppingcart.persistence.Domain.ItemRemoved as DomainItemRemoved
 
 class Main {
 
@@ -52,7 +55,11 @@ class Main {
 
         @Snapshot
         fun snapshot(): Domain.Cart? = Domain.Cart.newBuilder()
-                .addAllItems(state.values.stream().map(this::convert).collect(Collectors.toList()))
+                .addAllItems(
+                        state.values
+                                .stream()
+                                .map(this::convert)
+                                .collect(Collectors.toList()))
                 .build()
 
         @SnapshotHandler
@@ -62,20 +69,19 @@ class Main {
         }
 
         @EventHandler
-        fun itemAdded(itemAdded: Domain.ItemAdded) {
+        fun itemAdded(itemAdded: DomainItemAdded) {
             var item: Shoppingcart.LineItem? = state[itemAdded.item.productId]
-            item = if (item == null) {
+            item = (if (item == null) {
                 convert(itemAdded.item)
-            } else {
-                item.toBuilder()
-                        .setQuantity(item.quantity + itemAdded.item.quantity)
-                        .build()
-            }
+            } else item.toBuilder()
+                    .setQuantity(item.quantity + itemAdded.item.quantity)
+                    .build())
+
             state[item!!.productId] = item
         }
 
         @EventHandler
-        fun itemRemoved(itemRemoved: ItemRemoved) {
+        fun itemRemoved(itemRemoved: DomainItemRemoved) {
             state.remove(itemRemoved.productId)
         }
 
@@ -89,9 +95,9 @@ class Main {
             if (item.quantity <= 0) fail("Cannot add negative quantity of to item ${item.productId}")
 
             emit(
-                    Domain.ItemAdded.newBuilder()
+                    DomainItemAdded.newBuilder()
                             .setItem(
-                                    Domain.LineItem.newBuilder()
+                                    DomainLineItem.newBuilder()
                                             .setProductId(item.productId)
                                             .setName(item.name)
                                             .setQuantity(item.quantity)
@@ -104,11 +110,11 @@ class Main {
         fun removeItem(item: Shoppingcart.RemoveLineItem): Empty? {
             if (!state.containsKey(item.productId)) fail("Cannot remove item ${item.productId} because it is not in the cart.")
 
-            emit(ItemRemoved.newBuilder().setProductId(item.productId).build())
+            emit(DomainItemRemoved.newBuilder().setProductId(item.productId).build())
             return Empty.getDefaultInstance()
         }
 
-        private fun convert(item: Domain.LineItem): Shoppingcart.LineItem? {
+        private fun convert(item: DomainLineItem): Shoppingcart.LineItem? {
             return Shoppingcart.LineItem.newBuilder()
                     .setProductId(item.productId)
                     .setName(item.name)
@@ -116,8 +122,8 @@ class Main {
                     .build()
         }
 
-        private fun convert(item: Shoppingcart.LineItem): Domain.LineItem? {
-            return Domain.LineItem.newBuilder()
+        private fun convert(item: Shoppingcart.LineItem): DomainLineItem? {
+            return DomainLineItem.newBuilder()
                     .setProductId(item.productId)
                     .setName(item.name)
                     .setQuantity(item.quantity)
@@ -139,7 +145,7 @@ class Main {
                             .addAllItems(
                                     state.values.stream()
                                             .map{ convert(it) }
-                                            .collect(Collectors.toList<Domain.LineItem>()))
+                                            .collect(Collectors.toList<DomainLineItem>()))
                             .build()
                 }
             }
@@ -155,7 +161,7 @@ class Main {
 
             handler.eventHandlers = listOf<(Any) -> Unit> {
 
-                eventHandler<Domain.ItemAdded> { itemAdded ->
+                eventHandler<DomainItemAdded> { itemAdded ->
                     var item = state[itemAdded.item.productId]
                     item = if (item == null) {
                         convert(itemAdded.item)
@@ -167,7 +173,7 @@ class Main {
                     state[item!!.productId] = item
                 }
 
-                eventHandler<ItemRemoved> { itemRemoved ->
+                eventHandler<DomainItemRemoved> { itemRemoved ->
                     state.remove(itemRemoved.productId)
                 }
 
@@ -187,9 +193,9 @@ class Main {
                         this fail "Cannot add negative quantity of to item" + item.productId
                     }
 
-                    this emit Domain.ItemAdded.newBuilder()
+                    this emit DomainItemAdded.newBuilder()
                             .setItem(
-                                    Domain.LineItem.newBuilder()
+                                    DomainLineItem.newBuilder()
                                             .setProductId(item.productId)
                                             .setName(item.name)
                                             .setQuantity(item.quantity)
@@ -204,7 +210,7 @@ class Main {
             return handler
         }
 
-        private fun convert(item: Domain.LineItem): Shoppingcart.LineItem? {
+        private fun convert(item: DomainLineItem): Shoppingcart.LineItem? {
             return Shoppingcart.LineItem.newBuilder()
                     .setProductId(item.productId)
                     .setName(item.name)
@@ -212,8 +218,8 @@ class Main {
                     .build()
         }
 
-        private fun convert(item: Shoppingcart.LineItem): Domain.LineItem? {
-            return Domain.LineItem.newBuilder()
+        private fun convert(item: Shoppingcart.LineItem): DomainLineItem? {
+            return DomainLineItem.newBuilder()
                     .setProductId(item.productId)
                     .setName(item.name)
                     .setQuantity(item.quantity)
