@@ -86,9 +86,9 @@ class Main {
         }
 
         @CommandHandler
-        fun getCart(): Shoppingcart.Cart? {
-            return Shoppingcart.Cart.newBuilder().addAllItems(state.values).build()
-        }
+        fun getCart(getShoppingCart: Shoppingcart.GetShoppingCart): Shoppingcart.Cart? =
+                Shoppingcart.Cart.newBuilder()
+                        .addAllItems(state.values).build()
 
         @CommandHandler
         fun addItem(item: Shoppingcart.AddLineItem): Empty? {

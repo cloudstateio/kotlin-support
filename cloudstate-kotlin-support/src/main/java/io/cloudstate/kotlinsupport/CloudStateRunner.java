@@ -97,7 +97,7 @@ public class CloudStateRunner {
                 EntityDiscoveryHandlerFactory.create(new EntityDiscoveryService(initializer, services, materializer), materializer, system);
 
         Function<HttpRequest, CompletionStage<HttpResponse>> eventSourcedService =
-                EventSourcedHandlerFactory.create(new EventSourcedService(initializer, handlerActor), materializer, system);
+                EventSourcedHandlerFactory.create(new EventSourcedService(initializer, handlerActor, materializer), materializer, system);
 
         return ServiceHandler.concatOrNotFound(entityDiscoveryService, eventSourcedService);
     }
