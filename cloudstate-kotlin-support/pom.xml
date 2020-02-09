@@ -33,27 +33,9 @@
         </dependency>-->
 
         <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-actor_2.12</artifactId>
-            <version>${akka.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.lightbend.akka.grpc</groupId>
-            <artifactId>akka-grpc-runtime_2.12</artifactId>
-            <version>${akka.grpc.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.typesafe.akka</groupId>
-            <artifactId>akka-stream_2.12</artifactId>
-            <version>${akka.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.google.protobuf</groupId>
-            <artifactId>protobuf-java</artifactId>
-            <version>3.6.1</version>
+            <groupId>io.cloudstate</groupId>
+            <artifactId>cloudstate-java-support</artifactId>
+            <version>0.4.3</version>
         </dependency>
 
         <!-- Logging -->
@@ -185,7 +167,7 @@
                 <version>2.6</version>
             </plugin>
 
-            <plugin>
+            <!--<plugin>
                 <groupId>com.lightbend.akka.grpc</groupId>
                 <artifactId>akka-grpc-maven-plugin</artifactId>
                 <version>${akka.grpc.version}</version>
@@ -200,7 +182,7 @@
                         <protoPath>src/main/protobuf</protoPath>
                     </protoPaths>
                 </configuration>
-            </plugin>
+            </plugin>-->
 
             <!--<plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>

@@ -3,14 +3,13 @@ package io.cloudstate.kotlinsupport.initializers.eventsourced
 import com.google.protobuf.Descriptors
 import io.cloudstate.kotlinsupport.EntityType
 import io.cloudstate.kotlinsupport.initializers.Initializer
-import io.cloudstate.kotlinsupport.services.StatefulService
 
 class EventSourcedEntityInitializer: Initializer {
 
     val type: EntityType? = EntityType.EventSourced
-    lateinit var entityService: Class<out StatefulService>
+    var entityService: Class<*>? = null
     var descriptor: Descriptors.ServiceDescriptor? = null
-    var additionalDescriptors: Array<Descriptors.FileDescriptor>? = null
+    lateinit var additionalDescriptors: Array<Descriptors.FileDescriptor>
     var persistenceId: String? = null
     var snapshotEvery: Int = 0
 

@@ -1,18 +1,22 @@
 package io.cloudstate.kotlinsupport.initializers
 
+import com.google.protobuf.Descriptors
+import io.cloudstate.javasupport.CloudState
+import io.cloudstate.javasupport.impl.AnySupport
+import io.cloudstate.javasupport.impl.eventsourced.AnnotationBasedEventSourcedSupport
+import io.cloudstate.kotlinsupport.initializers.crdt.CrdtEntityInitializer
 import io.cloudstate.kotlinsupport.initializers.eventsourced.EventSourcedEntityInitializer
 
 class CloudStateInitializer {
-    private val services = mutableMapOf<String?, EntityFunction>()
 
+    private val engine = CloudState()
+    private var prefer: AnySupport.Prefer = AnySupport.PREFER_JAVA()
+
+    var typeUrlPrefix: String = AnySupport.DefaultTypeUrlPrefix()
     var serviceName: String? = null
-
     var serviceVersion: String? = null
-
     var host: String = "0.0.0.0"
-
     var port: Int = 8088
-
     var functionTimeout: Long = 10000
 
     internal var crdtSourcedInit = CrdtEntityInitializer()
@@ -20,18 +24,26 @@ class CloudStateInitializer {
 
     fun registerEventSourcedEntity(eventSourcedInitializer: EventSourcedEntityInitializer.() -> Unit) {
         eventSourcedInit.eventSourcedInitializer()
-        eventSourcedInit.entityService.let { services.put(eventSourcedInit.descriptor?.fullName, EntityFunction(eventSourcedInit, eventSourcedInit.type!!.typeStr, eventSourcedInit.descriptor!!.fullName)) }
+
+        val anySupport = eventSourcedInit.additionalDescriptors?.let { newAnySupport(it) }
+
+        engine.registerEventSourcedEntity(
+                AnnotationBasedEventSourcedSupport(eventSourcedInit.entityService, anySupport, eventSourcedInit.descriptor),
+                eventSourcedInit.descriptor,
+                eventSourcedInit.persistenceId,
+                eventSourcedInit.snapshotEvery,
+                *eventSourcedInit.additionalDescriptors)
+
     }
+
+    fun getEngine(): CloudState = engine
 
     fun registerCrdtEntity(crdtInitializer: CrdtEntityInitializer.() -> Unit) {
-        crdtSourcedInit.crdtInitializer()
-        crdtSourcedInit.statefulService.let { services.put(crdtSourcedInit.descriptor?.fullName, EntityFunction(crdtSourcedInit, crdtSourcedInit.type!!.typeStr, crdtSourcedInit.descriptor!!.fullName)) }
+
     }
 
-    fun getServices(): Map<String?, EntityFunction> {
-        return services
+    private fun newAnySupport(descriptors: Array<Descriptors.FileDescriptor>): AnySupport? {
+        return AnySupport(descriptors, this.javaClass.classLoader, typeUrlPrefix, prefer)
     }
-
-    data class EntityFunction(val initializer: Initializer, val entityType: String, val entityName: String)
 
 }
