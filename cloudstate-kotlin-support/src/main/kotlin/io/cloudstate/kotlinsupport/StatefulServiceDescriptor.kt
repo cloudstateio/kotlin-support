@@ -3,10 +3,11 @@ package io.cloudstate.kotlinsupport
 import com.google.protobuf.Descriptors
 
 data class StatefulServiceDescriptor(
-        val entityService: Class<*>?,
+        val entityType: EntityType,
+        var entityService: Class<*>? = topLevelClass,
         val descriptor: Descriptors.ServiceDescriptor?,
         val additionalDescriptors: Array<Descriptors.FileDescriptor>,
-        val persistenceId: String?,
+        val persistenceId: String? = "",
         val snapshotEvery: Int = 100) {
 
     override fun equals(other: Any?): Boolean {

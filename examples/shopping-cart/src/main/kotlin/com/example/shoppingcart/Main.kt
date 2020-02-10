@@ -11,11 +11,9 @@ class Main {
 
             cloudstate {
 
-                serviceName = "shopping-cart"
-                serviceVersion = "1.0.0"
-
-                //host = "0.0.0.0"
-                //port = 8088
+                host = "0.0.0.0"
+                port = 8088
+                loglevel = "INFO"
 
                 registerEventSourcedEntity {
                     entityService = ShoppingCartEntity::class.java

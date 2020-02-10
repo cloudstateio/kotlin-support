@@ -8,11 +8,9 @@ class CloudStateInitializer {
 
     internal val statefulServiceDescriptors: MutableList<StatefulServiceDescriptor> = mutableListOf<StatefulServiceDescriptor>()
 
-    var serviceName: String? = null
-    var serviceVersion: String? = null
     var host: String = "0.0.0.0"
     var port: Int = 8088
-    var functionTimeout: Long = 10000
+    var loglevel: String = "DEBUG"
 
     internal var crdtSourcedInit = CrdtEntityInitializer()
     internal var eventSourcedInit = EventSourcedEntityInitializer()
@@ -22,6 +20,7 @@ class CloudStateInitializer {
 
         statefulServiceDescriptors.add(
                 StatefulServiceDescriptor(
+                        entityType = eventSourcedInit.type,
                         entityService = eventSourcedInit.entityService,
                         descriptor = eventSourcedInit.descriptor,
                         additionalDescriptors = eventSourcedInit.additionalDescriptors,
@@ -33,6 +32,15 @@ class CloudStateInitializer {
     }
 
     fun registerCrdtEntity(crdtInitializer: CrdtEntityInitializer.() -> Unit) {
+        crdtSourcedInit.crdtInitializer()
+
+        statefulServiceDescriptors.add(
+                StatefulServiceDescriptor(
+                        entityType = crdtSourcedInit.type,
+                        descriptor = crdtSourcedInit.descriptor,
+                        additionalDescriptors = crdtSourcedInit.additionalDescriptors)
+
+        )
 
     }
 

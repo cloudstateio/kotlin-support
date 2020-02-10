@@ -6,11 +6,10 @@ import io.cloudstate.kotlinsupport.initializers.Initializer
 
 class CrdtEntityInitializer: Initializer {
 
-    val type: EntityType? = EntityType.EventSourced
+    val type: EntityType = EntityType.Crdt
     var descriptor: Descriptors.ServiceDescriptor? = null
-    var additionalDescriptors: Array<Descriptors.FileDescriptor>? = null
-    var persistenceId: String? = null
+    lateinit var additionalDescriptors: Array<Descriptors.FileDescriptor>
 
-    override fun getEntityType(): EntityType? = this!!.type
+    override fun getEntityType(): EntityType = this.type
 
 }
