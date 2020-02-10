@@ -18,8 +18,8 @@ fun cloudstate(paramsInitializer: CloudStateInitializer.() -> Unit): CloudStateR
     // important to enable HTTP/2 in ActorSystem's config
     val conf = getConfig()
 
-
     return CloudStateRunner(cloudStateInitializer)
+            .withAllRegisters()
 }
 
 private fun getConfig() =

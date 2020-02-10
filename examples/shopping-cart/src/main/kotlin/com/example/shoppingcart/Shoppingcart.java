@@ -3699,22 +3699,28 @@ public final class Shoppingcart {
     String[] descriptorData = {
       "\n\022shoppingcart.proto\022\030com.example.shoppi" +
       "ngcart\032\033google/protobuf/empty.proto\032\033clo" +
-      "udstate/entity_key.proto\"X\n\013AddLineItem\022" +
+      "udstate/entity_key.proto\032\031cloudstate/eve" +
+      "nting.proto\032\034google/api/annotations.prot" +
+      "o\032\025google/api/http.proto\032\031google/api/htt" +
+      "pbody.proto\"X\n\013AddLineItem\022\025\n\007user_id\030\001 " +
+      "\001(\tB\004\220\265\030\001\022\022\n\nproduct_id\030\002 \001(\t\022\014\n\004name\030\003 " +
+      "\001(\t\022\020\n\010quantity\030\004 \001(\005\";\n\016RemoveLineItem\022" +
       "\025\n\007user_id\030\001 \001(\tB\004\220\265\030\001\022\022\n\nproduct_id\030\002 \001" +
-      "(\t\022\014\n\004name\030\003 \001(\t\022\020\n\010quantity\030\004 \001(\005\";\n\016Re" +
-      "moveLineItem\022\025\n\007user_id\030\001 \001(\tB\004\220\265\030\001\022\022\n\np" +
-      "roduct_id\030\002 \001(\t\"(\n\017GetShoppingCart\022\025\n\007us" +
-      "er_id\030\001 \001(\tB\004\220\265\030\001\">\n\010LineItem\022\022\n\nproduct" +
-      "_id\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\022\020\n\010quantity\030\003 \001(" +
-      "\005\"9\n\004Cart\0221\n\005items\030\001 \003(\0132\".com.example.s" +
-      "hoppingcart.LineItem2\204\002\n\014ShoppingCart\022J\n" +
-      "\007AddItem\022%.com.example.shoppingcart.AddL" +
-      "ineItem\032\026.google.protobuf.Empty\"\000\022P\n\nRem" +
-      "oveItem\022(.com.example.shoppingcart.Remov" +
-      "eLineItem\032\026.google.protobuf.Empty\"\000\022V\n\007G" +
-      "etCart\022).com.example.shoppingcart.GetSho" +
-      "ppingCart\032\036.com.example.shoppingcart.Car" +
-      "t\"\000b\006proto3"
+      "(\t\"(\n\017GetShoppingCart\022\025\n\007user_id\030\001 \001(\tB\004" +
+      "\220\265\030\001\">\n\010LineItem\022\022\n\nproduct_id\030\001 \001(\t\022\014\n\004" +
+      "name\030\002 \001(\t\022\020\n\010quantity\030\003 \001(\005\"9\n\004Cart\0221\n\005" +
+      "items\030\001 \003(\0132\".com.example.shoppingcart.L" +
+      "ineItem2\237\003\n\014ShoppingCart\022y\n\007AddItem\022%.co" +
+      "m.example.shoppingcart.AddLineItem\032\026.goo" +
+      "gle.protobuf.Empty\"/\202\323\344\223\002\036\"\031/cart/{user_" +
+      "id}/items/add:\001*\232\265\030\007\n\005items\022\201\001\n\nRemoveIt" +
+      "em\022(.com.example.shoppingcart.RemoveLine" +
+      "Item\032\026.google.protobuf.Empty\"1\202\323\344\223\002+\")/c" +
+      "art/{user_id}/items/{product_id}/remove\022" +
+      "\217\001\n\007GetCart\022).com.example.shoppingcart.G" +
+      "etShoppingCart\032\036.com.example.shoppingcar" +
+      "t.Cart\"9\202\323\344\223\0023\022\020/carts/{user_id}Z\037\022\026/car" +
+      "ts/{user_id}/itemsb\005itemsb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3729,6 +3735,10 @@ public final class Shoppingcart {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.EmptyProto.getDescriptor(),
           io.cloudstate.EntityKey.getDescriptor(),
+          io.cloudstate.EventsProto.getDescriptor(),
+          com.google.api.AnnotationsProto.getDescriptor(),
+          com.google.api.HttpProto.getDescriptor(),
+          com.google.api.HttpBodyProto.getDescriptor(),
         }, assigner);
     internal_static_com_example_shoppingcart_AddLineItem_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -3763,10 +3773,16 @@ public final class Shoppingcart {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(io.cloudstate.EntityKey.entityKey);
+    registry.add(io.cloudstate.EventsProto.eventing);
+    registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     com.google.protobuf.EmptyProto.getDescriptor();
     io.cloudstate.EntityKey.getDescriptor();
+    io.cloudstate.EventsProto.getDescriptor();
+    com.google.api.AnnotationsProto.getDescriptor();
+    com.google.api.HttpProto.getDescriptor();
+    com.google.api.HttpBodyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

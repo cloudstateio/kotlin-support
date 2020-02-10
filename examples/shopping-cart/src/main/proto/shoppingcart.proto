@@ -5,6 +5,10 @@ package com.example.shoppingcart;
 
 import "google/protobuf/empty.proto";
 import "cloudstate/entity_key.proto";
+import "cloudstate/eventing.proto";
+import "google/api/annotations.proto";
+import "google/api/http.proto";
+import "google/api/httpbody.proto";
 
 message AddLineItem {
     string user_id = 1 [(.cloudstate.entity_key) = true];
@@ -33,9 +37,25 @@ message Cart {
 }
 
 service ShoppingCart {
-    rpc AddItem(AddLineItem) returns (google.protobuf.Empty) {}
+    rpc AddItem(AddLineItem) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "/cart/{user_id}/items/add",
+            body: "*",
+        };
+        option (.cloudstate.eventing).in = "items";
+    }
 
-    rpc RemoveItem(RemoveLineItem) returns (google.protobuf.Empty) {}
+    rpc RemoveItem(RemoveLineItem) returns (google.protobuf.Empty) {
+        option (google.api.http).post = "/cart/{user_id}/items/{product_id}/remove";
+    }
 
-    rpc GetCart(GetShoppingCart) returns (Cart) {}
+    rpc GetCart(GetShoppingCart) returns (Cart) {
+        option (google.api.http) = {
+          get: "/carts/{user_id}",
+          additional_bindings: {
+            get: "/carts/{user_id}/items",
+            response_body: "items"
+          }
+        };
+    }
 }
