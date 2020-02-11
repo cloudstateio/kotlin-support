@@ -52,7 +52,7 @@ class ShoppingCartEntity(@param:EntityId private val entityId: String) {
     @CommandHandler
     fun addItem(item: Shoppingcart.AddLineItem, ctx: CommandContext): Empty {
         if (item.quantity <= 0) {
-            ctx.fail("Cannot add negative quantity of to item" + item.productId)
+            ctx.fail("Cannot add negative quantity of to item %s".format(item.productId))
         }
         ctx.emit(
                 Domain.ItemAdded.newBuilder()
@@ -69,7 +69,7 @@ class ShoppingCartEntity(@param:EntityId private val entityId: String) {
     @CommandHandler
     fun removeItem(item: Shoppingcart.RemoveLineItem, ctx: CommandContext): Empty {
         if (!cart.containsKey(item.productId)) {
-            ctx.fail("Cannot remove item " + item.productId + " because it is not in the cart.")
+            ctx.fail("Cannot remove item %s because it is not in the cart.".format(item.productId))
         }
         ctx.emit(
                 Domain.ItemRemoved.newBuilder()

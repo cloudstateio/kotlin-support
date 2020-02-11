@@ -50,7 +50,6 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
 
             }
 
-
         }
         return this
     }
@@ -60,6 +59,10 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
     //fun start(): CompletionStage<Done> = engine.start(conf)
 
     private fun getConfig(): Config {
+        setEnv(
+                mapOf("SUPPORT_LIBRARY_NAME" to "cloudstate-kotlin-support",
+                        "SUPPORT_LIBRARY_VERSION" to getProjectVersion()))
+
         val properties: Properties = Properties()
         properties.setProperty("cloudstate.system.akka.loglevel", initializer.loglevel)
         properties.setProperty("cloudstate.user-function-interface", initializer.host)
