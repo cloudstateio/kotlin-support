@@ -12,7 +12,7 @@ class Main {
             cloudstate {
 
                 host = "0.0.0.0"
-                port = 8088
+                port = 8080
                 loglevel = "INFO"
 
                 registerEventSourcedEntity {

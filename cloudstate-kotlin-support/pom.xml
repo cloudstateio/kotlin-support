@@ -177,38 +177,23 @@
                 <version>2.6</version>
             </plugin>
 
-            <!--<plugin>
+            <plugin>
                 <groupId>com.lightbend.akka.grpc</groupId>
                 <artifactId>akka-grpc-maven-plugin</artifactId>
                 <version>${akka.grpc.version}</version>
                 <configuration>
                     <language>Java</language>
                     <generateClient>true</generateClient>
-                    <generateServer>true</generateServer>
+                    <generateServer>false</generateServer>
                     <generatorSettings>
                         <serverPowerApis>true</serverPowerApis>
                     </generatorSettings>
                     <protoPaths>
-                        <protoPath>src/main/protobuf</protoPath>
+                        <protoPath>src/test/protobuf</protoPath>
                     </protoPaths>
                 </configuration>
-            </plugin>-->
+            </plugin>
 
-            <!--<plugin>
-                <groupId>org.xolstice.maven.plugins</groupId>
-                <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.6.1</version>
-                <configuration>
-                    <protocArtifact>com.google.protobuf:protoc:3.9.1:exe:${os.detected.classifier}</protocArtifact>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>-->
         </plugins>
     </build>
 

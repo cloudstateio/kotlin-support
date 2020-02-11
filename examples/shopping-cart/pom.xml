@@ -207,7 +207,7 @@
                             <jvmFlag>-XX:+UseStringDeduplication</jvmFlag>
                         </jvmFlags>
                         <ports>
-                            <port>8088</port>
+                            <port>8080</port>
                         </ports>
                     </container>
                 </configuration>
