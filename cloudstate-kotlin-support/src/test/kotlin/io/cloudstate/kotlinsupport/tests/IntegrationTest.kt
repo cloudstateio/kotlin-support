@@ -15,7 +15,7 @@ import org.testcontainers.containers.wait.strategy.Wait
 import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 
-class `IntegrationTests` {
+class IntegrationTests {
     private val log = logger()
 
     private val sys: ActorSystem = ActorSystem.create("GrpcTestClientSys")
