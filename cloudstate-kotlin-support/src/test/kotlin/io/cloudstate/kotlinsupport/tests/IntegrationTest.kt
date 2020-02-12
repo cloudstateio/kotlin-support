@@ -12,34 +12,28 @@ import org.junit.Test
 import org.testcontainers.containers.FixedHostPortGenericContainer
 import org.testcontainers.containers.output.Slf4jLogConsumer
 import org.testcontainers.containers.wait.strategy.Wait
-import java.util.concurrent.CompletionStage
 import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 
-class IntegrationTest {
+class `IntegrationTests` {
     private val log = logger()
 
     private val sys: ActorSystem = ActorSystem.create("GrpcTestClientSys")
-    private val materializer: Materializer = ActorMaterializer.create(sys)
+    private val mat: Materializer = ActorMaterializer.create(sys)
 
     @Rule @JvmField
-    val userFunction: FixedHostPortGenericContainer<*> = FixedHostPortGenericContainer<Nothing>("sleipnir/shopping-cart:latest")
-            .apply{
-                withExposedPorts(8080)
-                withLogConsumer(Slf4jLogConsumer(log))
-                waitingFor(
-                        Wait.forLogMessage(".*Successfully bound to .*", 1)
-                )
-            }
+    val userFunction: FixedHostPortGenericContainer<*> = getUserFunction()
 
     @Test
-    fun shoppingCartIntegrationTest() {
-        log.info("Starting shoppingCartIntegrationTest...")
+    fun `Validate User Function Contract`() {
+        log.info("Starting ShoppingCart Integration Test...")
 
         val userFunctionPort = userFunction.getFirstMappedPort().toString()
-        log.debug("User Funtion Port -> $userFunctionPort")
+        log.debug("User Function Port -> $userFunctionPort")
 
-        val proxy: FixedHostPortGenericContainer<*> = getProxy(userFunctionPort).also(FixedHostPortGenericContainer<*>::start)
+        //We create here, without @Rule because we need to wait for the user's container to be created
+        val proxy: FixedHostPortGenericContainer<*> = getProxy(userFunctionPort)
+                .also(FixedHostPortGenericContainer<*>::start)
 
         log.info("Port bindings ${proxy.getPortBindings().size}")
         proxy.getPortBindings().forEach{ binding -> log.info("Port Binding -> $binding")}
@@ -47,38 +41,51 @@ class IntegrationTest {
         val clientSettings = GrpcClientSettings.connectToServiceAt("localhost", 9000, sys)
                 .withTls(false)
 
-        val client: ShoppingCartClient = ShoppingCartClient.create(clientSettings, materializer, sys.dispatcher())
+        val client: ShoppingCartClient = ShoppingCartClient.create(clientSettings, mat, sys.dispatcher())
 
-        val cart = ShoppingCartProto.GetShoppingCart.newBuilder()
-                .setUserId("Adriano Santos Sleipnir")
-                .build()
+        client.addItem( addLineItem() )
+                .toCompletableFuture()
+                .get(30, TimeUnit.SECONDS)
 
-        val addLineItem = ShoppingCartProto.AddLineItem.newBuilder()
+        val cartItems: ShoppingCartProto.Cart = client.getCart( getCart() )
+                .whenComplete { res, throwable ->
+                    if (throwable == null) {
+                        assertEquals(1, res.itemsCount)
+                        assertEquals("1234587654", res.itemsList[0].productId)
+                        assertEquals("TestProduct", res.itemsList[0].name)
+                        assertEquals(1, res.itemsList[0].quantity)
+                    } else {
+                        log.error("Error on getCart", throwable)
+                    }
+                }.toCompletableFuture()
+                 .get(50, TimeUnit.SECONDS)
+
+        log.info("Cart items -> $cartItems")
+
+    }
+
+    private fun addLineItem(): ShoppingCartProto.AddLineItem? =
+        ShoppingCartProto.AddLineItem.newBuilder()
                 .setUserId("Adriano Santos Sleipnir")
                 .setName("TestProduct")
                 .setProductId("1234587654")
                 .setQuantity(1)
                 .build()
 
-        client.addItem(addLineItem).toCompletableFuture()
-                .get(30, TimeUnit.SECONDS)
+    private fun getCart(): ShoppingCartProto.GetShoppingCart? =
+        ShoppingCartProto.GetShoppingCart.newBuilder()
+                .setUserId("Adriano Santos Sleipnir")
+                .build()
 
-        val getCartResponse: CompletionStage<ShoppingCartProto.Cart> = client.getCart(cart)
-
-        val cartItems: ShoppingCartProto.Cart = getCartResponse.whenComplete { res, throwable ->
-            if (throwable == null) {
-                assertEquals(1, res.itemsCount)
-                assertEquals("1234587654", res.itemsList[0].productId)
-                assertEquals("TestProduct", res.itemsList[0].name)
-                assertEquals(1, res.itemsList[0].quantity)
-            } else {
-                log.error("Error on getCart", throwable)
-            }
-        }.toCompletableFuture().get(50, TimeUnit.SECONDS)
-
-        log.info("Cart items -> $cartItems")
-
-    }
+    private fun getUserFunction(): FixedHostPortGenericContainer<*> =
+        FixedHostPortGenericContainer<Nothing>("sleipnir/shopping-cart:latest")
+                .apply{
+                    withExposedPorts(8080)
+                    withLogConsumer(Slf4jLogConsumer(log))
+                    waitingFor(
+                            Wait.forLogMessage(".*Successfully bound to .*", 1)
+                    )
+                }
 
     private fun getProxy(userFunctionPort: String): FixedHostPortGenericContainer<*> =
         FixedHostPortGenericContainer<Nothing>("cloudstateio/cloudstate-proxy-native-dev-mode:latest")
