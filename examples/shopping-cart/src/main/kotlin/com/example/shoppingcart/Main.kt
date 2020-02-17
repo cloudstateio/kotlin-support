@@ -1,7 +1,3 @@
-# kotlin-support
-User Language Support for the Kotlin Programming Language
-
-```
 package com.example.shoppingcart
 
 import com.example.shoppingcart.persistence.Domain
@@ -16,7 +12,7 @@ class Main {
             cloudstate {
 
                 host = "0.0.0.0"
-                port = 8088
+                port = 8080
                 loglevel = "INFO"
 
                 registerEventSourcedEntity {
@@ -38,4 +34,3 @@ class Main {
 
     }
 }
-```
