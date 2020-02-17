@@ -1,8 +1,7 @@
 package io.cloudstate.kotlinsupport.initializers
 
 import io.cloudstate.kotlinsupport.StatefulServiceDescriptor
-import io.cloudstate.kotlinsupport.initializers.crdt.CrdtEntityInitializer
-import io.cloudstate.kotlinsupport.initializers.eventsourced.EventSourcedEntityInitializer
+import io.cloudstate.kotlinsupport.transcoding.EventSourcedTranscoder
 
 class CloudStateInitializer {
 
@@ -21,7 +20,8 @@ class CloudStateInitializer {
         statefulServiceDescriptors.add(
                 StatefulServiceDescriptor(
                         entityType = eventSourcedInit.type,
-                        entityService = eventSourcedInit.entityService,
+                        serviceClass = eventSourcedInit.entityService,
+                        transcoder = eventSourcedInit.entityService?.let { EventSourcedTranscoder(it) },
                         descriptor = eventSourcedInit.descriptor,
                         additionalDescriptors = eventSourcedInit.additionalDescriptors,
                         persistenceId = eventSourcedInit.persistenceId,
@@ -38,7 +38,8 @@ class CloudStateInitializer {
                 StatefulServiceDescriptor(
                         entityType = crdtSourcedInit.type,
                         descriptor = crdtSourcedInit.descriptor,
-                        additionalDescriptors = crdtSourcedInit.additionalDescriptors)
+                        additionalDescriptors = crdtSourcedInit.additionalDescriptors,
+                        serviceClass = eventSourcedInit.entityService)
 
         )
 

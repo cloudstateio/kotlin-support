@@ -1,8 +1,7 @@
-package io.cloudstate.kotlinsupport.initializers.eventsourced
+package io.cloudstate.kotlinsupport.initializers
 
 import com.google.protobuf.Descriptors
 import io.cloudstate.kotlinsupport.EntityType
-import io.cloudstate.kotlinsupport.initializers.Initializer
 
 class EventSourcedEntityInitializer: Initializer {
 

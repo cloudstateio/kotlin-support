@@ -6,7 +6,7 @@
 
     <groupId>io.cloudstate</groupId>
     <artifactId>shopping-cart</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.3-SNAPSHOT</version>
 
     <properties>
         <main.class>com.example.shoppingcart.Main</main.class>
@@ -28,7 +28,7 @@
         <dependency>
             <groupId>io.cloudstate</groupId>
             <artifactId>cloudstate-kotlin-support</artifactId>
-            <version>${project.version}</version>
+            <version>1.0.2-SNAPSHOT</version>
         </dependency>
 
         <!-- Test -->
@@ -193,6 +193,9 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <from>
+                        <image>openjdk:8u242-jdk</image>
+                    </from>
                     <to>
                         <image>${repo.name}</image>
                         <credHelper></credHelper>

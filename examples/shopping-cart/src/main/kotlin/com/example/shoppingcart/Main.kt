@@ -1,5 +1,6 @@
 package com.example.shoppingcart
 
+import ShoppingCartEntity
 import com.example.shoppingcart.persistence.Domain
 import io.cloudstate.kotlinsupport.cloudstate
 

@@ -1,4 +1,4 @@
-package io.cloudstate.kotlinsupport.initializers.crdt
+package io.cloudstate.kotlinsupport.initializers
 
 import com.google.protobuf.Descriptors
 import io.cloudstate.kotlinsupport.EntityType
