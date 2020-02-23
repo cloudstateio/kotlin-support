@@ -23,67 +23,70 @@ class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
     override fun transcode(): Class<*>? = transcode(clazz)
 
     private fun transcode(clazz: Class<*>): Class<out Any>? {
-        val snapshotMethods = getAllMethodsAnnotatedBy(clazz, Snapshot::class.java)
-        val eventHandlertMethods = getAllMethodsAnnotatedBy(clazz, EventHandler::class.java)
-        val snapshotHandlerMethods = getAllMethodsAnnotatedBy(clazz, SnapshotHandler::class.java)
-        val commandHandlerMethods = getAllMethodsAnnotatedBy(clazz, CommandHandler::class.java)
 
-        val classReloadingStrategy = ClassReloadingStrategy(
-                ByteBuddyAgent.getInstrumentation(),
-                ClassReloadingStrategy.Strategy.REDEFINITION)
+        when {
+            // Return if type already is Cloudstate entity type
+            clazz.getAnnotation(JEventSourcedEntity::class.java) != null -> return clazz
 
-        var builder: DynamicType.Builder<out Any>? = ByteBuddy()
-                .redefine(clazz)
+            else -> {
+                val snapshotMethods = getAllMethodsAnnotatedBy(clazz, Snapshot::class.java)
+                val eventHandlertMethods = getAllMethodsAnnotatedBy(clazz, EventHandler::class.java)
+                val snapshotHandlerMethods = getAllMethodsAnnotatedBy(clazz, SnapshotHandler::class.java)
+                val commandHandlerMethods = getAllMethodsAnnotatedBy(clazz, CommandHandler::class.java)
 
-        /*var jEventSourcedEntityAnnotation = clazz.getAnnotation(JEventSourcedEntity::class.java)
+                val classReloadingStrategy = ClassReloadingStrategy(
+                        ByteBuddyAgent.getInstrumentation(),
+                        ClassReloadingStrategy.Strategy.REDEFINITION)
 
-        if (jEventSourcedEntityAnnotation != null){
-            builder = createEntityAnnotation(clazz, classReloadingStrategy)
-        }*/
+                var builder: DynamicType.Builder<out Any>? = ByteBuddy()
+                        .redefine(clazz)
 
-        builder = createEntityAnnotation(clazz, classReloadingStrategy)
+                builder = createEntityAnnotation(clazz, classReloadingStrategy)
 
-        snapshotMethods.forEach {
-            it.forEach { (method, _) ->
-                builder = builder
-                        ?.method(named(method))
-                        ?.intercept(INSTANCE)
-                        ?.annotateMethod(SnapshotImpl())
+                snapshotMethods.forEach {
+                    it.forEach { (method, _) ->
+                        builder = builder
+                                ?.method(named(method))
+                                ?.intercept(INSTANCE)
+                                ?.annotateMethod(SnapshotImpl())
+                    }
+                }
+
+                snapshotHandlerMethods.forEach {
+                    it.forEach { (method, _) ->
+                        builder = builder
+                                ?.method(named(method))
+                                ?.intercept(INSTANCE)
+                                ?.annotateMethod(SnapshotHandlerImpl())
+                    }
+                }
+
+                eventHandlertMethods.forEach {
+                    it.forEach { (method, _) ->
+                        builder = builder
+                                ?.method(named(method))
+                                ?.intercept(INSTANCE)
+                                ?.annotateMethod(EventHandlerImpl())
+                    }
+                }
+
+                commandHandlerMethods.forEach {
+                    it.forEach { (method, annotation) ->
+                        var cmdHandlerAnnotation = annotation as CommandHandler
+                        builder = builder
+                                ?.method(named(method))
+                                ?.intercept(INSTANCE)
+                                ?.annotateMethod(CommandHandlerImpl(cmdHandlerAnnotation.name))
+                    }
+                }
+
+                return builder
+                        ?.make()
+                        ?.load(this.clazz.classLoader, classReloadingStrategy)
+                        ?.loaded
             }
         }
 
-        snapshotHandlerMethods.forEach {
-            it.forEach { (method, _) ->
-                builder = builder
-                        ?.method(named(method))
-                        ?.intercept(INSTANCE)
-                        ?.annotateMethod(SnapshotHandlerImpl())
-            }
-        }
-
-        eventHandlertMethods.forEach {
-            it.forEach { (method, _) ->
-                builder = builder
-                        ?.method(named(method))
-                        ?.intercept(INSTANCE)
-                        ?.annotateMethod(EventHandlerImpl())
-            }
-        }
-
-        commandHandlerMethods.forEach {
-            it.forEach { (method, annotation) ->
-                var cmdHandlerAnnotation = annotation as CommandHandler
-                builder = builder
-                        ?.method(named(method))
-                        ?.intercept(INSTANCE)
-                        ?.annotateMethod(CommandHandlerImpl(cmdHandlerAnnotation.name))
-            }
-        }
-
-        return builder
-                ?.make()
-                ?.load(this.clazz.classLoader, classReloadingStrategy)
-                ?.loaded
     }
 
     private fun createEntityAnnotation(clazz: Class<*>, classReloadingStrategy: ClassReloadingStrategy): DynamicType.Builder<out Any>? {
@@ -100,21 +103,18 @@ class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
                                             eventSourcedEntityAnnotation.snapshotEvery)))
 
 
-                    /*.defineField("persistenceId", String.javaClass, Visibility.PRIVATE)
-                    .defineConstructor(Visibility.PUBLIC).withParameter(String.javaClass)
-                    .annotateParameter(EntityIdImpl())
-                    .intercept(MethodCall.invoke(clazz.getConstructor(String.javaClass))
-                        .withArgument(1)
-                                .andThen(FieldAccessor.ofField("persistenceId")
-                                        .setsArgumentAt(1)))*/
+            /*.defineField("persistenceId", String.javaClass, Visibility.PRIVATE)
+            .defineConstructor(Visibility.PUBLIC).withParameter(String.javaClass)
+            .annotateParameter(EntityIdImpl())
+            .intercept(MethodCall.invoke(clazz.getConstructor(String.javaClass))
+                .withArgument(1)
+                        .andThen(FieldAccessor.ofField("persistenceId")
+                                .setsArgumentAt(1)))*/
 
-            }
+        }
             else -> {
                 return  ByteBuddy()
                         .redefine(clazz)
-                        .annotateType(
-                                mutableListOf(
-                                        EventSourcedEntityImpl("", 0)))
             }
         }
     }
