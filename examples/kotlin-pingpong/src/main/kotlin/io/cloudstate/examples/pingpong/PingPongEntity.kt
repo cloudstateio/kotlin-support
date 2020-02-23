@@ -6,26 +6,27 @@ import io.cloudstate.javasupport.eventsourced.*
 
 @EventSourcedEntity
 class PingPongEntity(@param:EntityId private val entityId: String) {
+
     private var sentPings = 0
     private var seenPings = 0
     private var sentPongs = 0
     private var seenPongs = 0
+
     @Snapshot
-    fun snapshot(): Pingpong.PingPongStats {
-        return Pingpong.PingPongStats.newBuilder()
+    fun snapshot(): Pingpong.PingPongStats =
+            Pingpong.PingPongStats.newBuilder()
                 .setSeenPongs(seenPongs)
                 .setSeenPings(seenPings)
                 .setSentPongs(sentPongs)
                 .setSentPings(sentPings)
                 .build()
-    }
 
     @SnapshotHandler
     fun handleSnapshot(stats: Pingpong.PingPongStats) {
-        seenPings = stats.getSeenPings()
-        seenPongs = stats.getSeenPongs()
-        sentPings = stats.getSentPings()
-        sentPongs = stats.getSentPongs()
+        seenPings = stats.seenPings
+        seenPongs = stats.seenPongs
+        sentPings = stats.sentPings
+        sentPongs = stats.sentPongs
     }
 
     @EventHandler
@@ -51,8 +52,8 @@ class PingPongEntity(@param:EntityId private val entityId: String) {
     @CommandHandler
     fun ping(pong: Pingpong.PongSent, ctx: CommandContext): Pingpong.PingSent {
         val sent: Pingpong.PingSent = Pingpong.PingSent.newBuilder()
-                .setId(pong.getId())
-                .setSequenceNumber(pong.getSequenceNumber() + 1)
+                .setId(pong.id)
+                .setSequenceNumber(pong.sequenceNumber + 1)
                 .build()
         ctx.emit(sent)
         return sent
@@ -61,8 +62,8 @@ class PingPongEntity(@param:EntityId private val entityId: String) {
     @CommandHandler
     fun pong(ping: Pingpong.PingSent, ctx: CommandContext): Pingpong.PongSent {
         val sent: Pingpong.PongSent = Pingpong.PongSent.newBuilder()
-                .setId(ping.getId())
-                .setSequenceNumber(ping.getSequenceNumber() + 1)
+                .setId(ping.id)
+                .setSequenceNumber(ping.sequenceNumber + 1)
                 .build()
         ctx.emit(sent)
         return sent
@@ -72,8 +73,8 @@ class PingPongEntity(@param:EntityId private val entityId: String) {
     fun seenPong(pong: Pingpong.PongSent, ctx: CommandContext): Empty {
         ctx.emit(
                 Pingpong.PingSeen.newBuilder()
-                        .setId(pong.getId())
-                        .setSequenceNumber(pong.getSequenceNumber())
+                        .setId(pong.id)
+                        .setSequenceNumber(pong.sequenceNumber)
                         .build())
         return Empty.getDefaultInstance()
     }
@@ -82,15 +83,13 @@ class PingPongEntity(@param:EntityId private val entityId: String) {
     fun seenPing(ping: Pingpong.PingSent, ctx: CommandContext): Empty {
         ctx.emit(
                 Pingpong.PingSeen.newBuilder()
-                        .setId(ping.getId())
-                        .setSequenceNumber(ping.getSequenceNumber())
+                        .setId(ping.id)
+                        .setSequenceNumber(ping.sequenceNumber)
                         .build())
         return Empty.getDefaultInstance()
     }
 
     @CommandHandler
-    fun report(ping: Pingpong.GetReport?, ctx: CommandContext?): Pingpong.PingPongStats {
-        return snapshot()
-    }
+    fun report(ping: Pingpong.GetReport?, ctx: CommandContext?): Pingpong.PingPongStats = snapshot()
 
 }

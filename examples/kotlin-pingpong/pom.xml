@@ -9,7 +9,7 @@
     <version>1.0.3-SNAPSHOT</version>
 
     <properties>
-        <main.class>io.cloudstate.examples.pingpong.Main</main.class>
+        <main.class>io.cloudstate.examples.pingpong.MainKt</main.class>
         <repo.name>sleipnir/cloudstate-pingpong</repo.name>
         <tag.version>${project.version}</tag.version>
 
