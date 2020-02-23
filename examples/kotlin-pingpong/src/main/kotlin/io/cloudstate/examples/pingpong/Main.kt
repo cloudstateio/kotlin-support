@@ -1,19 +1,22 @@
 package io.cloudstate.examples.pingpong
 
-import io.cloudstate.javasupport.CloudState
-import io.cloudstate.pingpong.Pingpong
+import io.cloudstate.kotlinsupport.cloudstate
 
-object Main {
-    @Throws(Exception::class)
-    @JvmStatic
-    fun main(args: Array<String>) {
-        CloudState()
-                .registerEventSourcedEntity(
-                        PingPongEntity::class.java,
-                        Pingpong.getDescriptor().findServiceByName("PingPongService"),
-                        Pingpong.getDescriptor())
-                .start()
-                .toCompletableFuture()
-                .get()
+class Main {
+
+    companion object {
+
+        @JvmStatic
+        fun main(args: Array<String>) {
+            cloudstate {
+                registerEventSourcedEntity {
+                    entityService = PingPongEntity::class.java
+                    descriptor = Pingpong.getDescriptor().findServiceByName("PingPongService")
+                    additionalDescriptors = arrayOf( Pingpong.getDescriptor() )
+                }
+            }.start()
+                    .toCompletableFuture()
+                    .get()
+        }
     }
 }

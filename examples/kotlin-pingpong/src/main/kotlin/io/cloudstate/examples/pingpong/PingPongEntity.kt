@@ -3,9 +3,7 @@ package io.cloudstate.examples.pingpong
 import com.google.protobuf.Empty
 import io.cloudstate.javasupport.EntityId
 import io.cloudstate.javasupport.eventsourced.*
-import io.cloudstate.pingpong.*
 
-/** An event sourced entity.  */
 @EventSourcedEntity
 class PingPongEntity(@param:EntityId private val entityId: String) {
     private var sentPings = 0

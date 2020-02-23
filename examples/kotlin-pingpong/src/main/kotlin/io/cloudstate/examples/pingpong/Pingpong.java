@@ -21,7 +21,7 @@ public final class Pingpong {
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
-    java.lang.String getId();
+    String getId();
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
@@ -49,7 +49,7 @@ public final class Pingpong {
       id_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -60,7 +60,7 @@ public final class Pingpong {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -74,7 +74,7 @@ public final class Pingpong {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               id_ = s;
               break;
@@ -105,30 +105,30 @@ public final class Pingpong {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PongSent_descriptor;
+      return Pingpong.internal_static_com_example_pingpong_PongSent_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PongSent_fieldAccessorTable
+      return Pingpong.internal_static_com_example_pingpong_PongSent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.cloudstate.examples.pingpong.Pingpong.PongSent.class, io.cloudstate.examples.pingpong.Pingpong.PongSent.Builder.class);
+              Pingpong.PongSent.class, Pingpong.PongSent.Builder.class);
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
+    private volatile Object id_;
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getId() {
+      Object ref = id_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         id_ = s;
         return s;
       }
@@ -138,11 +138,11 @@ public final class Pingpong {
      */
     public com.google.protobuf.ByteString
         getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = id_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         id_ = b;
         return b;
       } else {
@@ -160,7 +160,7 @@ public final class Pingpong {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -170,7 +170,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
@@ -182,7 +182,7 @@ public final class Pingpong {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -200,15 +200,15 @@ public final class Pingpong {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.cloudstate.examples.pingpong.Pingpong.PongSent)) {
+      if (!(obj instanceof Pingpong.PongSent)) {
         return super.equals(obj);
       }
-      io.cloudstate.examples.pingpong.Pingpong.PongSent other = (io.cloudstate.examples.pingpong.Pingpong.PongSent) obj;
+      Pingpong.PongSent other = (Pingpong.PongSent) obj;
 
       if (!getId()
           .equals(other.getId())) return false;
@@ -218,7 +218,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -234,69 +234,69 @@ public final class Pingpong {
       return hash;
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseFrom(
+    public static Pingpong.PongSent parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseFrom(
+    public static Pingpong.PongSent parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseFrom(
+    public static Pingpong.PongSent parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseFrom(
+    public static Pingpong.PongSent parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseFrom(byte[] data)
+    public static Pingpong.PongSent parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseFrom(
+    public static Pingpong.PongSent parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseFrom(java.io.InputStream input)
+    public static Pingpong.PongSent parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseFrom(
+    public static Pingpong.PongSent parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseDelimitedFrom(java.io.InputStream input)
+    public static Pingpong.PongSent parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseDelimitedFrom(
+    public static Pingpong.PongSent parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseFrom(
+    public static Pingpong.PongSent parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent parseFrom(
+    public static Pingpong.PongSent parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -304,23 +304,23 @@ public final class Pingpong {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.cloudstate.examples.pingpong.Pingpong.PongSent prototype) {
+    public static Builder newBuilder(Pingpong.PongSent prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -330,18 +330,18 @@ public final class Pingpong {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:com.example.pingpong.PongSent)
-        io.cloudstate.examples.pingpong.Pingpong.PongSentOrBuilder {
+        Pingpong.PongSentOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PongSent_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_PongSent_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PongSent_fieldAccessorTable
+        return Pingpong.internal_static_com_example_pingpong_PongSent_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.cloudstate.examples.pingpong.Pingpong.PongSent.class, io.cloudstate.examples.pingpong.Pingpong.PongSent.Builder.class);
+                Pingpong.PongSent.class, Pingpong.PongSent.Builder.class);
       }
 
       // Construct using io.cloudstate.examples.pingpong.Pingpong.PongSent.newBuilder()
@@ -350,7 +350,7 @@ public final class Pingpong {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -359,7 +359,7 @@ public final class Pingpong {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -369,79 +369,79 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PongSent_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_PongSent_descriptor;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PongSent getDefaultInstanceForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.PongSent.getDefaultInstance();
+      @Override
+      public Pingpong.PongSent getDefaultInstanceForType() {
+        return Pingpong.PongSent.getDefaultInstance();
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PongSent build() {
-        io.cloudstate.examples.pingpong.Pingpong.PongSent result = buildPartial();
+      @Override
+      public Pingpong.PongSent build() {
+        Pingpong.PongSent result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PongSent buildPartial() {
-        io.cloudstate.examples.pingpong.Pingpong.PongSent result = new io.cloudstate.examples.pingpong.Pingpong.PongSent(this);
+      @Override
+      public Pingpong.PongSent buildPartial() {
+        Pingpong.PongSent result = new Pingpong.PongSent(this);
         result.id_ = id_;
         result.sequenceNumber_ = sequenceNumber_;
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.cloudstate.examples.pingpong.Pingpong.PongSent) {
-          return mergeFrom((io.cloudstate.examples.pingpong.Pingpong.PongSent)other);
+        if (other instanceof Pingpong.PongSent) {
+          return mergeFrom((Pingpong.PongSent)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.cloudstate.examples.pingpong.Pingpong.PongSent other) {
-        if (other == io.cloudstate.examples.pingpong.Pingpong.PongSent.getDefaultInstance()) return this;
+      public Builder mergeFrom(Pingpong.PongSent other) {
+        if (other == Pingpong.PongSent.getDefaultInstance()) return this;
         if (!other.getId().isEmpty()) {
           id_ = other.id_;
           onChanged();
@@ -454,21 +454,21 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.cloudstate.examples.pingpong.Pingpong.PongSent parsedMessage = null;
+        Pingpong.PongSent parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.cloudstate.examples.pingpong.Pingpong.PongSent) e.getUnfinishedMessage();
+          parsedMessage = (Pingpong.PongSent) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -478,20 +478,20 @@ public final class Pingpong {
         return this;
       }
 
-      private java.lang.Object id_ = "";
+      private Object id_ = "";
       /**
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getId() {
+        Object ref = id_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           id_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -499,11 +499,11 @@ public final class Pingpong {
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
-        java.lang.Object ref = id_;
+        Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           id_ = b;
           return b;
         } else {
@@ -514,11 +514,11 @@ public final class Pingpong {
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
       public Builder setId(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         id_ = value;
         onChanged();
         return this;
@@ -527,7 +527,7 @@ public final class Pingpong {
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
       public Builder clearId() {
-        
+
         id_ = getDefaultInstance().getId();
         onChanged();
         return this;
@@ -541,7 +541,7 @@ public final class Pingpong {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         id_ = value;
         onChanged();
         return this;
@@ -558,7 +558,7 @@ public final class Pingpong {
        * <code>int32 sequence_number = 2;</code>
        */
       public Builder setSequenceNumber(int value) {
-        
+
         sequenceNumber_ = value;
         onChanged();
         return this;
@@ -567,18 +567,18 @@ public final class Pingpong {
        * <code>int32 sequence_number = 2;</code>
        */
       public Builder clearSequenceNumber() {
-        
+
         sequenceNumber_ = 0;
         onChanged();
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -589,18 +589,18 @@ public final class Pingpong {
     }
 
     // @@protoc_insertion_point(class_scope:com.example.pingpong.PongSent)
-    private static final io.cloudstate.examples.pingpong.Pingpong.PongSent DEFAULT_INSTANCE;
+    private static final Pingpong.PongSent DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.cloudstate.examples.pingpong.Pingpong.PongSent();
+      DEFAULT_INSTANCE = new Pingpong.PongSent();
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSent getDefaultInstance() {
+    public static Pingpong.PongSent getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<PongSent>
         PARSER = new com.google.protobuf.AbstractParser<PongSent>() {
-      @java.lang.Override
+      @Override
       public PongSent parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -613,13 +613,13 @@ public final class Pingpong {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<PongSent> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
-    public io.cloudstate.examples.pingpong.Pingpong.PongSent getDefaultInstanceForType() {
+    @Override
+    public Pingpong.PongSent getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -632,7 +632,7 @@ public final class Pingpong {
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
-    java.lang.String getId();
+    String getId();
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
@@ -660,7 +660,7 @@ public final class Pingpong {
       id_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -671,7 +671,7 @@ public final class Pingpong {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -685,7 +685,7 @@ public final class Pingpong {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               id_ = s;
               break;
@@ -716,30 +716,30 @@ public final class Pingpong {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingSent_descriptor;
+      return Pingpong.internal_static_com_example_pingpong_PingSent_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingSent_fieldAccessorTable
+      return Pingpong.internal_static_com_example_pingpong_PingSent_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.cloudstate.examples.pingpong.Pingpong.PingSent.class, io.cloudstate.examples.pingpong.Pingpong.PingSent.Builder.class);
+              Pingpong.PingSent.class, Pingpong.PingSent.Builder.class);
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
+    private volatile Object id_;
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getId() {
+      Object ref = id_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         id_ = s;
         return s;
       }
@@ -749,11 +749,11 @@ public final class Pingpong {
      */
     public com.google.protobuf.ByteString
         getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = id_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         id_ = b;
         return b;
       } else {
@@ -771,7 +771,7 @@ public final class Pingpong {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -781,7 +781,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
@@ -793,7 +793,7 @@ public final class Pingpong {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -811,15 +811,15 @@ public final class Pingpong {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.cloudstate.examples.pingpong.Pingpong.PingSent)) {
+      if (!(obj instanceof Pingpong.PingSent)) {
         return super.equals(obj);
       }
-      io.cloudstate.examples.pingpong.Pingpong.PingSent other = (io.cloudstate.examples.pingpong.Pingpong.PingSent) obj;
+      Pingpong.PingSent other = (Pingpong.PingSent) obj;
 
       if (!getId()
           .equals(other.getId())) return false;
@@ -829,7 +829,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -845,69 +845,69 @@ public final class Pingpong {
       return hash;
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseFrom(
+    public static Pingpong.PingSent parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseFrom(
+    public static Pingpong.PingSent parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseFrom(
+    public static Pingpong.PingSent parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseFrom(
+    public static Pingpong.PingSent parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseFrom(byte[] data)
+    public static Pingpong.PingSent parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseFrom(
+    public static Pingpong.PingSent parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseFrom(java.io.InputStream input)
+    public static Pingpong.PingSent parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseFrom(
+    public static Pingpong.PingSent parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseDelimitedFrom(java.io.InputStream input)
+    public static Pingpong.PingSent parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseDelimitedFrom(
+    public static Pingpong.PingSent parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseFrom(
+    public static Pingpong.PingSent parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent parseFrom(
+    public static Pingpong.PingSent parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -915,23 +915,23 @@ public final class Pingpong {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.cloudstate.examples.pingpong.Pingpong.PingSent prototype) {
+    public static Builder newBuilder(Pingpong.PingSent prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -941,18 +941,18 @@ public final class Pingpong {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:com.example.pingpong.PingSent)
-        io.cloudstate.examples.pingpong.Pingpong.PingSentOrBuilder {
+        Pingpong.PingSentOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingSent_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_PingSent_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingSent_fieldAccessorTable
+        return Pingpong.internal_static_com_example_pingpong_PingSent_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.cloudstate.examples.pingpong.Pingpong.PingSent.class, io.cloudstate.examples.pingpong.Pingpong.PingSent.Builder.class);
+                Pingpong.PingSent.class, Pingpong.PingSent.Builder.class);
       }
 
       // Construct using io.cloudstate.examples.pingpong.Pingpong.PingSent.newBuilder()
@@ -961,7 +961,7 @@ public final class Pingpong {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -970,7 +970,7 @@ public final class Pingpong {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -980,79 +980,79 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingSent_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_PingSent_descriptor;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PingSent getDefaultInstanceForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.PingSent.getDefaultInstance();
+      @Override
+      public Pingpong.PingSent getDefaultInstanceForType() {
+        return Pingpong.PingSent.getDefaultInstance();
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PingSent build() {
-        io.cloudstate.examples.pingpong.Pingpong.PingSent result = buildPartial();
+      @Override
+      public Pingpong.PingSent build() {
+        Pingpong.PingSent result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PingSent buildPartial() {
-        io.cloudstate.examples.pingpong.Pingpong.PingSent result = new io.cloudstate.examples.pingpong.Pingpong.PingSent(this);
+      @Override
+      public Pingpong.PingSent buildPartial() {
+        Pingpong.PingSent result = new Pingpong.PingSent(this);
         result.id_ = id_;
         result.sequenceNumber_ = sequenceNumber_;
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.cloudstate.examples.pingpong.Pingpong.PingSent) {
-          return mergeFrom((io.cloudstate.examples.pingpong.Pingpong.PingSent)other);
+        if (other instanceof Pingpong.PingSent) {
+          return mergeFrom((Pingpong.PingSent)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.cloudstate.examples.pingpong.Pingpong.PingSent other) {
-        if (other == io.cloudstate.examples.pingpong.Pingpong.PingSent.getDefaultInstance()) return this;
+      public Builder mergeFrom(Pingpong.PingSent other) {
+        if (other == Pingpong.PingSent.getDefaultInstance()) return this;
         if (!other.getId().isEmpty()) {
           id_ = other.id_;
           onChanged();
@@ -1065,21 +1065,21 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.cloudstate.examples.pingpong.Pingpong.PingSent parsedMessage = null;
+        Pingpong.PingSent parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.cloudstate.examples.pingpong.Pingpong.PingSent) e.getUnfinishedMessage();
+          parsedMessage = (Pingpong.PingSent) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1089,20 +1089,20 @@ public final class Pingpong {
         return this;
       }
 
-      private java.lang.Object id_ = "";
+      private Object id_ = "";
       /**
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getId() {
+        Object ref = id_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           id_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -1110,11 +1110,11 @@ public final class Pingpong {
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
-        java.lang.Object ref = id_;
+        Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           id_ = b;
           return b;
         } else {
@@ -1125,11 +1125,11 @@ public final class Pingpong {
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
       public Builder setId(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         id_ = value;
         onChanged();
         return this;
@@ -1138,7 +1138,7 @@ public final class Pingpong {
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
       public Builder clearId() {
-        
+
         id_ = getDefaultInstance().getId();
         onChanged();
         return this;
@@ -1152,7 +1152,7 @@ public final class Pingpong {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         id_ = value;
         onChanged();
         return this;
@@ -1169,7 +1169,7 @@ public final class Pingpong {
        * <code>int32 sequence_number = 2;</code>
        */
       public Builder setSequenceNumber(int value) {
-        
+
         sequenceNumber_ = value;
         onChanged();
         return this;
@@ -1178,18 +1178,18 @@ public final class Pingpong {
        * <code>int32 sequence_number = 2;</code>
        */
       public Builder clearSequenceNumber() {
-        
+
         sequenceNumber_ = 0;
         onChanged();
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -1200,18 +1200,18 @@ public final class Pingpong {
     }
 
     // @@protoc_insertion_point(class_scope:com.example.pingpong.PingSent)
-    private static final io.cloudstate.examples.pingpong.Pingpong.PingSent DEFAULT_INSTANCE;
+    private static final Pingpong.PingSent DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.cloudstate.examples.pingpong.Pingpong.PingSent();
+      DEFAULT_INSTANCE = new Pingpong.PingSent();
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSent getDefaultInstance() {
+    public static Pingpong.PingSent getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<PingSent>
         PARSER = new com.google.protobuf.AbstractParser<PingSent>() {
-      @java.lang.Override
+      @Override
       public PingSent parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1224,13 +1224,13 @@ public final class Pingpong {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<PingSent> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
-    public io.cloudstate.examples.pingpong.Pingpong.PingSent getDefaultInstanceForType() {
+    @Override
+    public Pingpong.PingSent getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1243,7 +1243,7 @@ public final class Pingpong {
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
-    java.lang.String getId();
+    String getId();
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
@@ -1271,7 +1271,7 @@ public final class Pingpong {
       id_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -1282,7 +1282,7 @@ public final class Pingpong {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -1296,7 +1296,7 @@ public final class Pingpong {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               id_ = s;
               break;
@@ -1327,30 +1327,30 @@ public final class Pingpong {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingSeen_descriptor;
+      return Pingpong.internal_static_com_example_pingpong_PingSeen_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingSeen_fieldAccessorTable
+      return Pingpong.internal_static_com_example_pingpong_PingSeen_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.cloudstate.examples.pingpong.Pingpong.PingSeen.class, io.cloudstate.examples.pingpong.Pingpong.PingSeen.Builder.class);
+              Pingpong.PingSeen.class, Pingpong.PingSeen.Builder.class);
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
+    private volatile Object id_;
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getId() {
+      Object ref = id_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         id_ = s;
         return s;
       }
@@ -1360,11 +1360,11 @@ public final class Pingpong {
      */
     public com.google.protobuf.ByteString
         getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = id_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         id_ = b;
         return b;
       } else {
@@ -1382,7 +1382,7 @@ public final class Pingpong {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -1392,7 +1392,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
@@ -1404,7 +1404,7 @@ public final class Pingpong {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -1422,15 +1422,15 @@ public final class Pingpong {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.cloudstate.examples.pingpong.Pingpong.PingSeen)) {
+      if (!(obj instanceof Pingpong.PingSeen)) {
         return super.equals(obj);
       }
-      io.cloudstate.examples.pingpong.Pingpong.PingSeen other = (io.cloudstate.examples.pingpong.Pingpong.PingSeen) obj;
+      Pingpong.PingSeen other = (Pingpong.PingSeen) obj;
 
       if (!getId()
           .equals(other.getId())) return false;
@@ -1440,7 +1440,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -1456,69 +1456,69 @@ public final class Pingpong {
       return hash;
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseFrom(
+    public static Pingpong.PingSeen parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseFrom(
+    public static Pingpong.PingSeen parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseFrom(
+    public static Pingpong.PingSeen parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseFrom(
+    public static Pingpong.PingSeen parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseFrom(byte[] data)
+    public static Pingpong.PingSeen parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseFrom(
+    public static Pingpong.PingSeen parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseFrom(java.io.InputStream input)
+    public static Pingpong.PingSeen parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseFrom(
+    public static Pingpong.PingSeen parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseDelimitedFrom(java.io.InputStream input)
+    public static Pingpong.PingSeen parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseDelimitedFrom(
+    public static Pingpong.PingSeen parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseFrom(
+    public static Pingpong.PingSeen parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen parseFrom(
+    public static Pingpong.PingSeen parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1526,23 +1526,23 @@ public final class Pingpong {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.cloudstate.examples.pingpong.Pingpong.PingSeen prototype) {
+    public static Builder newBuilder(Pingpong.PingSeen prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1552,18 +1552,18 @@ public final class Pingpong {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:com.example.pingpong.PingSeen)
-        io.cloudstate.examples.pingpong.Pingpong.PingSeenOrBuilder {
+        Pingpong.PingSeenOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingSeen_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_PingSeen_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingSeen_fieldAccessorTable
+        return Pingpong.internal_static_com_example_pingpong_PingSeen_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.cloudstate.examples.pingpong.Pingpong.PingSeen.class, io.cloudstate.examples.pingpong.Pingpong.PingSeen.Builder.class);
+                Pingpong.PingSeen.class, Pingpong.PingSeen.Builder.class);
       }
 
       // Construct using io.cloudstate.examples.pingpong.Pingpong.PingSeen.newBuilder()
@@ -1572,7 +1572,7 @@ public final class Pingpong {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -1581,7 +1581,7 @@ public final class Pingpong {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -1591,79 +1591,79 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingSeen_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_PingSeen_descriptor;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PingSeen getDefaultInstanceForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.PingSeen.getDefaultInstance();
+      @Override
+      public Pingpong.PingSeen getDefaultInstanceForType() {
+        return Pingpong.PingSeen.getDefaultInstance();
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PingSeen build() {
-        io.cloudstate.examples.pingpong.Pingpong.PingSeen result = buildPartial();
+      @Override
+      public Pingpong.PingSeen build() {
+        Pingpong.PingSeen result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PingSeen buildPartial() {
-        io.cloudstate.examples.pingpong.Pingpong.PingSeen result = new io.cloudstate.examples.pingpong.Pingpong.PingSeen(this);
+      @Override
+      public Pingpong.PingSeen buildPartial() {
+        Pingpong.PingSeen result = new Pingpong.PingSeen(this);
         result.id_ = id_;
         result.sequenceNumber_ = sequenceNumber_;
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.cloudstate.examples.pingpong.Pingpong.PingSeen) {
-          return mergeFrom((io.cloudstate.examples.pingpong.Pingpong.PingSeen)other);
+        if (other instanceof Pingpong.PingSeen) {
+          return mergeFrom((Pingpong.PingSeen)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.cloudstate.examples.pingpong.Pingpong.PingSeen other) {
-        if (other == io.cloudstate.examples.pingpong.Pingpong.PingSeen.getDefaultInstance()) return this;
+      public Builder mergeFrom(Pingpong.PingSeen other) {
+        if (other == Pingpong.PingSeen.getDefaultInstance()) return this;
         if (!other.getId().isEmpty()) {
           id_ = other.id_;
           onChanged();
@@ -1676,21 +1676,21 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.cloudstate.examples.pingpong.Pingpong.PingSeen parsedMessage = null;
+        Pingpong.PingSeen parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.cloudstate.examples.pingpong.Pingpong.PingSeen) e.getUnfinishedMessage();
+          parsedMessage = (Pingpong.PingSeen) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -1700,20 +1700,20 @@ public final class Pingpong {
         return this;
       }
 
-      private java.lang.Object id_ = "";
+      private Object id_ = "";
       /**
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getId() {
+        Object ref = id_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           id_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -1721,11 +1721,11 @@ public final class Pingpong {
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
-        java.lang.Object ref = id_;
+        Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           id_ = b;
           return b;
         } else {
@@ -1736,11 +1736,11 @@ public final class Pingpong {
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
       public Builder setId(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         id_ = value;
         onChanged();
         return this;
@@ -1749,7 +1749,7 @@ public final class Pingpong {
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
       public Builder clearId() {
-        
+
         id_ = getDefaultInstance().getId();
         onChanged();
         return this;
@@ -1763,7 +1763,7 @@ public final class Pingpong {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         id_ = value;
         onChanged();
         return this;
@@ -1780,7 +1780,7 @@ public final class Pingpong {
        * <code>int32 sequence_number = 2;</code>
        */
       public Builder setSequenceNumber(int value) {
-        
+
         sequenceNumber_ = value;
         onChanged();
         return this;
@@ -1789,18 +1789,18 @@ public final class Pingpong {
        * <code>int32 sequence_number = 2;</code>
        */
       public Builder clearSequenceNumber() {
-        
+
         sequenceNumber_ = 0;
         onChanged();
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -1811,18 +1811,18 @@ public final class Pingpong {
     }
 
     // @@protoc_insertion_point(class_scope:com.example.pingpong.PingSeen)
-    private static final io.cloudstate.examples.pingpong.Pingpong.PingSeen DEFAULT_INSTANCE;
+    private static final Pingpong.PingSeen DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.cloudstate.examples.pingpong.Pingpong.PingSeen();
+      DEFAULT_INSTANCE = new Pingpong.PingSeen();
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.PingSeen getDefaultInstance() {
+    public static Pingpong.PingSeen getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<PingSeen>
         PARSER = new com.google.protobuf.AbstractParser<PingSeen>() {
-      @java.lang.Override
+      @Override
       public PingSeen parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -1835,13 +1835,13 @@ public final class Pingpong {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<PingSeen> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
-    public io.cloudstate.examples.pingpong.Pingpong.PingSeen getDefaultInstanceForType() {
+    @Override
+    public Pingpong.PingSeen getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -1854,7 +1854,7 @@ public final class Pingpong {
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
-    java.lang.String getId();
+    String getId();
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
@@ -1882,7 +1882,7 @@ public final class Pingpong {
       id_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -1893,7 +1893,7 @@ public final class Pingpong {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -1907,7 +1907,7 @@ public final class Pingpong {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               id_ = s;
               break;
@@ -1938,30 +1938,30 @@ public final class Pingpong {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PongSeen_descriptor;
+      return Pingpong.internal_static_com_example_pingpong_PongSeen_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PongSeen_fieldAccessorTable
+      return Pingpong.internal_static_com_example_pingpong_PongSeen_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.cloudstate.examples.pingpong.Pingpong.PongSeen.class, io.cloudstate.examples.pingpong.Pingpong.PongSeen.Builder.class);
+              Pingpong.PongSeen.class, Pingpong.PongSeen.Builder.class);
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
+    private volatile Object id_;
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getId() {
+      Object ref = id_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         id_ = s;
         return s;
       }
@@ -1971,11 +1971,11 @@ public final class Pingpong {
      */
     public com.google.protobuf.ByteString
         getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = id_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         id_ = b;
         return b;
       } else {
@@ -1993,7 +1993,7 @@ public final class Pingpong {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2003,7 +2003,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
@@ -2015,7 +2015,7 @@ public final class Pingpong {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -2033,15 +2033,15 @@ public final class Pingpong {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.cloudstate.examples.pingpong.Pingpong.PongSeen)) {
+      if (!(obj instanceof Pingpong.PongSeen)) {
         return super.equals(obj);
       }
-      io.cloudstate.examples.pingpong.Pingpong.PongSeen other = (io.cloudstate.examples.pingpong.Pingpong.PongSeen) obj;
+      Pingpong.PongSeen other = (Pingpong.PongSeen) obj;
 
       if (!getId()
           .equals(other.getId())) return false;
@@ -2051,7 +2051,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -2067,69 +2067,69 @@ public final class Pingpong {
       return hash;
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseFrom(
+    public static Pingpong.PongSeen parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseFrom(
+    public static Pingpong.PongSeen parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseFrom(
+    public static Pingpong.PongSeen parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseFrom(
+    public static Pingpong.PongSeen parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseFrom(byte[] data)
+    public static Pingpong.PongSeen parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseFrom(
+    public static Pingpong.PongSeen parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseFrom(java.io.InputStream input)
+    public static Pingpong.PongSeen parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseFrom(
+    public static Pingpong.PongSeen parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseDelimitedFrom(java.io.InputStream input)
+    public static Pingpong.PongSeen parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseDelimitedFrom(
+    public static Pingpong.PongSeen parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseFrom(
+    public static Pingpong.PongSeen parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen parseFrom(
+    public static Pingpong.PongSeen parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2137,23 +2137,23 @@ public final class Pingpong {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.cloudstate.examples.pingpong.Pingpong.PongSeen prototype) {
+    public static Builder newBuilder(Pingpong.PongSeen prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -2163,18 +2163,18 @@ public final class Pingpong {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:com.example.pingpong.PongSeen)
-        io.cloudstate.examples.pingpong.Pingpong.PongSeenOrBuilder {
+        Pingpong.PongSeenOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PongSeen_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_PongSeen_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PongSeen_fieldAccessorTable
+        return Pingpong.internal_static_com_example_pingpong_PongSeen_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.cloudstate.examples.pingpong.Pingpong.PongSeen.class, io.cloudstate.examples.pingpong.Pingpong.PongSeen.Builder.class);
+                Pingpong.PongSeen.class, Pingpong.PongSeen.Builder.class);
       }
 
       // Construct using io.cloudstate.examples.pingpong.Pingpong.PongSeen.newBuilder()
@@ -2183,7 +2183,7 @@ public final class Pingpong {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -2192,7 +2192,7 @@ public final class Pingpong {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -2202,79 +2202,79 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PongSeen_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_PongSeen_descriptor;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PongSeen getDefaultInstanceForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.PongSeen.getDefaultInstance();
+      @Override
+      public Pingpong.PongSeen getDefaultInstanceForType() {
+        return Pingpong.PongSeen.getDefaultInstance();
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PongSeen build() {
-        io.cloudstate.examples.pingpong.Pingpong.PongSeen result = buildPartial();
+      @Override
+      public Pingpong.PongSeen build() {
+        Pingpong.PongSeen result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PongSeen buildPartial() {
-        io.cloudstate.examples.pingpong.Pingpong.PongSeen result = new io.cloudstate.examples.pingpong.Pingpong.PongSeen(this);
+      @Override
+      public Pingpong.PongSeen buildPartial() {
+        Pingpong.PongSeen result = new Pingpong.PongSeen(this);
         result.id_ = id_;
         result.sequenceNumber_ = sequenceNumber_;
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.cloudstate.examples.pingpong.Pingpong.PongSeen) {
-          return mergeFrom((io.cloudstate.examples.pingpong.Pingpong.PongSeen)other);
+        if (other instanceof Pingpong.PongSeen) {
+          return mergeFrom((Pingpong.PongSeen)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.cloudstate.examples.pingpong.Pingpong.PongSeen other) {
-        if (other == io.cloudstate.examples.pingpong.Pingpong.PongSeen.getDefaultInstance()) return this;
+      public Builder mergeFrom(Pingpong.PongSeen other) {
+        if (other == Pingpong.PongSeen.getDefaultInstance()) return this;
         if (!other.getId().isEmpty()) {
           id_ = other.id_;
           onChanged();
@@ -2287,21 +2287,21 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.cloudstate.examples.pingpong.Pingpong.PongSeen parsedMessage = null;
+        Pingpong.PongSeen parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.cloudstate.examples.pingpong.Pingpong.PongSeen) e.getUnfinishedMessage();
+          parsedMessage = (Pingpong.PongSeen) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2311,20 +2311,20 @@ public final class Pingpong {
         return this;
       }
 
-      private java.lang.Object id_ = "";
+      private Object id_ = "";
       /**
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getId() {
+        Object ref = id_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           id_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -2332,11 +2332,11 @@ public final class Pingpong {
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
-        java.lang.Object ref = id_;
+        Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           id_ = b;
           return b;
         } else {
@@ -2347,11 +2347,11 @@ public final class Pingpong {
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
       public Builder setId(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         id_ = value;
         onChanged();
         return this;
@@ -2360,7 +2360,7 @@ public final class Pingpong {
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
       public Builder clearId() {
-        
+
         id_ = getDefaultInstance().getId();
         onChanged();
         return this;
@@ -2374,7 +2374,7 @@ public final class Pingpong {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         id_ = value;
         onChanged();
         return this;
@@ -2391,7 +2391,7 @@ public final class Pingpong {
        * <code>int32 sequence_number = 2;</code>
        */
       public Builder setSequenceNumber(int value) {
-        
+
         sequenceNumber_ = value;
         onChanged();
         return this;
@@ -2400,18 +2400,18 @@ public final class Pingpong {
        * <code>int32 sequence_number = 2;</code>
        */
       public Builder clearSequenceNumber() {
-        
+
         sequenceNumber_ = 0;
         onChanged();
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -2422,18 +2422,18 @@ public final class Pingpong {
     }
 
     // @@protoc_insertion_point(class_scope:com.example.pingpong.PongSeen)
-    private static final io.cloudstate.examples.pingpong.Pingpong.PongSeen DEFAULT_INSTANCE;
+    private static final Pingpong.PongSeen DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.cloudstate.examples.pingpong.Pingpong.PongSeen();
+      DEFAULT_INSTANCE = new Pingpong.PongSeen();
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.PongSeen getDefaultInstance() {
+    public static Pingpong.PongSeen getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<PongSeen>
         PARSER = new com.google.protobuf.AbstractParser<PongSeen>() {
-      @java.lang.Override
+      @Override
       public PongSeen parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -2446,13 +2446,13 @@ public final class Pingpong {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<PongSeen> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
-    public io.cloudstate.examples.pingpong.Pingpong.PongSeen getDefaultInstanceForType() {
+    @Override
+    public Pingpong.PongSeen getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -2497,7 +2497,7 @@ public final class Pingpong {
     private PingPongStats() {
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -2508,7 +2508,7 @@ public final class Pingpong {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -2562,15 +2562,15 @@ public final class Pingpong {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingPongStats_descriptor;
+      return Pingpong.internal_static_com_example_pingpong_PingPongStats_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingPongStats_fieldAccessorTable
+      return Pingpong.internal_static_com_example_pingpong_PingPongStats_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.cloudstate.examples.pingpong.Pingpong.PingPongStats.class, io.cloudstate.examples.pingpong.Pingpong.PingPongStats.Builder.class);
+              Pingpong.PingPongStats.class, Pingpong.PingPongStats.Builder.class);
     }
 
     public static final int SENTPINGS_FIELD_NUMBER = 1;
@@ -2610,7 +2610,7 @@ public final class Pingpong {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -2620,7 +2620,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (sentPings_ != 0) {
@@ -2638,7 +2638,7 @@ public final class Pingpong {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -2665,15 +2665,15 @@ public final class Pingpong {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.cloudstate.examples.pingpong.Pingpong.PingPongStats)) {
+      if (!(obj instanceof Pingpong.PingPongStats)) {
         return super.equals(obj);
       }
-      io.cloudstate.examples.pingpong.Pingpong.PingPongStats other = (io.cloudstate.examples.pingpong.Pingpong.PingPongStats) obj;
+      Pingpong.PingPongStats other = (Pingpong.PingPongStats) obj;
 
       if (getSentPings()
           != other.getSentPings()) return false;
@@ -2687,7 +2687,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -2707,69 +2707,69 @@ public final class Pingpong {
       return hash;
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseFrom(
+    public static Pingpong.PingPongStats parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseFrom(
+    public static Pingpong.PingPongStats parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseFrom(
+    public static Pingpong.PingPongStats parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseFrom(
+    public static Pingpong.PingPongStats parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseFrom(byte[] data)
+    public static Pingpong.PingPongStats parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseFrom(
+    public static Pingpong.PingPongStats parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseFrom(java.io.InputStream input)
+    public static Pingpong.PingPongStats parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseFrom(
+    public static Pingpong.PingPongStats parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseDelimitedFrom(java.io.InputStream input)
+    public static Pingpong.PingPongStats parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseDelimitedFrom(
+    public static Pingpong.PingPongStats parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseFrom(
+    public static Pingpong.PingPongStats parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats parseFrom(
+    public static Pingpong.PingPongStats parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2777,23 +2777,23 @@ public final class Pingpong {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.cloudstate.examples.pingpong.Pingpong.PingPongStats prototype) {
+    public static Builder newBuilder(Pingpong.PingPongStats prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -2803,18 +2803,18 @@ public final class Pingpong {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:com.example.pingpong.PingPongStats)
-        io.cloudstate.examples.pingpong.Pingpong.PingPongStatsOrBuilder {
+        Pingpong.PingPongStatsOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingPongStats_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_PingPongStats_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingPongStats_fieldAccessorTable
+        return Pingpong.internal_static_com_example_pingpong_PingPongStats_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.cloudstate.examples.pingpong.Pingpong.PingPongStats.class, io.cloudstate.examples.pingpong.Pingpong.PingPongStats.Builder.class);
+                Pingpong.PingPongStats.class, Pingpong.PingPongStats.Builder.class);
       }
 
       // Construct using io.cloudstate.examples.pingpong.Pingpong.PingPongStats.newBuilder()
@@ -2823,7 +2823,7 @@ public final class Pingpong {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -2832,7 +2832,7 @@ public final class Pingpong {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         sentPings_ = 0;
@@ -2846,29 +2846,29 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_PingPongStats_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_PingPongStats_descriptor;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PingPongStats getDefaultInstanceForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.PingPongStats.getDefaultInstance();
+      @Override
+      public Pingpong.PingPongStats getDefaultInstanceForType() {
+        return Pingpong.PingPongStats.getDefaultInstance();
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PingPongStats build() {
-        io.cloudstate.examples.pingpong.Pingpong.PingPongStats result = buildPartial();
+      @Override
+      public Pingpong.PingPongStats build() {
+        Pingpong.PingPongStats result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.PingPongStats buildPartial() {
-        io.cloudstate.examples.pingpong.Pingpong.PingPongStats result = new io.cloudstate.examples.pingpong.Pingpong.PingPongStats(this);
+      @Override
+      public Pingpong.PingPongStats buildPartial() {
+        Pingpong.PingPongStats result = new Pingpong.PingPongStats(this);
         result.sentPings_ = sentPings_;
         result.seenPings_ = seenPings_;
         result.sentPongs_ = sentPongs_;
@@ -2877,50 +2877,50 @@ public final class Pingpong {
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.cloudstate.examples.pingpong.Pingpong.PingPongStats) {
-          return mergeFrom((io.cloudstate.examples.pingpong.Pingpong.PingPongStats)other);
+        if (other instanceof Pingpong.PingPongStats) {
+          return mergeFrom((Pingpong.PingPongStats)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.cloudstate.examples.pingpong.Pingpong.PingPongStats other) {
-        if (other == io.cloudstate.examples.pingpong.Pingpong.PingPongStats.getDefaultInstance()) return this;
+      public Builder mergeFrom(Pingpong.PingPongStats other) {
+        if (other == Pingpong.PingPongStats.getDefaultInstance()) return this;
         if (other.getSentPings() != 0) {
           setSentPings(other.getSentPings());
         }
@@ -2938,21 +2938,21 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.cloudstate.examples.pingpong.Pingpong.PingPongStats parsedMessage = null;
+        Pingpong.PingPongStats parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.cloudstate.examples.pingpong.Pingpong.PingPongStats) e.getUnfinishedMessage();
+          parsedMessage = (Pingpong.PingPongStats) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2973,7 +2973,7 @@ public final class Pingpong {
        * <code>int32 sentPings = 1;</code>
        */
       public Builder setSentPings(int value) {
-        
+
         sentPings_ = value;
         onChanged();
         return this;
@@ -2982,7 +2982,7 @@ public final class Pingpong {
        * <code>int32 sentPings = 1;</code>
        */
       public Builder clearSentPings() {
-        
+
         sentPings_ = 0;
         onChanged();
         return this;
@@ -2999,7 +2999,7 @@ public final class Pingpong {
        * <code>int32 seenPings = 2;</code>
        */
       public Builder setSeenPings(int value) {
-        
+
         seenPings_ = value;
         onChanged();
         return this;
@@ -3008,7 +3008,7 @@ public final class Pingpong {
        * <code>int32 seenPings = 2;</code>
        */
       public Builder clearSeenPings() {
-        
+
         seenPings_ = 0;
         onChanged();
         return this;
@@ -3025,7 +3025,7 @@ public final class Pingpong {
        * <code>int32 sentPongs = 3;</code>
        */
       public Builder setSentPongs(int value) {
-        
+
         sentPongs_ = value;
         onChanged();
         return this;
@@ -3034,7 +3034,7 @@ public final class Pingpong {
        * <code>int32 sentPongs = 3;</code>
        */
       public Builder clearSentPongs() {
-        
+
         sentPongs_ = 0;
         onChanged();
         return this;
@@ -3051,7 +3051,7 @@ public final class Pingpong {
        * <code>int32 seenPongs = 4;</code>
        */
       public Builder setSeenPongs(int value) {
-        
+
         seenPongs_ = value;
         onChanged();
         return this;
@@ -3060,18 +3060,18 @@ public final class Pingpong {
        * <code>int32 seenPongs = 4;</code>
        */
       public Builder clearSeenPongs() {
-        
+
         seenPongs_ = 0;
         onChanged();
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -3082,18 +3082,18 @@ public final class Pingpong {
     }
 
     // @@protoc_insertion_point(class_scope:com.example.pingpong.PingPongStats)
-    private static final io.cloudstate.examples.pingpong.Pingpong.PingPongStats DEFAULT_INSTANCE;
+    private static final Pingpong.PingPongStats DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.cloudstate.examples.pingpong.Pingpong.PingPongStats();
+      DEFAULT_INSTANCE = new Pingpong.PingPongStats();
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.PingPongStats getDefaultInstance() {
+    public static Pingpong.PingPongStats getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<PingPongStats>
         PARSER = new com.google.protobuf.AbstractParser<PingPongStats>() {
-      @java.lang.Override
+      @Override
       public PingPongStats parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3106,13 +3106,13 @@ public final class Pingpong {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<PingPongStats> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
-    public io.cloudstate.examples.pingpong.Pingpong.PingPongStats getDefaultInstanceForType() {
+    @Override
+    public Pingpong.PingPongStats getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3125,7 +3125,7 @@ public final class Pingpong {
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
-    java.lang.String getId();
+    String getId();
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
@@ -3148,7 +3148,7 @@ public final class Pingpong {
       id_ = "";
     }
 
-    @java.lang.Override
+    @Override
     public final com.google.protobuf.UnknownFieldSet
     getUnknownFields() {
       return this.unknownFields;
@@ -3159,7 +3159,7 @@ public final class Pingpong {
         throws com.google.protobuf.InvalidProtocolBufferException {
       this();
       if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
+        throw new NullPointerException();
       }
       int mutable_bitField0_ = 0;
       com.google.protobuf.UnknownFieldSet.Builder unknownFields =
@@ -3173,7 +3173,7 @@ public final class Pingpong {
               done = true;
               break;
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
+              String s = input.readStringRequireUtf8();
 
               id_ = s;
               break;
@@ -3199,30 +3199,30 @@ public final class Pingpong {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_GetReport_descriptor;
+      return Pingpong.internal_static_com_example_pingpong_GetReport_descriptor;
     }
 
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+    @Override
+    protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_GetReport_fieldAccessorTable
+      return Pingpong.internal_static_com_example_pingpong_GetReport_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              io.cloudstate.examples.pingpong.Pingpong.GetReport.class, io.cloudstate.examples.pingpong.Pingpong.GetReport.Builder.class);
+              Pingpong.GetReport.class, Pingpong.GetReport.Builder.class);
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
+    private volatile Object id_;
     /**
      * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
      */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
+    public String getId() {
+      Object ref = id_;
+      if (ref instanceof String) {
+        return (String) ref;
       } else {
-        com.google.protobuf.ByteString bs = 
+        com.google.protobuf.ByteString bs =
             (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
+        String s = bs.toStringUtf8();
         id_ = s;
         return s;
       }
@@ -3232,11 +3232,11 @@ public final class Pingpong {
      */
     public com.google.protobuf.ByteString
         getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
+      Object ref = id_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
             com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
+                (String) ref);
         id_ = b;
         return b;
       } else {
@@ -3245,7 +3245,7 @@ public final class Pingpong {
     }
 
     private byte memoizedIsInitialized = -1;
-    @java.lang.Override
+    @Override
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
@@ -3255,7 +3255,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
       if (!getIdBytes().isEmpty()) {
@@ -3264,7 +3264,7 @@ public final class Pingpong {
       unknownFields.writeTo(output);
     }
 
-    @java.lang.Override
+    @Override
     public int getSerializedSize() {
       int size = memoizedSize;
       if (size != -1) return size;
@@ -3278,15 +3278,15 @@ public final class Pingpong {
       return size;
     }
 
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
+    @Override
+    public boolean equals(final Object obj) {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof io.cloudstate.examples.pingpong.Pingpong.GetReport)) {
+      if (!(obj instanceof Pingpong.GetReport)) {
         return super.equals(obj);
       }
-      io.cloudstate.examples.pingpong.Pingpong.GetReport other = (io.cloudstate.examples.pingpong.Pingpong.GetReport) obj;
+      Pingpong.GetReport other = (Pingpong.GetReport) obj;
 
       if (!getId()
           .equals(other.getId())) return false;
@@ -3294,7 +3294,7 @@ public final class Pingpong {
       return true;
     }
 
-    @java.lang.Override
+    @Override
     public int hashCode() {
       if (memoizedHashCode != 0) {
         return memoizedHashCode;
@@ -3308,69 +3308,69 @@ public final class Pingpong {
       return hash;
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseFrom(
+    public static Pingpong.GetReport parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseFrom(
+    public static Pingpong.GetReport parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseFrom(
+    public static Pingpong.GetReport parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseFrom(
+    public static Pingpong.GetReport parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseFrom(byte[] data)
+    public static Pingpong.GetReport parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseFrom(
+    public static Pingpong.GetReport parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseFrom(java.io.InputStream input)
+    public static Pingpong.GetReport parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseFrom(
+    public static Pingpong.GetReport parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseDelimitedFrom(java.io.InputStream input)
+    public static Pingpong.GetReport parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseDelimitedFrom(
+    public static Pingpong.GetReport parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseFrom(
+    public static Pingpong.GetReport parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport parseFrom(
+    public static Pingpong.GetReport parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3378,23 +3378,23 @@ public final class Pingpong {
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    @java.lang.Override
+    @Override
     public Builder newBuilderForType() { return newBuilder(); }
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(io.cloudstate.examples.pingpong.Pingpong.GetReport prototype) {
+    public static Builder newBuilder(Pingpong.GetReport prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
-    @java.lang.Override
+    @Override
     public Builder toBuilder() {
       return this == DEFAULT_INSTANCE
           ? new Builder() : new Builder().mergeFrom(this);
     }
 
-    @java.lang.Override
+    @Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -3404,18 +3404,18 @@ public final class Pingpong {
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:com.example.pingpong.GetReport)
-        io.cloudstate.examples.pingpong.Pingpong.GetReportOrBuilder {
+        Pingpong.GetReportOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_GetReport_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_GetReport_descriptor;
       }
 
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      @Override
+      protected FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_GetReport_fieldAccessorTable
+        return Pingpong.internal_static_com_example_pingpong_GetReport_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                io.cloudstate.examples.pingpong.Pingpong.GetReport.class, io.cloudstate.examples.pingpong.Pingpong.GetReport.Builder.class);
+                Pingpong.GetReport.class, Pingpong.GetReport.Builder.class);
       }
 
       // Construct using io.cloudstate.examples.pingpong.Pingpong.GetReport.newBuilder()
@@ -3424,7 +3424,7 @@ public final class Pingpong {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+          BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
@@ -3433,7 +3433,7 @@ public final class Pingpong {
                 .alwaysUseFieldBuilders) {
         }
       }
-      @java.lang.Override
+      @Override
       public Builder clear() {
         super.clear();
         id_ = "";
@@ -3441,78 +3441,78 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.internal_static_com_example_pingpong_GetReport_descriptor;
+        return Pingpong.internal_static_com_example_pingpong_GetReport_descriptor;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.GetReport getDefaultInstanceForType() {
-        return io.cloudstate.examples.pingpong.Pingpong.GetReport.getDefaultInstance();
+      @Override
+      public Pingpong.GetReport getDefaultInstanceForType() {
+        return Pingpong.GetReport.getDefaultInstance();
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.GetReport build() {
-        io.cloudstate.examples.pingpong.Pingpong.GetReport result = buildPartial();
+      @Override
+      public Pingpong.GetReport build() {
+        Pingpong.GetReport result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      @java.lang.Override
-      public io.cloudstate.examples.pingpong.Pingpong.GetReport buildPartial() {
-        io.cloudstate.examples.pingpong.Pingpong.GetReport result = new io.cloudstate.examples.pingpong.Pingpong.GetReport(this);
+      @Override
+      public Pingpong.GetReport buildPartial() {
+        Pingpong.GetReport result = new Pingpong.GetReport(this);
         result.id_ = id_;
         onBuilt();
         return result;
       }
 
-      @java.lang.Override
+      @Override
       public Builder clone() {
         return super.clone();
       }
-      @java.lang.Override
+      @Override
       public Builder setField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.setField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder clearField(
           com.google.protobuf.Descriptors.FieldDescriptor field) {
         return super.clearField(field);
       }
-      @java.lang.Override
+      @Override
       public Builder clearOneof(
           com.google.protobuf.Descriptors.OneofDescriptor oneof) {
         return super.clearOneof(oneof);
       }
-      @java.lang.Override
+      @Override
       public Builder setRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
+          int index, Object value) {
         return super.setRepeatedField(field, index, value);
       }
-      @java.lang.Override
+      @Override
       public Builder addRepeatedField(
           com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
+          Object value) {
         return super.addRepeatedField(field, value);
       }
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof io.cloudstate.examples.pingpong.Pingpong.GetReport) {
-          return mergeFrom((io.cloudstate.examples.pingpong.Pingpong.GetReport)other);
+        if (other instanceof Pingpong.GetReport) {
+          return mergeFrom((Pingpong.GetReport)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(io.cloudstate.examples.pingpong.Pingpong.GetReport other) {
-        if (other == io.cloudstate.examples.pingpong.Pingpong.GetReport.getDefaultInstance()) return this;
+      public Builder mergeFrom(Pingpong.GetReport other) {
+        if (other == Pingpong.GetReport.getDefaultInstance()) return this;
         if (!other.getId().isEmpty()) {
           id_ = other.id_;
           onChanged();
@@ -3522,21 +3522,21 @@ public final class Pingpong {
         return this;
       }
 
-      @java.lang.Override
+      @Override
       public final boolean isInitialized() {
         return true;
       }
 
-      @java.lang.Override
+      @Override
       public Builder mergeFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        io.cloudstate.examples.pingpong.Pingpong.GetReport parsedMessage = null;
+        Pingpong.GetReport parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (io.cloudstate.examples.pingpong.Pingpong.GetReport) e.getUnfinishedMessage();
+          parsedMessage = (Pingpong.GetReport) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3546,20 +3546,20 @@ public final class Pingpong {
         return this;
       }
 
-      private java.lang.Object id_ = "";
+      private Object id_ = "";
       /**
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
+      public String getId() {
+        Object ref = id_;
+        if (!(ref instanceof String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
+          String s = bs.toStringUtf8();
           id_ = s;
           return s;
         } else {
-          return (java.lang.String) ref;
+          return (String) ref;
         }
       }
       /**
@@ -3567,11 +3567,11 @@ public final class Pingpong {
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
-        java.lang.Object ref = id_;
+        Object ref = id_;
         if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString b =
               com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
+                  (String) ref);
           id_ = b;
           return b;
         } else {
@@ -3582,11 +3582,11 @@ public final class Pingpong {
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
       public Builder setId(
-          java.lang.String value) {
+          String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  
+
         id_ = value;
         onChanged();
         return this;
@@ -3595,7 +3595,7 @@ public final class Pingpong {
        * <code>string id = 1 [(.cloudstate.entity_key) = true];</code>
        */
       public Builder clearId() {
-        
+
         id_ = getDefaultInstance().getId();
         onChanged();
         return this;
@@ -3609,18 +3609,18 @@ public final class Pingpong {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
-        
+
         id_ = value;
         onChanged();
         return this;
       }
-      @java.lang.Override
+      @Override
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.setUnknownFields(unknownFields);
       }
 
-      @java.lang.Override
+      @Override
       public final Builder mergeUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return super.mergeUnknownFields(unknownFields);
@@ -3631,18 +3631,18 @@ public final class Pingpong {
     }
 
     // @@protoc_insertion_point(class_scope:com.example.pingpong.GetReport)
-    private static final io.cloudstate.examples.pingpong.Pingpong.GetReport DEFAULT_INSTANCE;
+    private static final Pingpong.GetReport DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new io.cloudstate.examples.pingpong.Pingpong.GetReport();
+      DEFAULT_INSTANCE = new Pingpong.GetReport();
     }
 
-    public static io.cloudstate.examples.pingpong.Pingpong.GetReport getDefaultInstance() {
+    public static Pingpong.GetReport getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
     private static final com.google.protobuf.Parser<GetReport>
         PARSER = new com.google.protobuf.AbstractParser<GetReport>() {
-      @java.lang.Override
+      @Override
       public GetReport parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
@@ -3655,13 +3655,13 @@ public final class Pingpong {
       return PARSER;
     }
 
-    @java.lang.Override
+    @Override
     public com.google.protobuf.Parser<GetReport> getParserForType() {
       return PARSER;
     }
 
-    @java.lang.Override
-    public io.cloudstate.examples.pingpong.Pingpong.GetReport getDefaultInstanceForType() {
+    @Override
+    public Pingpong.GetReport getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3669,32 +3669,32 @@ public final class Pingpong {
 
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_example_pingpong_PongSent_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_example_pingpong_PongSent_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_example_pingpong_PingSent_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_example_pingpong_PingSent_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_example_pingpong_PingSeen_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_example_pingpong_PingSeen_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_example_pingpong_PongSeen_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_example_pingpong_PongSeen_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_example_pingpong_PingPongStats_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_example_pingpong_PingPongStats_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_com_example_pingpong_GetReport_descriptor;
-  private static final 
+  private static final
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_com_example_pingpong_GetReport_fieldAccessorTable;
 
@@ -3705,7 +3705,7 @@ public final class Pingpong {
   private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
-    java.lang.String[] descriptorData = {
+    String[] descriptorData = {
       "\n\016pingpong.proto\022\024com.example.pingpong\032\033" +
       "google/protobuf/empty.proto\032\033cloudstate/" +
       "entity_key.proto\032\031cloudstate/eventing.pr" +
@@ -3757,37 +3757,37 @@ public final class Pingpong {
     internal_static_com_example_pingpong_PongSent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_pingpong_PongSent_descriptor,
-        new java.lang.String[] { "Id", "SequenceNumber", });
+        new String[] { "Id", "SequenceNumber", });
     internal_static_com_example_pingpong_PingSent_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_com_example_pingpong_PingSent_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_pingpong_PingSent_descriptor,
-        new java.lang.String[] { "Id", "SequenceNumber", });
+        new String[] { "Id", "SequenceNumber", });
     internal_static_com_example_pingpong_PingSeen_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_com_example_pingpong_PingSeen_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_pingpong_PingSeen_descriptor,
-        new java.lang.String[] { "Id", "SequenceNumber", });
+        new String[] { "Id", "SequenceNumber", });
     internal_static_com_example_pingpong_PongSeen_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_com_example_pingpong_PongSeen_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_pingpong_PongSeen_descriptor,
-        new java.lang.String[] { "Id", "SequenceNumber", });
+        new String[] { "Id", "SequenceNumber", });
     internal_static_com_example_pingpong_PingPongStats_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_com_example_pingpong_PingPongStats_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_pingpong_PingPongStats_descriptor,
-        new java.lang.String[] { "SentPings", "SeenPings", "SentPongs", "SeenPongs", });
+        new String[] { "SentPings", "SeenPings", "SentPongs", "SeenPongs", });
     internal_static_com_example_pingpong_GetReport_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_com_example_pingpong_GetReport_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_com_example_pingpong_GetReport_descriptor,
-        new java.lang.String[] { "Id", });
+        new String[] { "Id", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(io.cloudstate.EntityKey.entityKey);
