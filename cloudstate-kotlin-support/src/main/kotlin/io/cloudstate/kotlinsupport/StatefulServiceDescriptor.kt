@@ -1,11 +1,13 @@
 package io.cloudstate.kotlinsupport
 
 import com.google.protobuf.Descriptors
+import io.cloudstate.kotlinsupport.api.eventsourced.EventSourcedBuilder
 import io.cloudstate.kotlinsupport.transcoding.Transcoder
 
 data class StatefulServiceDescriptor(
         val entityType: EntityType,
         val serviceClass: Class<*>?,
+        var eventSourcedEntityBuilder: EventSourcedBuilder<Any>? = null,
         var transcoder: Transcoder? = null,
         val descriptor: Descriptors.ServiceDescriptor?,
         val additionalDescriptors: Array<Descriptors.FileDescriptor>,
@@ -18,12 +20,12 @@ data class StatefulServiceDescriptor(
 
         other as StatefulServiceDescriptor
 
+        if (entityType != other.entityType) return false
+        if (serviceClass != other.serviceClass) return false
+        if (eventSourcedEntityBuilder != other.eventSourcedEntityBuilder) return false
         if (transcoder != other.transcoder) return false
         if (descriptor != other.descriptor) return false
-        if (additionalDescriptors != null) {
-            if (other.additionalDescriptors == null) return false
-            if (!additionalDescriptors.contentEquals(other.additionalDescriptors)) return false
-        } else if (other.additionalDescriptors != null) return false
+        if (!additionalDescriptors.contentEquals(other.additionalDescriptors)) return false
         if (persistenceId != other.persistenceId) return false
         if (snapshotEvery != other.snapshotEvery) return false
 
@@ -31,11 +33,16 @@ data class StatefulServiceDescriptor(
     }
 
     override fun hashCode(): Int {
-        var result = transcoder?.hashCode() ?: 0
-        result = 31 * result + descriptor.hashCode()
-        result = 31 * result + (additionalDescriptors?.contentHashCode() ?: 0)
+        var result = entityType.hashCode()
+        result = 31 * result + (serviceClass?.hashCode() ?: 0)
+        result = 31 * result + (eventSourcedEntityBuilder?.hashCode() ?: 0)
+        result = 31 * result + (transcoder?.hashCode() ?: 0)
+        result = 31 * result + (descriptor?.hashCode() ?: 0)
+        result = 31 * result + additionalDescriptors.contentHashCode()
         result = 31 * result + (persistenceId?.hashCode() ?: 0)
-        result = 31 * result + (snapshotEvery ?: 0)
+        result = 31 * result + snapshotEvery
         return result
     }
+
+
 }

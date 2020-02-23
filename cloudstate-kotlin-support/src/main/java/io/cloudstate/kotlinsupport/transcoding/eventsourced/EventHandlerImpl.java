@@ -6,6 +6,12 @@ import java.lang.annotation.Annotation;
 
 public class EventHandlerImpl implements EventHandler {
 
+    private final Class<?> eventClass;
+
+    public EventHandlerImpl(final Class<?> eventClass) {
+        this.eventClass = eventClass;
+    }
+
     public Class<? extends Annotation> annotationType() {
         return EventHandler.class;
     }

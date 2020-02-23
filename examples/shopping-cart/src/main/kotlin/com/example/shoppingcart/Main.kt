@@ -11,7 +11,6 @@ class Main {
         fun main(args: Array<String>) {
 
             cloudstate {
-
                 host = "0.0.0.0"
                 port = 8080
                 loglevel = "INFO"
@@ -25,9 +24,6 @@ class Main {
                     snapshotEvery = 1
                     persistenceId = "shopping-cart"
                 }
-
-                // registerCrdtEntity {  }
-
             }.start()
                     .toCompletableFuture()
                     .get()
