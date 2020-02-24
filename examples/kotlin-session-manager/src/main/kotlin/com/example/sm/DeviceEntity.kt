@@ -17,24 +17,22 @@ class DeviceEntity(@param:EntityId private val entityId: String, ctx: Context) {
 
     private var device: Optional<Smdevice.DeviceInfo> = Optional.empty<Smdevice.DeviceInfo>()
     @Snapshot
-    fun snapshot(): Optional<Domain.Device> {
-        return if (device.isPresent()) {
-            Optional.of(
-                    Domain.Device.newBuilder().setAccountId(device.get().getAccountId()).build())
-        } else {
-            Optional.empty<Domain.Device>()
-        }
+    fun snapshot(): Optional<Domain.Device> = if (device.isPresent) {
+        Optional.of(
+                Domain.Device.newBuilder().setAccountId(device.get().accountId).build())
+    } else {
+        Optional.empty<Domain.Device>()
     }
 
     @SnapshotHandler
     fun handleSnapshot(device: Domain.Device) {
-        this.device = Optional.of(Smdevice.DeviceInfo.newBuilder().setAccountId(device.getAccountId()).build())
+        this.device = Optional.of(Smdevice.DeviceInfo.newBuilder().setAccountId(device.accountId).build())
     }
 
     @EventHandler
     fun deviceCreated(deviceCreated: Domain.DeviceCreated) {
         device = Optional.of(
-                Smdevice.DeviceInfo.newBuilder().setAccountId(deviceCreated.getAccountId()).build())
+                Smdevice.DeviceInfo.newBuilder().setAccountId(deviceCreated.accountId).build())
     }
 
     @EventHandler
@@ -45,35 +43,35 @@ class DeviceEntity(@param:EntityId private val entityId: String, ctx: Context) {
     @CommandHandler
     fun createSessionWithDevice(
             sessionSetup: Smdevice.SessionSetupWithDevice, ctx: CommandContext) {
-        if (!device.isPresent()) {
+        if (!device.isPresent) {
             ctx.fail("Device not registered")
         }
-        val accountID: String = device.get().getAccountId()
+        val accountID: String = device.get().accountId
         val call = sessionCreationRef.createCall(
                 Sm.SessionSetup.newBuilder()
                         .setAccountId(accountID)
-                        .setDeviceId(sessionSetup.getDeviceId())
+                        .setDeviceId(sessionSetup.deviceId)
                         .build())
         ctx.forward(call)
     }
 
     @CommandHandler
     fun getDevice(ctx: CommandContext): Smdevice.DeviceInfo { // Return a copy
-        if (!device.isPresent()) {
+        if (!device.isPresent) {
             ctx.fail("Device has been deleted")
         }
-        return Smdevice.DeviceInfo.newBuilder().setAccountId(device.get().getAccountId()).build()
+        return Smdevice.DeviceInfo.newBuilder().setAccountId(device.get().accountId).build()
     }
 
     @CommandHandler
     fun createDevice(param: Smdevice.CreateDeviceParam, ctx: CommandContext): Empty {
-        ctx.emit(Domain.DeviceCreated.newBuilder().setAccountId(param.getAccountId()).build())
+        ctx.emit(Domain.DeviceCreated.newBuilder().setAccountId(param.accountId).build())
         return Empty.getDefaultInstance()
     }
 
     @CommandHandler
     fun deleteDevice(param: Smdevice.DeleteDeviceParam?, ctx: CommandContext): Empty {
-        ctx.emit(Domain.DeviceDeleted.newBuilder().setAccountId(device.get().getAccountId()).build())
+        ctx.emit(Domain.DeviceDeleted.newBuilder().setAccountId(device.get().accountId).build())
         return Empty.getDefaultInstance()
     }
 
