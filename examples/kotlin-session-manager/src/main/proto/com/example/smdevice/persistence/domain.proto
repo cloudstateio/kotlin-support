@@ -1,0 +1,18 @@
+// These are the messages that get persisted - the events, plus the current state (Home) for snapshots.
+syntax = "proto3";
+
+package com.example.smdevice.persistence;
+
+option go_package = "persistence";
+
+message DeviceCreated {
+    string account_id = 1;
+}
+
+message DeviceDeleted {
+    string account_id = 1;
+}
+
+message Device {
+    string account_id = 1;
+}

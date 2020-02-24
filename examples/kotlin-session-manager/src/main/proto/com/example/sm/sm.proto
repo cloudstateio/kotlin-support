@@ -1,0 +1,94 @@
+// This is the public API offered by the shopping cart entity.
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "cloudstate/entity_key.proto";
+import "google/api/annotations.proto";
+import "google/api/http.proto";
+
+package com.example.sm;
+
+option go_package = "tck/home";
+
+message SessionSetup {
+    string account_id = 1 [(.cloudstate.entity_key) = true];
+    string device_id = 2;
+}
+
+message HeartBeatSession {
+    string account_id = 1 [(.cloudstate.entity_key) = true];
+    string session_id = 2;
+}
+
+message TearDownSession {
+    string account_id = 1 [(.cloudstate.entity_key) = true];
+    string session_id = 2;
+}
+
+message MaxSession {
+    string account_id = 1 [(.cloudstate.entity_key) = true];
+    int32 max_nb_of_session = 2;
+}
+
+message SessionResponse {
+    string account_id = 1;
+    string session_id = 2;
+    int64 expiration = 3;
+}
+
+message GetHomeInfo {
+    string account_id = 1 [(.cloudstate.entity_key) = true];
+}
+
+message Session {
+    string device_id = 1;
+    string sessionId = 2;
+    int64 expiration = 3;
+}
+
+message Home {
+    repeated Session sessions = 1;
+    int32 nbActiveSessions = 2;
+}
+
+
+
+service SM {
+
+    rpc CreateSession(SessionSetup) returns (SessionResponse) {
+        option (google.api.http) = {
+            post: "/home/{account_id}/sessions/create",
+            body: "*",
+        };
+    }
+
+    rpc HeartBeat(HeartBeatSession) returns (SessionResponse) {
+        option (google.api.http) = {
+            post: "/home/{account_id}/sessions/heartbeat",
+            body: "*",
+        };
+    }
+
+    rpc TearDown(TearDownSession) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "/home/{account_id}/sessions/teardown",
+            body: "*",
+        };
+    }
+    rpc SetMaxSession(MaxSession) returns (google.protobuf.Empty) {
+        option (google.api.http) = {
+            post: "/home/{account_id}/sessions/setMaxSession",
+            body: "*",
+        };
+    }
+
+    rpc GetHome(GetHomeInfo) returns (Home) {
+        option (google.api.http) = {
+          get: "/homes/{account_id}",
+          additional_bindings: {
+            get: "/homes/{account_id}/sessions",
+            response_body: "sessions"
+          }
+        };
+    }
+}

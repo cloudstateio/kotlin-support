@@ -1,0 +1,58 @@
+// This is the public API offered by the shopping cart entity.
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "cloudstate/entity_key.proto";
+import "google/api/annotations.proto";
+import "google/api/http.proto";
+import "com/example/sm/sm.proto";
+
+package com.example.smdevice;
+
+option go_package = "tck/home";
+
+message SessionSetupWithDevice {
+    string device_id = 1 [(.cloudstate.entity_key) = true];
+}
+
+
+message CreateDeviceParam {
+    string device_id = 1 [(.cloudstate.entity_key) = true];
+    string account_id = 2;
+}
+
+message DeleteDeviceParam {
+    string device_id = 1 [(.cloudstate.entity_key) = true];
+}
+
+message GetDeviceInfo {
+    string device_id = 1 [(.cloudstate.entity_key) = true];
+}
+
+message DeviceInfo {
+    string account_id = 1;
+}
+
+
+service Device {
+    rpc CreateSessionWithDevice(SessionSetupWithDevice) returns (com.example.sm.SessionResponse) {
+        option (google.api.http) = {
+            post: "/device/{device_id}/sessions/create",
+            body: "*",
+        };
+    }
+
+    rpc CreateDevice(CreateDeviceParam) returns (google.protobuf.Empty) {
+        option (google.api.http).post = "/device/{device_id}/create";
+    }
+
+    rpc DeleteDevice(DeleteDeviceParam) returns (google.protobuf.Empty) {
+        option (google.api.http).post = "/device/{device_id}/delete";
+    }
+
+    rpc GetDevice(GetDeviceInfo) returns (DeviceInfo) {
+        option (google.api.http) = {
+          get: "/devices/{device_id}"
+        };
+    }
+}
