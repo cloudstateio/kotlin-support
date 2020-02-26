@@ -6,7 +6,7 @@
 
     <groupId>io.cloudstate</groupId>
     <artifactId>shopping-cart</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>0.4.3</version>
 
     <properties>
         <main.class>com.example.shoppingcart.Main</main.class>

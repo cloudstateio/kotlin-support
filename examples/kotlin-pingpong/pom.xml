@@ -6,7 +6,7 @@
 
     <groupId>io.cloudstate</groupId>
     <artifactId>kotlin-pingpong</artifactId>
-    <version>1.0.3-SNAPSHOT</version>
+    <version>0.4.3</version>
 
     <properties>
         <main.class>io.cloudstate.examples.pingpong.MainKt</main.class>

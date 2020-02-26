@@ -2,7 +2,7 @@ package io.cloudstate.examples.pingpong
 
 import io.cloudstate.kotlinsupport.cloudstate
 
-fun main(args: Array<String>) {
+fun main() {
     cloudstate {
         registerEventSourcedEntity {
             entityService = PingPongEntity::class.java
