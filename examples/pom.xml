@@ -16,7 +16,6 @@
     <modules>
         <module>shopping-cart</module>
         <module>kotlin-pingpong</module>
-        <module>kotlin-session-manager</module>
     </modules>
 
 
