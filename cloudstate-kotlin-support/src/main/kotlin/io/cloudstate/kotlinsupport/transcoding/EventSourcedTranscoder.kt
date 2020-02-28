@@ -7,10 +7,10 @@ import io.cloudstate.kotlinsupport.logger
 import io.cloudstate.kotlinsupport.transcoding.eventsourced.*
 import net.bytebuddy.ByteBuddy
 import net.bytebuddy.agent.ByteBuddyAgent
+import net.bytebuddy.asm.MemberAttributeExtension
 import net.bytebuddy.dynamic.DynamicType
 import net.bytebuddy.dynamic.loading.ClassReloadingStrategy
-import net.bytebuddy.implementation.StubMethod.INSTANCE
-import net.bytebuddy.matcher.ElementMatchers.named
+import net.bytebuddy.matcher.ElementMatchers
 
 class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
     private val log = logger()
@@ -29,6 +29,7 @@ class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
             clazz.getAnnotation(JEventSourcedEntity::class.java) != null -> return clazz
 
             else -> {
+                log.info("Executing Transformer...")
                 val snapshotMethods = getAllMethodsAnnotatedBy(clazz, Snapshot::class.java)
                 val eventHandlertMethods = getAllMethodsAnnotatedBy(clazz, EventHandler::class.java)
                 val snapshotHandlerMethods = getAllMethodsAnnotatedBy(clazz, SnapshotHandler::class.java)
@@ -38,35 +39,33 @@ class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
                         ByteBuddyAgent.getInstrumentation(),
                         ClassReloadingStrategy.Strategy.REDEFINITION)
 
-                var builder: DynamicType.Builder<out Any>? = ByteBuddy()
-                        .redefine(clazz)
-
-                builder = createEntityAnnotation(clazz, classReloadingStrategy)
+                var builder: DynamicType.Builder<out Any>? =
+                        createEntityAnnotation(clazz, classReloadingStrategy)
 
                 snapshotMethods.forEach {
                     it.forEach { (method, _) ->
                         builder = builder
-                                ?.method(named(method))
-                                ?.intercept(INSTANCE)
-                                ?.annotateMethod(SnapshotImpl())
+                                ?.visit(MemberAttributeExtension.ForMethod()
+                                        .annotateMethod(SnapshotImpl())
+                                        .on(ElementMatchers.named(method)))
                     }
                 }
 
                 snapshotHandlerMethods.forEach {
                     it.forEach { (method, _) ->
                         builder = builder
-                                ?.method(named(method))
-                                ?.intercept(INSTANCE)
-                                ?.annotateMethod(SnapshotHandlerImpl())
+                                ?.visit(MemberAttributeExtension.ForMethod()
+                                        .annotateMethod(SnapshotHandlerImpl())
+                                        .on(ElementMatchers.named(method)))
                     }
                 }
 
                 eventHandlertMethods.forEach {
                     it.forEach { (method, _) ->
                         builder = builder
-                                ?.method(named(method))
-                                ?.intercept(INSTANCE)
-                                ?.annotateMethod(EventHandlerImpl())
+                                ?.visit(MemberAttributeExtension.ForMethod()
+                                        .annotateMethod(EventHandlerImpl())
+                                        .on(ElementMatchers.named(method)))
                     }
                 }
 
@@ -74,9 +73,9 @@ class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
                     it.forEach { (method, annotation) ->
                         var cmdHandlerAnnotation = annotation as CommandHandler
                         builder = builder
-                                ?.method(named(method))
-                                ?.intercept(INSTANCE)
-                                ?.annotateMethod(CommandHandlerImpl(cmdHandlerAnnotation.name))
+                                ?.visit(MemberAttributeExtension.ForMethod()
+                                        .annotateMethod(CommandHandlerImpl(cmdHandlerAnnotation.name))
+                                        .on(ElementMatchers.named(method)))
                     }
                 }
 
@@ -122,8 +121,9 @@ class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
     private fun getAllMethodsAnnotatedBy(type: Class<*>, annotationClass: Class<out kotlin.Annotation>): MutableList<Map<String, Annotation>> {
         var methods:MutableList<Map<String, Annotation>> = mutableListOf<Map<String, Annotation>>()
 
+        log.debug("Found ${type.methods.filter { it.isAnnotationPresent(annotationClass)  }.size} methods to processing...")
         type.methods.filter { it.isAnnotationPresent(annotationClass) }.forEach {
-            log.debug("Found method ${it.name} annotated with ${annotationClass.simpleName}.")
+            log.debug("Found Method ${it.name} annotated with ${annotationClass.simpleName}. ReturnType ${it.returnType} GenericReturnTYpe ${it.genericReturnType}")
             var methodAndAnnotation = mapOf<String, Annotation>(it.name to it.getAnnotation(annotationClass))
             methods.add(methodAndAnnotation)
         }

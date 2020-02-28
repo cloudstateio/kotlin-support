@@ -3,8 +3,7 @@ import com.example.shoppingcart.persistence.Domain
 import com.google.protobuf.Empty
 import io.cloudstate.javasupport.EntityId
 import io.cloudstate.javasupport.eventsourced.CommandContext
-import io.cloudstate.javasupport.eventsourced.*
-//import io.cloudstate.kotlinsupport.api.eventsourced.*
+import io.cloudstate.kotlinsupport.api.eventsourced.*
 
 import java.util.stream.Collectors
 
@@ -45,7 +44,7 @@ class ShoppingCartEntity(@param:EntityId private val entityId: String) {
     }
 
     @EventHandler
-    fun itemRemoved(itemRemoved: Domain.ItemRemoved) = cart.remove(itemRemoved.productId)
+    fun itemRemoved(itemRemoved: Domain.ItemRemoved): Shoppingcart.LineItem? = cart.remove(itemRemoved.productId)
 
     @CommandHandler
     fun getCart(): Shoppingcart.Cart = Shoppingcart.Cart.newBuilder().addAllItems(cart.values).build()
@@ -53,7 +52,7 @@ class ShoppingCartEntity(@param:EntityId private val entityId: String) {
     @CommandHandler
     fun addItem(item: Shoppingcart.AddLineItem, ctx: CommandContext): Empty {
         if (item.quantity <= 0) {
-            ctx.fail("Cannot add negative quantity of to item" + item.productId)
+            ctx.fail("Cannot add negative quantity of to item ${item.productId}" )
         }
         ctx.emit(
                 Domain.ItemAdded.newBuilder()
@@ -70,7 +69,7 @@ class ShoppingCartEntity(@param:EntityId private val entityId: String) {
     @CommandHandler
     fun removeItem(item: Shoppingcart.RemoveLineItem, ctx: CommandContext): Empty {
         if (!cart.containsKey(item.productId)) {
-            ctx.fail("Cannot remove item " + item.productId + " because it is not in the cart.")
+            ctx.fail("Cannot remove item ${item.productId} because it is not in the cart.")
         }
         ctx.emit(
                 Domain.ItemRemoved.newBuilder()

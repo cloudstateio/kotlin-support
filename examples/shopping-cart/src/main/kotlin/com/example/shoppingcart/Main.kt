@@ -26,8 +26,6 @@ class Main {
                     persistenceId = "shopping-cart"
                 }
 
-                // registerCrdtEntity {  }
-
             }.start()
                     .toCompletableFuture()
                     .get()
