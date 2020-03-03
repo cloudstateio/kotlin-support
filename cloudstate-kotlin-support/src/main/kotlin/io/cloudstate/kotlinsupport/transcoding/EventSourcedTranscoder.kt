@@ -101,15 +101,6 @@ class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
                                             eventSourcedEntityAnnotation.persistenceId,
                                             eventSourcedEntityAnnotation.snapshotEvery)))
 
-
-            /*.defineField("persistenceId", String.javaClass, Visibility.PRIVATE)
-            .defineConstructor(Visibility.PUBLIC).withParameter(String.javaClass)
-            .annotateParameter(EntityIdImpl())
-            .intercept(MethodCall.invoke(clazz.getConstructor(String.javaClass))
-                .withArgument(1)
-                        .andThen(FieldAccessor.ofField("persistenceId")
-                                .setsArgumentAt(1)))*/
-
         }
             else -> {
                 return  ByteBuddy()

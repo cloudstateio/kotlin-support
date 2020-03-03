@@ -35,7 +35,6 @@ class EventSourcedTranscoderTest {
         }
 
         entityInstance?.javaClass?.methods.forEach {
-            //log.info("Method ${it.name} ReturnType ${it.returnType} GenericReturnTYpe ${it.genericReturnType}")
             it.annotations.forEach { annotation ->
                 log.info("Found annotation $annotation in ${it.name}")
             }
