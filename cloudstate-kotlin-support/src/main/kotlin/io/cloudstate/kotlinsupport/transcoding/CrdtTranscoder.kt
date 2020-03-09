@@ -1,5 +1,6 @@
 package io.cloudstate.kotlinsupport.transcoding
 
+import io.cloudstate.kotlinsupport.ReflectionHelper
 import io.cloudstate.javasupport.crdt.CrdtEntity as JCrdtEntity
 
 import io.cloudstate.kotlinsupport.api.crdt.*
@@ -14,6 +15,7 @@ import net.bytebuddy.matcher.ElementMatchers
 
 class CrdtTranscoder(private val clazz: Class<*>): Transcoder {
     private val log = logger()
+    private val helper = ReflectionHelper()
 
     init {
         log.debug("Initializing ByteBuddy Agent....")
@@ -30,14 +32,14 @@ class CrdtTranscoder(private val clazz: Class<*>): Transcoder {
 
             else -> {
                 log.info("Executing Transformer...")
-                val commandHandlerMethods = getAllMethodsAnnotatedBy(clazz, CommandHandler::class.java)
+                val commandHandlerMethods = helper.getAllMethodsAnnotatedBy(clazz, CommandHandler::class.java)
 
                 val classReloadingStrategy = ClassReloadingStrategy(
                         ByteBuddyAgent.getInstrumentation(),
                         ClassReloadingStrategy.Strategy.REDEFINITION)
 
                 var builder: DynamicType.Builder<out Any>? =
-                        createEntityAnnotation(clazz, classReloadingStrategy)
+                        createEntityAnnotation(clazz, classReloadingStrategy, CrdtEntity::class.java)
 
                 commandHandlerMethods.forEach {
                     it.forEach { (method, annotation) ->
@@ -58,11 +60,11 @@ class CrdtTranscoder(private val clazz: Class<*>): Transcoder {
 
     }
 
-    private fun createEntityAnnotation(clazz: Class<*>, classReloadingStrategy: ClassReloadingStrategy): DynamicType.Builder<out Any>? {
+    private fun createEntityAnnotation(clazz: Class<*>, classReloadingStrategy: ClassReloadingStrategy, annotation: Class<out Annotation>): DynamicType.Builder<out Any>? {
 
-        val crdtEntityAnnotation = clazz.getAnnotation(CrdtEntity::class.java)
+        val entityAnnotation = clazz.getAnnotation(annotation)
 
-        return when { crdtEntityAnnotation != null -> {
+        return when { entityAnnotation != null -> {
             ByteBuddy()
                     .redefine(clazz)
                     .annotateType(
@@ -76,17 +78,4 @@ class CrdtTranscoder(private val clazz: Class<*>): Transcoder {
         }
     }
 
-    private fun getAllMethodsAnnotatedBy(type: Class<*>, annotationClass: Class<out kotlin.Annotation>): MutableList<Map<String, Annotation>> {
-        var methods:MutableList<Map<String, Annotation>> = mutableListOf<Map<String, Annotation>>()
-
-        log.debug("Found ${type.methods.filter { it.isAnnotationPresent(annotationClass)  }.size} methods to processing...")
-        type.methods.filter { it.isAnnotationPresent(annotationClass) }.forEach {
-            log.debug("Found Method ${it.name} annotated with ${annotationClass.simpleName}. ReturnType ${it.returnType} GenericReturnTYpe ${it.genericReturnType}")
-            var methodAndAnnotation = mapOf<String, Annotation>(it.name to it.getAnnotation(annotationClass))
-            methods.add(methodAndAnnotation)
-        }
-
-        log.debug("${methods.size} Annotations of type ${annotationClass.simpleName} found in ${type.simpleName}")
-        return methods
-    }
 }

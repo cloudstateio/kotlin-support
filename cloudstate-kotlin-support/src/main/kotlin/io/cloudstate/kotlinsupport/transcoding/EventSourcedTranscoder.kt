@@ -1,5 +1,6 @@
 package io.cloudstate.kotlinsupport.transcoding
 
+import io.cloudstate.kotlinsupport.ReflectionHelper
 import io.cloudstate.javasupport.eventsourced.EventSourcedEntity as JEventSourcedEntity
 
 import io.cloudstate.kotlinsupport.api.eventsourced.*
@@ -14,6 +15,7 @@ import net.bytebuddy.matcher.ElementMatchers
 
 class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
     private val log = logger()
+    private val helper = ReflectionHelper()
 
     init {
         log.debug("Initializing ByteBuddy Agent....")
@@ -30,10 +32,10 @@ class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
 
             else -> {
                 log.info("Executing Transformer...")
-                val snapshotMethods = getAllMethodsAnnotatedBy(clazz, Snapshot::class.java)
-                val eventHandlertMethods = getAllMethodsAnnotatedBy(clazz, EventHandler::class.java)
-                val snapshotHandlerMethods = getAllMethodsAnnotatedBy(clazz, SnapshotHandler::class.java)
-                val commandHandlerMethods = getAllMethodsAnnotatedBy(clazz, CommandHandler::class.java)
+                val snapshotMethods = helper.getAllMethodsAnnotatedBy(clazz, Snapshot::class.java)
+                val eventHandlertMethods = helper.getAllMethodsAnnotatedBy(clazz, EventHandler::class.java)
+                val snapshotHandlerMethods = helper.getAllMethodsAnnotatedBy(clazz, SnapshotHandler::class.java)
+                val commandHandlerMethods = helper.getAllMethodsAnnotatedBy(clazz, CommandHandler::class.java)
 
                 val classReloadingStrategy = ClassReloadingStrategy(
                         ByteBuddyAgent.getInstrumentation(),
@@ -92,8 +94,8 @@ class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
 
         val eventSourcedEntityAnnotation = clazz.getAnnotation(EventSourcedEntity::class.java)
 
-        when {eventSourcedEntityAnnotation != null -> {
-            return  ByteBuddy()
+        return when {eventSourcedEntityAnnotation != null -> {
+            ByteBuddy()
                     .redefine(clazz)
                     .annotateType(
                             mutableListOf(
@@ -103,23 +105,10 @@ class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
 
         }
             else -> {
-                return  ByteBuddy()
+                ByteBuddy()
                         .redefine(clazz)
             }
         }
     }
 
-    private fun getAllMethodsAnnotatedBy(type: Class<*>, annotationClass: Class<out kotlin.Annotation>): MutableList<Map<String, Annotation>> {
-        var methods:MutableList<Map<String, Annotation>> = mutableListOf<Map<String, Annotation>>()
-
-        log.debug("Found ${type.methods.filter { it.isAnnotationPresent(annotationClass)  }.size} methods to processing...")
-        type.methods.filter { it.isAnnotationPresent(annotationClass) }.forEach {
-            log.debug("Found Method ${it.name} annotated with ${annotationClass.simpleName}. ReturnType ${it.returnType} GenericReturnTYpe ${it.genericReturnType}")
-            var methodAndAnnotation = mapOf<String, Annotation>(it.name to it.getAnnotation(annotationClass))
-            methods.add(methodAndAnnotation)
-        }
-
-        log.debug("${methods.size} Annotations of type ${annotationClass.simpleName} found in ${type.simpleName}")
-        return methods
-    }
 }
