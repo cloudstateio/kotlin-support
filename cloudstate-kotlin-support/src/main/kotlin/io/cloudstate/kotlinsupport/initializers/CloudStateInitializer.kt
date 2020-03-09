@@ -17,11 +17,14 @@ class CloudStateInitializer {
     fun registerEventSourcedEntity(eventSourcedInitializer: EventSourcedEntityInitializer.() -> Unit) {
         eventSourcedInit.eventSourcedInitializer()
 
+        // This cast prevent 'smart cast is impossible' error
+        val entityServiceType: Class<*> = eventSourcedInit.entityService!!.java as Class<*>
+
         statefulServiceDescriptors.add(
                 StatefulServiceDescriptor(
                         entityType = eventSourcedInit.type,
-                        serviceClass = eventSourcedInit.entityService,
-                        transcoder = eventSourcedInit.entityService?.let { EventSourcedTranscoder(it) },
+                        serviceClass = entityServiceType,
+                        transcoder = entityServiceType?.let { EventSourcedTranscoder(it) },
                         descriptor = eventSourcedInit.descriptor,
                         additionalDescriptors = eventSourcedInit.additionalDescriptors,
                         persistenceId = eventSourcedInit.persistenceId,
@@ -34,12 +37,15 @@ class CloudStateInitializer {
     fun registerCrdtEntity(crdtInitializer: CrdtEntityInitializer.() -> Unit) {
         crdtSourcedInit.crdtInitializer()
 
+        // This cast prevent 'smart cast is impossible' error
+        val entityServiceType: Class<*> = eventSourcedInit.entityService!!.java as Class<*>
+
         statefulServiceDescriptors.add(
                 StatefulServiceDescriptor(
                         entityType = crdtSourcedInit.type,
                         descriptor = crdtSourcedInit.descriptor,
                         additionalDescriptors = crdtSourcedInit.additionalDescriptors,
-                        serviceClass = eventSourcedInit.entityService)
+                        serviceClass = entityServiceType)
 
         )
 

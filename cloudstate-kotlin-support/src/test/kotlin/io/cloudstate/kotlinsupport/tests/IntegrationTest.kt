@@ -35,7 +35,7 @@ class IntegrationTests {
         val proxy: FixedHostPortGenericContainer<*> = getProxy(userFunctionPort)
                 .also(FixedHostPortGenericContainer<*>::start)
 
-        log.info("Port bindings ${proxy.getPortBindings().size}")
+        log.info("Port bindings ${proxy.portBindings.size}")
         proxy.getPortBindings().forEach{ binding -> log.info("Port Binding -> $binding")}
 
         val clientSettings = GrpcClientSettings.connectToServiceAt("localhost", 9000, sys)

@@ -17,7 +17,7 @@ class Main {
                 loglevel = "INFO"
 
                 registerEventSourcedEntity {
-                    entityService = ShoppingCartEntity::class.java
+                    entityService = ShoppingCartEntity::class
 
                     descriptor = Shoppingcart.getDescriptor().findServiceByName("ShoppingCart")
                     additionalDescriptors = arrayOf( Domain.getDescriptor() )
