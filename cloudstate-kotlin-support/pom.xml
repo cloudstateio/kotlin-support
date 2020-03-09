@@ -94,7 +94,9 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
+        <!--<sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+        &lt;!&ndash;<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>&ndash;&gt;
+        -->
         <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
 
         <resources>

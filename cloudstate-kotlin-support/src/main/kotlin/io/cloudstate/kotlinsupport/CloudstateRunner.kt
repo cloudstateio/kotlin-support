@@ -26,11 +26,13 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
         conf = getConfig()
 
         initializer.statefulServiceDescriptors.forEach{ descriptor ->
-            val anySupport = newAnySupport(descriptor.additionalDescriptors)
 
             when(descriptor.entityType) {
+
                 EntityType.EventSourced -> {
+                    val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
                     val clazz: Class<*>? = descriptor.transcoder!!.transcode()
+
                     engine.registerEventSourcedEntity(
                             AnnotationBasedEventSourcedSupport(descriptor.serviceClass, anySupport, descriptor.descriptor),
                             descriptor.descriptor,
@@ -38,7 +40,9 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                             descriptor.snapshotEvery,
                             *descriptor.additionalDescriptors)
                 }
+
                 EntityType.Crdt -> {
+                    val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
                     val clazz: Class<*>? = descriptor.transcoder!!.transcode()
 
                     engine.registerCrdtEntity(
@@ -47,6 +51,7 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                             *descriptor.additionalDescriptors)
 
                 }
+
                 else -> {
                     log.warn("Unknown type of Entity")
                     throw IllegalStateException("Unknown type of Entity")

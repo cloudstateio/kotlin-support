@@ -8,7 +8,7 @@ data class StatefulServiceDescriptor(
         val serviceClass: Class<*>?,
         var transcoder: Transcoder? = null,
         val descriptor: Descriptors.ServiceDescriptor?,
-        val additionalDescriptors: Array<Descriptors.FileDescriptor>,
+        val additionalDescriptors: Array<Descriptors.FileDescriptor> = arrayOf(),
         val persistenceId: String? = "",
         val snapshotEvery: Int = 100) {
 

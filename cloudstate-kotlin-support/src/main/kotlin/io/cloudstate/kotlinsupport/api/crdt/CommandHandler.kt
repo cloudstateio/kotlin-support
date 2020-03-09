@@ -1,6 +1,5 @@
 package io.cloudstate.kotlinsupport.api.crdt
 
-import io.cloudstate.javasupport.impl.CloudStateAnnotation
 import java.lang.annotation.Retention
 import java.lang.annotation.RetentionPolicy
 
@@ -21,7 +20,6 @@ import java.lang.annotation.RetentionPolicy
  *
  * The method may also take a [CommandContext], and/or a [ ] annotated [String] parameter.
  */
-@CloudStateAnnotation
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
 @Retention(RetentionPolicy.RUNTIME)
 annotation class CommandHandler(

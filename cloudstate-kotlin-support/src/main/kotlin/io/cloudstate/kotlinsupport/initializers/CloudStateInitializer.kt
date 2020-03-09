@@ -1,6 +1,7 @@
 package io.cloudstate.kotlinsupport.initializers
 
 import io.cloudstate.kotlinsupport.StatefulServiceDescriptor
+import io.cloudstate.kotlinsupport.transcoding.CrdtTranscoder
 import io.cloudstate.kotlinsupport.transcoding.EventSourcedTranscoder
 
 class CloudStateInitializer {
@@ -38,15 +39,15 @@ class CloudStateInitializer {
         crdtSourcedInit.crdtInitializer()
 
         // This cast prevent 'smart cast is impossible' error
-        val entityServiceType: Class<*> = eventSourcedInit.entityService!!.java as Class<*>
+        val entityServiceType: Class<*> = crdtSourcedInit.entityService!!.java as Class<*>
 
         statefulServiceDescriptors.add(
                 StatefulServiceDescriptor(
                         entityType = crdtSourcedInit.type,
+                        serviceClass = entityServiceType,
+                        transcoder = entityServiceType?.let { CrdtTranscoder(it) },
                         descriptor = crdtSourcedInit.descriptor,
-                        additionalDescriptors = crdtSourcedInit.additionalDescriptors,
-                        serviceClass = entityServiceType)
-
+                        additionalDescriptors = crdtSourcedInit.additionalDescriptors)
         )
 
     }
