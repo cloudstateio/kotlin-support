@@ -8,14 +8,15 @@ class CloudStateInitializer {
 
     internal val statefulServiceDescriptors: MutableList<StatefulServiceDescriptor> = mutableListOf<StatefulServiceDescriptor>()
 
-    var host: String = "0.0.0.0"
-    var port: Int = 8088
-    var loglevel: String = "DEBUG"
-
+    internal var configInit = ConfigIntializer()
     internal var crdtSourcedInit = CrdtEntityInitializer()
     internal var eventSourcedInit = EventSourcedEntityInitializer()
 
-    fun registerEventSourcedEntity(eventSourcedInitializer: EventSourcedEntityInitializer.() -> Unit) {
+    fun config(configInitializer: ConfigIntializer.() -> Unit) {
+        configInit.configInitializer()
+    }
+
+    fun eventsourced(eventSourcedInitializer: EventSourcedEntityInitializer.() -> Unit) {
         eventSourcedInit.eventSourcedInitializer()
 
         // This cast prevent 'smart cast is impossible' error
@@ -35,7 +36,7 @@ class CloudStateInitializer {
 
     }
 
-    fun registerCrdtEntity(crdtInitializer: CrdtEntityInitializer.() -> Unit) {
+    fun crdt(crdtInitializer: CrdtEntityInitializer.() -> Unit) {
         crdtSourcedInit.crdtInitializer()
 
         // This cast prevent 'smart cast is impossible' error
