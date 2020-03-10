@@ -1,3 +1,4 @@
+// #example-shopping-cart-kotlin
 import com.example.shoppingcart.Shoppingcart
 import com.example.shoppingcart.persistence.Domain
 import com.google.protobuf.Empty
@@ -93,4 +94,5 @@ class ShoppingCartEntity(@param:EntityId private val entityId: String) {
                     .setQuantity(item.quantity)
                     .build()
 
-} 
+}
+// #example-shopping-cart-kotlin

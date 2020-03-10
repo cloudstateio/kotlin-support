@@ -1,3 +1,4 @@
+// #example-shopping-cart-main
 package com.example.shoppingcart
 
 import ShoppingCartEntity
@@ -33,3 +34,4 @@ class Main {
 
     }
 }
+// #example-shopping-cart-main
