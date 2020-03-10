@@ -19,12 +19,4 @@ import kotlin.reflect.KClass
  */
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
 @Retention(RetentionPolicy.RUNTIME)
-annotation class EventHandler(
-        /**
-         * The event class. Generally, this will be determined by looking at the parameter of the event
-         * handler method, however if the event doesn't need to be passed to the method (for example,
-         * perhaps it contains no data), then this can be used to indicate which event this handler
-         * handles.
-         */
-        //val eventClass: Class<*> = Any::class.java
- )
+annotation class EventHandler
