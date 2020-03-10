@@ -9,6 +9,7 @@ import io.cloudstate.kotlinsupport.logger
 
 import org.junit.Test
 import java.lang.reflect.Constructor
+import kotlin.system.measureTimeMillis
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import io.cloudstate.javasupport.eventsourced.EventSourcedEntity as JEventSourcedEntity
@@ -19,8 +20,17 @@ class EventSourcedTranscoderTest {
 
     @Test
     fun `List Names of Methods in Log`() {
-        val transcoder = EventSourcedTranscoder(TestEntity::class.java)
-        val targetClazzRepresentation: Class<*>? = transcoder.transcode()
+        var transcoder: EventSourcedTranscoder
+
+        var targetClazzRepresentation: Class<*>? = null
+
+        val executionTime = measureTimeMillis {
+            // block of code to be measured
+            transcoder = EventSourcedTranscoder(TestEntity::class.java)
+            targetClazzRepresentation = transcoder.transcode()
+        }
+
+        log.info("Transcode measured time -> $executionTime")
 
         val ctor: Constructor<*>? = targetClazzRepresentation?.getConstructor(String::class.java)
         val entityInstance: TestEntity = ctor?.newInstance("entityId") as TestEntity
