@@ -4,7 +4,7 @@ import io.cloudstate.javasupport.eventsourced.EventHandler;
 
 import java.lang.annotation.Annotation;
 
-public class EventHandlerImpl implements EventHandler {
+public final class EventHandlerImpl implements EventHandler {
 
     public Class<? extends Annotation> annotationType() {
         return EventHandler.class;

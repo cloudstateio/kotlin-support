@@ -4,7 +4,7 @@ import io.cloudstate.javasupport.eventsourced.EventSourcedEntity;
 
 import java.lang.annotation.Annotation;
 
-public class EventSourcedEntityImpl implements EventSourcedEntity {
+public final class EventSourcedEntityImpl implements EventSourcedEntity {
 
     private final String persistenceId;
     private final int snapshotEvery;

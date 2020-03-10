@@ -18,5 +18,4 @@ class ReflectionHelper {
         return methods
     }
 
-
 }

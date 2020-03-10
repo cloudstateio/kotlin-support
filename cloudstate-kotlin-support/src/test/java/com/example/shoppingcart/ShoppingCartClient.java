@@ -183,6 +183,3 @@ public abstract class ShoppingCartClient extends ShoppingCartClientPowerApi impl
   }
 
 }
-
-
-
