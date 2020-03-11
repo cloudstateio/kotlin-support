@@ -177,9 +177,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <from>
+                    <!--<from>
                         <image>openjdk:8u242-jdk</image>
-                    </from>
+                    </from>-->
                     <to>
                         <image>${repo.name}</image>
                         <credHelper></credHelper>
