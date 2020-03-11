@@ -1,16 +1,24 @@
 package io.cloudstate.kotlinsupport.initializers
 
 import io.cloudstate.kotlinsupport.StatefulServiceDescriptor
+import io.cloudstate.kotlinsupport.logger
 import io.cloudstate.kotlinsupport.transcoding.CrdtTranscoder
 import io.cloudstate.kotlinsupport.transcoding.EventSourcedTranscoder
+import net.bytebuddy.agent.ByteBuddyAgent
 
 class CloudStateInitializer {
+    private val log = logger()
 
     internal val statefulServiceDescriptors: MutableList<StatefulServiceDescriptor> = mutableListOf<StatefulServiceDescriptor>()
 
     internal var configInit = ConfigIntializer()
     internal var crdtSourcedInit = CrdtEntityInitializer()
     internal var eventSourcedInit = EventSourcedEntityInitializer()
+
+    init {
+        log.debug("Initializing ByteBuddy Agent....")
+        ByteBuddyAgent.install()
+    }
 
     fun config(configInitializer: ConfigIntializer.() -> Unit) {
         configInit.configInitializer()

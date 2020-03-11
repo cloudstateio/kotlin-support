@@ -17,11 +17,6 @@ class EventSourcedTranscoder(private val clazz: Class<*>): Transcoder {
     private val log = logger()
     private val helper = ReflectionHelper()
 
-    init {
-        log.debug("Initializing ByteBuddy Agent....")
-        ByteBuddyAgent.install()
-    }
-
     override fun transcode(): Class<*>? = transcode(clazz)
 
     private fun transcode(clazz: Class<*>): Class<out Any>? {
