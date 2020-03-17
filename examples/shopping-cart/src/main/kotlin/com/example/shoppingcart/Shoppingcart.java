@@ -3735,7 +3735,7 @@ public final class Shoppingcart {
         new com.google.protobuf.Descriptors.FileDescriptor[] {
           com.google.protobuf.EmptyProto.getDescriptor(),
           io.cloudstate.EntityKey.getDescriptor(),
-          io.cloudstate   .EventsProto.getDescriptor(),
+          io.cloudstate.EventsProto.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           com.google.api.HttpProto.getDescriptor(),
           com.google.api.HttpBodyProto.getDescriptor(),
