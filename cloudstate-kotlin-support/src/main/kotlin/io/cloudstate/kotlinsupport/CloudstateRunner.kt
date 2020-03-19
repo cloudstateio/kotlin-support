@@ -73,9 +73,9 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                         "SUPPORT_LIBRARY_VERSION" to getProjectVersion()))
 
         val properties: Properties = Properties()
-        properties.setProperty("cloudstate.system.akka.loglevel", initializer.loglevel)
-        properties.setProperty("cloudstate.user-function-interface", initializer.host)
-        properties.setProperty("cloudstate.user-function-port", initializer.port.toString())
+        properties.setProperty("cloudstate.system.akka.loglevel", initializer.configInit.loglevel)
+        properties.setProperty("cloudstate.user-function-interface", initializer.configInit.host)
+        properties.setProperty("cloudstate.user-function-port", initializer.configInit.port.toString())
 
         return ConfigFactory.parseProperties(properties)
                 .withFallback(ConfigFactory.defaultApplication())

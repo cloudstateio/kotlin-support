@@ -16,6 +16,7 @@
     <modules>
         <module>shopping-cart</module>
         <module>kotlin-pingpong</module>
+        <module>kotlin-chat</module>
     </modules>
 
 

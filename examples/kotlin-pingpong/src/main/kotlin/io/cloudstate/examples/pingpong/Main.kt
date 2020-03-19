@@ -4,7 +4,7 @@ import io.cloudstate.kotlinsupport.cloudstate
 
 fun main() {
     cloudstate {
-        registerEventSourcedEntity {
+        eventsourced {
             entityService = PingPongEntity::class
             descriptor = Pingpong.getDescriptor().findServiceByName("PingPongService")
             additionalDescriptors = arrayOf( Pingpong.getDescriptor() )
