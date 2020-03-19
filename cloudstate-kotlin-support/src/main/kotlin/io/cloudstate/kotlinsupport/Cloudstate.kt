@@ -11,10 +11,8 @@ fun cloudstate(paramsInitializer: CloudStateInitializer.() -> Unit): CloudStateR
     val type = cloudStateInitializer.eventSourcedInit.type
             ?: throw IllegalArgumentException("type must be set")
 
-    val persistenceId = cloudStateInitializer.eventSourcedInit.persistenceId
-            ?: throw IllegalArgumentException("persistenceId must be set")
-
     return CloudStateRunner(cloudStateInitializer)
             .withAllRegisters()
 }
+
 

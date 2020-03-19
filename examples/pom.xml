@@ -10,11 +10,12 @@
     <parent>
         <groupId>io.cloudstate</groupId>
         <artifactId>kotlin-support</artifactId>
-        <version>1.0.2-SNAPSHOT</version>
+        <version>0.4.3</version>
     </parent>
 
     <modules>
         <module>shopping-cart</module>
+        <module>kotlin-pingpong</module>
     </modules>
 
 

@@ -1,4 +1,5 @@
 // This is the public API offered by the shopping cart entity.
+// #example-shopping-cart-proto
 syntax = "proto3";
 
 package com.example.shoppingcart;
@@ -59,3 +60,4 @@ service ShoppingCart {
         };
     }
 }
+// #example-shopping-cart-proto

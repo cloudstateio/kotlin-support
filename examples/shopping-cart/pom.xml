@@ -6,7 +6,7 @@
 
     <groupId>io.cloudstate</groupId>
     <artifactId>shopping-cart</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>0.4.3</version>
 
     <properties>
         <main.class>com.example.shoppingcart.Main</main.class>
@@ -193,6 +193,9 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <from>
+                        <image>openjdk:8u242-jdk</image>
+                    </from>
                     <to>
                         <image>${repo.name}</image>
                         <credHelper></credHelper>

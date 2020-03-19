@@ -1,41 +1,17 @@
 # kotlin-support
+
 User Language Support for the Kotlin Programming Language
 
-```
-package com.example.shoppingcart
+## EventSourcing example of use
 
-import com.example.shoppingcart.persistence.Domain
-import io.cloudstate.kotlinsupport.cloudstate
+### Define your proto
 
-class Main {
-    companion object {
+@@snip [shoppingcart.proto](/examples/shopping-cart/src/main/proto/shoppingcart.proto) { #example-shopping-cart-proto }
 
-        @JvmStatic
-        fun main(args: Array<String>) {
+### Write your business logic
 
-            cloudstate {
+@@snip [ShoppingCartEntity.kt](/examples/shopping-cart/src/main/kotlin/com/example/shoppingcart/ShoppingCartEntity.kt) { #example-shopping-cart-kotlin }
 
-                host = "0.0.0.0"
-                port = 8088
-                loglevel = "INFO"
+### Register your Entity
 
-                registerEventSourcedEntity {
-                    entityService = ShoppingCartEntity::class.java
-
-                    descriptor = Shoppingcart.getDescriptor().findServiceByName("ShoppingCart")
-                    additionalDescriptors = arrayOf( Domain.getDescriptor() )
-
-                    snapshotEvery = 1
-                    persistenceId = "shopping-cart"
-                }
-
-                // registerCrdtEntity {  }
-
-            }.start()
-                    .toCompletableFuture()
-                    .get()
-        }
-
-    }
-}
-```
+@@snip [Main.kt](/examples/shopping-cart/src/main/kotlin/com/example/shoppingcart/Main.kt) { #example-shopping-cart-main }

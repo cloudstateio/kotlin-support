@@ -1,5 +1,7 @@
+// #example-shopping-cart-main
 package com.example.shoppingcart
 
+import ShoppingCartEntity
 import com.example.shoppingcart.persistence.Domain
 import io.cloudstate.kotlinsupport.cloudstate
 
@@ -16,7 +18,7 @@ class Main {
                 loglevel = "INFO"
 
                 registerEventSourcedEntity {
-                    entityService = ShoppingCartEntity::class.java
+                    entityService = ShoppingCartEntity::class
 
                     descriptor = Shoppingcart.getDescriptor().findServiceByName("ShoppingCart")
                     additionalDescriptors = arrayOf( Domain.getDescriptor() )
@@ -25,8 +27,6 @@ class Main {
                     persistenceId = "shopping-cart"
                 }
 
-                // registerCrdtEntity {  }
-
             }.start()
                     .toCompletableFuture()
                     .get()
@@ -34,3 +34,4 @@ class Main {
 
     }
 }
+// #example-shopping-cart-main

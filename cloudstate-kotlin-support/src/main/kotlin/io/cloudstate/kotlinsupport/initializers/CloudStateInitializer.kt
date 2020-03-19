@@ -1,10 +1,13 @@
 package io.cloudstate.kotlinsupport.initializers
 
 import io.cloudstate.kotlinsupport.StatefulServiceDescriptor
-import io.cloudstate.kotlinsupport.initializers.crdt.CrdtEntityInitializer
-import io.cloudstate.kotlinsupport.initializers.eventsourced.EventSourcedEntityInitializer
+import io.cloudstate.kotlinsupport.logger
+import io.cloudstate.kotlinsupport.transcoding.CrdtTranscoder
+import io.cloudstate.kotlinsupport.transcoding.EventSourcedTranscoder
+import net.bytebuddy.agent.ByteBuddyAgent
 
 class CloudStateInitializer {
+    private val log = logger()
 
     internal val statefulServiceDescriptors: MutableList<StatefulServiceDescriptor> = mutableListOf<StatefulServiceDescriptor>()
 
@@ -15,13 +18,22 @@ class CloudStateInitializer {
     internal var crdtSourcedInit = CrdtEntityInitializer()
     internal var eventSourcedInit = EventSourcedEntityInitializer()
 
+    init {
+        log.debug("Initializing ByteBuddy Agent....")
+        ByteBuddyAgent.install()
+    }
+
     fun registerEventSourcedEntity(eventSourcedInitializer: EventSourcedEntityInitializer.() -> Unit) {
         eventSourcedInit.eventSourcedInitializer()
+
+        // This cast prevent 'smart cast is impossible' error
+        val entityServiceType: Class<*> = eventSourcedInit.entityService!!.java as Class<*>
 
         statefulServiceDescriptors.add(
                 StatefulServiceDescriptor(
                         entityType = eventSourcedInit.type,
-                        entityService = eventSourcedInit.entityService,
+                        serviceClass = entityServiceType,
+                        transcoder = entityServiceType?.let { EventSourcedTranscoder(it) },
                         descriptor = eventSourcedInit.descriptor,
                         additionalDescriptors = eventSourcedInit.additionalDescriptors,
                         persistenceId = eventSourcedInit.persistenceId,
@@ -34,12 +46,16 @@ class CloudStateInitializer {
     fun registerCrdtEntity(crdtInitializer: CrdtEntityInitializer.() -> Unit) {
         crdtSourcedInit.crdtInitializer()
 
+        // This cast prevent 'smart cast is impossible' error
+        val entityServiceType: Class<*> = crdtSourcedInit.entityService!!.java as Class<*>
+
         statefulServiceDescriptors.add(
                 StatefulServiceDescriptor(
                         entityType = crdtSourcedInit.type,
+                        serviceClass = entityServiceType,
+                        transcoder = entityServiceType?.let { CrdtTranscoder(it) },
                         descriptor = crdtSourcedInit.descriptor,
                         additionalDescriptors = crdtSourcedInit.additionalDescriptors)
-
         )
 
     }

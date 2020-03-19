@@ -9,6 +9,7 @@ import io.cloudstate.javasupport.impl.AnySupport
 import io.cloudstate.javasupport.impl.crdt.AnnotationBasedCrdtSupport
 import io.cloudstate.javasupport.impl.eventsourced.AnnotationBasedEventSourcedSupport
 import io.cloudstate.kotlinsupport.initializers.CloudStateInitializer
+import net.bytebuddy.agent.ByteBuddyAgent
 import java.util.*
 import java.util.concurrent.CompletionStage
 
@@ -25,24 +26,32 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
         conf = getConfig()
 
         initializer.statefulServiceDescriptors.forEach{ descriptor ->
-            val anySupport = newAnySupport(descriptor.additionalDescriptors)
 
             when(descriptor.entityType) {
+
                 EntityType.EventSourced -> {
+                    val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
+                    val clazz: Class<*>? = descriptor.transcoder!!.transcode()
+
                     engine.registerEventSourcedEntity(
-                            AnnotationBasedEventSourcedSupport(descriptor.entityService, anySupport, descriptor.descriptor),
+                            AnnotationBasedEventSourcedSupport(descriptor.serviceClass, anySupport, descriptor.descriptor),
                             descriptor.descriptor,
                             descriptor.persistenceId,
                             descriptor.snapshotEvery,
                             *descriptor.additionalDescriptors)
                 }
+
                 EntityType.Crdt -> {
+                    val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
+                    val clazz: Class<*>? = descriptor.transcoder!!.transcode()
+
                     engine.registerCrdtEntity(
-                            AnnotationBasedCrdtSupport(descriptor.entityService, anySupport, descriptor.descriptor),
+                            AnnotationBasedCrdtSupport(clazz, anySupport, descriptor.descriptor),
                             descriptor.descriptor,
                             *descriptor.additionalDescriptors)
 
                 }
+
                 else -> {
                     log.warn("Unknown type of Entity")
                     throw IllegalStateException("Unknown type of Entity")
