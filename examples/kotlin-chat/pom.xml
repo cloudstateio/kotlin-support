@@ -5,12 +5,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.cloudstate</groupId>
-    <artifactId>shopping-cart</artifactId>
+    <artifactId>kotlin-chat</artifactId>
     <version>0.4.3</version>
 
     <properties>
-        <main.class>com.example.shoppingcart.MainKt</main.class>
-        <repo.name>sleipnir/shopping-cart</repo.name>
+        <main.class>io.cloudstate.examples.chat.presence.MainKt</main.class>
+        <repo.name>sleipnir/kotlin-chat</repo.name>
         <tag.version>${project.version}</tag.version>
 
         <kotlin.version>1.3.61</kotlin.version>
@@ -31,26 +31,10 @@
             <version>${project.version}</version>
         </dependency>
 
-        <!-- Test -->
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test-junit</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <build>
         <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
 
         <extensions>
             <extension>
@@ -193,9 +177,6 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <from>
-                        <image>openjdk:8u242-jdk</image>
-                    </from>
                     <to>
                         <image>${repo.name}</image>
                         <credHelper></credHelper>
@@ -217,5 +198,4 @@
             </plugin>
         </plugins>
     </build>
-    
 </project>

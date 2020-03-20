@@ -1,26 +1,21 @@
 package io.cloudstate.kotlinsupport.transcoding
 
 import io.cloudstate.kotlinsupport.ReflectionHelper
-import io.cloudstate.javasupport.crdt.CrdtEntity as JCrdtEntity
-
 import io.cloudstate.kotlinsupport.api.crdt.*
 import io.cloudstate.kotlinsupport.logger
-import io.cloudstate.kotlinsupport.transcoding.crdt.*
+import io.cloudstate.kotlinsupport.transcoding.crdt.CommandHandlerImpl
+import io.cloudstate.kotlinsupport.transcoding.crdt.CrdtEntityImpl
 import net.bytebuddy.ByteBuddy
 import net.bytebuddy.agent.ByteBuddyAgent
 import net.bytebuddy.asm.MemberAttributeExtension
 import net.bytebuddy.dynamic.DynamicType
 import net.bytebuddy.dynamic.loading.ClassReloadingStrategy
 import net.bytebuddy.matcher.ElementMatchers
+import io.cloudstate.javasupport.crdt.CrdtEntity as JCrdtEntity
 
-class CrdtTranscoder(private val clazz: Class<*>): Transcoder {
+class CrdtTranscoder(private val clazz: Class<*>) : Transcoder {
     private val log = logger()
     private val helper = ReflectionHelper()
-
-    init {
-        log.debug("Initializing ByteBuddy Agent....")
-        ByteBuddyAgent.install()
-    }
 
     override fun transcode(): Class<*>? = transcode(clazz)
 
@@ -64,13 +59,14 @@ class CrdtTranscoder(private val clazz: Class<*>): Transcoder {
 
         val entityAnnotation = clazz.getAnnotation(annotation)
 
-        return when { entityAnnotation != null -> {
-            ByteBuddy()
-                    .redefine(clazz)
-                    .annotateType(
-                            mutableListOf(
-                                    CrdtEntityImpl()))
-        }
+        return when {
+            entityAnnotation != null -> {
+                ByteBuddy()
+                        .redefine(clazz)
+                        .annotateType(
+                                mutableListOf(
+                                        CrdtEntityImpl()))
+            }
             else -> {
                 ByteBuddy()
                         .redefine(clazz)
