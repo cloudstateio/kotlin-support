@@ -146,7 +146,7 @@
                         <configuration>
                             <sourceDirs>
                                 <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-                                <sourceDir>${project.basedir}/src/test/java</sourceDir>
+                                <sourceDir>${project.build.directory}/generated-sources/akka-grpc-java</sourceDir>
                             </sourceDirs>
                         </configuration>
                     </execution>
@@ -160,6 +160,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <generatedTestSourcesDirectory>${project.build.directory}/generated-sources/akka-grpc-java</generatedTestSourcesDirectory>
                 </configuration>
                 <executions>
                     <!-- Replacing default-compile as it is treated specially by maven -->
@@ -206,6 +207,14 @@
                         <protoPath>src/test/protobuf</protoPath>
                     </protoPaths>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
