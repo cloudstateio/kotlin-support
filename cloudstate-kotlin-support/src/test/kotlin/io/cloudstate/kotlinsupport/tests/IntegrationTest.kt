@@ -28,15 +28,15 @@ class IntegrationTests {
     fun `Validate User Function Contract`() {
         log.info("Starting ShoppingCart Integration Test...")
 
-        val userFunctionPort = userFunction.firstMappedPort.toString()
+        val userFunctionPort = userFunction.getFirstMappedPort().toString()
         log.debug("User Function Port -> $userFunctionPort")
 
         //We create here, without @Rule because we need to wait for the user's container to be created
         val proxy: FixedHostPortGenericContainer<*> = getProxy(userFunctionPort)
                 .also(FixedHostPortGenericContainer<*>::start)
 
-        log.info("Port bindings ${proxy.portBindings.size}")
-        proxy.portBindings.forEach{ binding -> log.info("Port Binding -> $binding")}
+        log.info("Port bindings ${proxy.getPortBindings().size}")
+        proxy.getPortBindings().forEach{ binding -> log.info("Port Binding -> $binding")}
 
         val clientSettings = GrpcClientSettings.connectToServiceAt("localhost", 9000, sys)
                 .withTls(false)
@@ -58,46 +58,46 @@ class IntegrationTests {
                         log.error("Error on getCart", throwable)
                     }
                 }.toCompletableFuture()
-                 .get(50, TimeUnit.SECONDS)
+                .get(50, TimeUnit.SECONDS)
 
         log.info("Cart items -> $cartItems")
 
     }
 
     private fun addLineItem(): ShoppingCartProto.AddLineItem? =
-        ShoppingCartProto.AddLineItem.newBuilder()
-                .setUserId("Adriano Santos Sleipnir")
-                .setName("TestProduct")
-                .setProductId("1234587654")
-                .setQuantity(1)
-                .build()
+            ShoppingCartProto.AddLineItem.newBuilder()
+                    .setUserId("Adriano Santos Sleipnir")
+                    .setName("TestProduct")
+                    .setProductId("1234587654")
+                    .setQuantity(1)
+                    .build()
 
     private fun getCart(): ShoppingCartProto.GetShoppingCart? =
-        ShoppingCartProto.GetShoppingCart.newBuilder()
-                .setUserId("Adriano Santos Sleipnir")
-                .build()
+            ShoppingCartProto.GetShoppingCart.newBuilder()
+                    .setUserId("Adriano Santos Sleipnir")
+                    .build()
 
     private fun getUserFunction(): FixedHostPortGenericContainer<*> =
-        FixedHostPortGenericContainer<Nothing>("sleipnir/shopping-cart:latest")
-                .apply{
-                    withExposedPorts(8080)
-                    withLogConsumer(Slf4jLogConsumer(log))
-                    waitingFor(
-                            Wait.forLogMessage(".*Successfully bound to .*", 1)
-                    )
-                }
+            FixedHostPortGenericContainer<Nothing>("sleipnir/shopping-cart:latest")
+                    .apply{
+                        withExposedPorts(8080)
+                        withLogConsumer(Slf4jLogConsumer(log))
+                        waitingFor(
+                                Wait.forLogMessage(".*Successfully bound to .*", 1)
+                        )
+                    }
 
     private fun getProxy(userFunctionPort: String): FixedHostPortGenericContainer<*> =
-        FixedHostPortGenericContainer<Nothing>("cloudstateio/cloudstate-proxy-native-dev-mode:latest")
-                .apply {
-                    withNetworkMode("host")
-                    //withExposedPorts(9000)
-                    withFixedExposedPort(9000, 9000)
-                    withEnv("USER_FUNCTION_PORT", userFunctionPort)
-                    withLogConsumer(Slf4jLogConsumer(log))
-                    waitingFor(
-                            Wait.forLogMessage(".*CloudState proxy online.*", 1)
-                    )
-                }
+            FixedHostPortGenericContainer<Nothing>("cloudstateio/cloudstate-proxy-native-dev-mode:latest")
+                    .apply {
+                        withNetworkMode("host")
+                        //withExposedPorts(9000)
+                        withFixedExposedPort(9000, 9000)
+                        withEnv("USER_FUNCTION_PORT", userFunctionPort)
+                        withLogConsumer(Slf4jLogConsumer(log))
+                        waitingFor(
+                                Wait.forLogMessage(".*CloudState proxy online.*", 1)
+                        )
+                    }
 
 }
