@@ -1,6 +1,8 @@
 package io.cloudstate.kotlinsupport
 
 import java.lang.reflect.AccessibleObject;
+import java.lang.reflect.Member
+import java.lang.reflect.Method
 
 class ReflectionHelper {
 
@@ -26,5 +28,17 @@ class ReflectionHelper {
         }
         return accessible
     }
+
+    fun getAllDeclaredMethods(clazz: Class<*>): Set<Method>  =
+        if (clazz.superclass == null ) {
+            clazz.declaredMethods.toSet()
+        } else {
+            clazz.declaredMethods.toSet().union(getAllDeclaredMethods(clazz.superclass))
+        }
+
+    fun getCapitalizedName(member: Member): String =
+        if (member.name[0].isLowerCase()) {
+            member.name[0].toUpperCase() + member.name.drop(1)
+        } else member.name
 
 }
