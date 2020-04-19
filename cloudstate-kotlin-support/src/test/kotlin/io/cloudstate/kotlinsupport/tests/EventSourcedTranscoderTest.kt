@@ -6,6 +6,7 @@ import io.cloudstate.javasupport.EntityId
 import io.cloudstate.kotlinsupport.api.eventsourced.*
 import io.cloudstate.kotlinsupport.transcoding.EventSourcedTranscoder
 import io.cloudstate.kotlinsupport.logger
+import net.bytebuddy.agent.ByteBuddyAgent
 
 import org.junit.Test
 import java.lang.reflect.Constructor
@@ -17,6 +18,11 @@ import io.cloudstate.javasupport.eventsourced.EventSourcedEntity as JEventSource
 class EventSourcedTranscoderTest {
 
     private val log = logger()
+
+    init {
+        log.debug("Initializing ByteBuddy Agent....")
+        ByteBuddyAgent.install()
+    }
 
     @Test
     fun `List Names of Methods in Log`() {
@@ -35,16 +41,16 @@ class EventSourcedTranscoderTest {
         val ctor: Constructor<*>? = targetClazzRepresentation?.getConstructor(String::class.java)
         val entityInstance: TestEntity = ctor?.newInstance("entityId") as TestEntity
 
-        var eventSourcedEntity = entityInstance.javaClass.getAnnotation(JEventSourcedEntity::class.java)
+        val eventSourcedEntity = entityInstance.javaClass.getAnnotation(JEventSourcedEntity::class.java)
 
         log.info("Entity type is not null. Type is ${eventSourcedEntity?.javaClass?.simpleName}")
         assertNotNull(entityInstance)
 
-        entityInstance?.javaClass?.annotations.forEach {
+        entityInstance.javaClass.annotations.forEach {
             log.info("Test Class annotation found. $it")
         }
 
-        entityInstance?.javaClass?.methods.forEach {
+        entityInstance.javaClass.methods.forEach {
             it.annotations.forEach { annotation ->
                 log.info("Found annotation $annotation in ${it.name}")
             }
