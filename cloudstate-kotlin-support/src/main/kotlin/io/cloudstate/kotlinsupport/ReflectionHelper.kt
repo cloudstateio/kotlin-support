@@ -1,5 +1,7 @@
 package io.cloudstate.kotlinsupport
 
+import java.lang.reflect.AccessibleObject;
+
 class ReflectionHelper {
 
     private val log = logger()
@@ -16,6 +18,13 @@ class ReflectionHelper {
 
         log.debug("${methods.size} Annotations of type ${annotationClass.simpleName} found in ${type.simpleName}")
         return methods
+    }
+
+    fun <T: AccessibleObject> ensureAccessible(accessible: T): T {
+        if (!accessible.isAccessible) {
+            accessible.isAccessible = true
+        }
+        return accessible
     }
 
 }

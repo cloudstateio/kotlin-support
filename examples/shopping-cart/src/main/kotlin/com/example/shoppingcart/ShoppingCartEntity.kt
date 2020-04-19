@@ -53,7 +53,7 @@ class ShoppingCartEntity(@param:EntityId private val entityId: String) {
     @CommandHandler
     fun addItem(item: Shoppingcart.AddLineItem, ctx: CommandContext): Empty {
         if (item.quantity <= 0) {
-            ctx.fail("Cannot add negative quantity of to item ${item.productId}" )
+            ctx.fail("Cannot add negative quantity of to item ${item.productId}")
         }
         ctx.emit(
                 Domain.ItemAdded.newBuilder()

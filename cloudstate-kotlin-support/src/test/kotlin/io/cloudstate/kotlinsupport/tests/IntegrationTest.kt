@@ -28,15 +28,15 @@ class IntegrationTests {
     fun `Validate User Function Contract`() {
         log.info("Starting ShoppingCart Integration Test...")
 
-        val userFunctionPort = userFunction.firstMappedPort.toString()
+        val userFunctionPort = userFunction.getFirstMappedPort().toString()
         log.debug("User Function Port -> $userFunctionPort")
 
         //We create here, without @Rule because we need to wait for the user's container to be created
         val proxy: FixedHostPortGenericContainer<*> = getProxy(userFunctionPort)
                 .also(FixedHostPortGenericContainer<*>::start)
 
-        log.info("Port bindings ${proxy.portBindings.size}")
-        proxy.portBindings.forEach{ binding -> log.info("Port Binding -> $binding")}
+        log.info("Port bindings ${proxy.getPortBindings().size}")
+        proxy.getPortBindings().forEach{ binding -> log.info("Port Binding -> $binding")}
 
         val clientSettings = GrpcClientSettings.connectToServiceAt("localhost", 9000, sys)
                 .withTls(false)
