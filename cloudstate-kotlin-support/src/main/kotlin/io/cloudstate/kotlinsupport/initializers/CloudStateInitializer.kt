@@ -2,8 +2,6 @@ package io.cloudstate.kotlinsupport.initializers
 
 import io.cloudstate.kotlinsupport.StatefulServiceDescriptor
 import io.cloudstate.kotlinsupport.logger
-import io.cloudstate.kotlinsupport.transcoding.CrdtTranscoder
-import io.cloudstate.kotlinsupport.transcoding.EventSourcedTranscoder
 import net.bytebuddy.agent.ByteBuddyAgent
 
 class CloudStateInitializer {
@@ -34,7 +32,6 @@ class CloudStateInitializer {
                 StatefulServiceDescriptor(
                         entityType = eventSourcedInit.type,
                         serviceClass = entityServiceType,
-                        transcoder = entityServiceType?.let { EventSourcedTranscoder(it) },
                         descriptor = eventSourcedInit.descriptor,
                         additionalDescriptors = eventSourcedInit.additionalDescriptors,
                         persistenceId = eventSourcedInit.persistenceId,
@@ -54,7 +51,6 @@ class CloudStateInitializer {
                 StatefulServiceDescriptor(
                         entityType = crdtSourcedInit.type,
                         serviceClass = entityServiceType,
-                        transcoder = entityServiceType?.let { CrdtTranscoder(it) },
                         descriptor = crdtSourcedInit.descriptor,
                         additionalDescriptors = crdtSourcedInit.additionalDescriptors)
         )
