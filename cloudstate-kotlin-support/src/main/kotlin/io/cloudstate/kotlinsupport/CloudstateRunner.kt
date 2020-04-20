@@ -8,6 +8,7 @@ import io.cloudstate.javasupport.CloudState
 import io.cloudstate.javasupport.impl.AnySupport
 import io.cloudstate.javasupport.impl.crdt.AnnotationBasedCrdtSupport
 import io.cloudstate.javasupport.impl.eventsourced.AnnotationBasedEventSourcedSupport
+import io.cloudstate.kotlinsupport.api.eventsourced.KotlinAnnotationBasedEventSourced
 import io.cloudstate.kotlinsupport.initializers.CloudStateInitializer
 import net.bytebuddy.agent.ByteBuddyAgent
 import java.util.*
@@ -31,10 +32,9 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
 
                 EntityType.EventSourced -> {
                     val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
-                    val clazz: Class<*>? = descriptor.transcoder!!.transcode()
 
                     engine.registerEventSourcedEntity(
-                            AnnotationBasedEventSourcedSupport(descriptor.serviceClass, anySupport, descriptor.descriptor),
+                            KotlinAnnotationBasedEventSourced(descriptor.serviceClass!!.javaClass, anySupport!!, descriptor.descriptor!!),
                             descriptor.descriptor,
                             descriptor.persistenceId,
                             descriptor.snapshotEvery,
@@ -43,10 +43,9 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
 
                 EntityType.Crdt -> {
                     val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
-                    val clazz: Class<*>? = descriptor.transcoder!!.transcode()
 
                     engine.registerCrdtEntity(
-                            AnnotationBasedCrdtSupport(clazz, anySupport, descriptor.descriptor),
+                            AnnotationBasedCrdtSupport(descriptor.serviceClass!!.javaClass, anySupport, descriptor.descriptor),
                             descriptor.descriptor,
                             *descriptor.additionalDescriptors)
 
