@@ -22,10 +22,6 @@ class ReflectionHelper {
         return methods
     }
 
-    /*fun getAnnotation(method: Method, clazz: Class<java.lang.annotation.Annotation>): java.lang.annotation.Annotation {
-        return method.getAnnotation(clazz)!!
-    }*/
-
     fun <T: AccessibleObject> ensureAccessible(accessible: T): T {
         if (!accessible.isAccessible) {
             accessible.isAccessible = true

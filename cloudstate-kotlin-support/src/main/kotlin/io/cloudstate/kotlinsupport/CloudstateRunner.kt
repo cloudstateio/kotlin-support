@@ -6,11 +6,9 @@ import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 import io.cloudstate.javasupport.CloudState
 import io.cloudstate.javasupport.impl.AnySupport
-import io.cloudstate.javasupport.impl.crdt.AnnotationBasedCrdtSupport
-import io.cloudstate.javasupport.impl.eventsourced.AnnotationBasedEventSourcedSupport
+import io.cloudstate.kotlinsupport.api.crdt.KotlinAnnotationBasedCrdt
 import io.cloudstate.kotlinsupport.api.eventsourced.KotlinAnnotationBasedEventSourced
 import io.cloudstate.kotlinsupport.initializers.CloudStateInitializer
-import net.bytebuddy.agent.ByteBuddyAgent
 import java.util.*
 import java.util.concurrent.CompletionStage
 
@@ -45,15 +43,9 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                     val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
 
                     engine.registerCrdtEntity(
-                            AnnotationBasedCrdtSupport(descriptor.serviceClass!!.javaClass, anySupport, descriptor.descriptor),
+                            KotlinAnnotationBasedCrdt(descriptor.serviceClass!!.javaClass, anySupport!!, descriptor.descriptor!!),
                             descriptor.descriptor,
                             *descriptor.additionalDescriptors)
-
-                }
-
-                else -> {
-                    log.warn("Unknown type of Entity")
-                    throw IllegalStateException("Unknown type of Entity")
                 }
 
             }
