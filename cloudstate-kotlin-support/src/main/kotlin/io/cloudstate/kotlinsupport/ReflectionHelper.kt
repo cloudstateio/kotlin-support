@@ -1,5 +1,7 @@
 package io.cloudstate.kotlinsupport
 
+import io.cloudstate.javasupport.Context
+import io.cloudstate.javasupport.eventsourced.CommandContext
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Member
 import java.lang.reflect.Method
@@ -40,5 +42,19 @@ class ReflectionHelper {
         if (member.name[0].isLowerCase()) {
             member.name[0].toUpperCase() + member.name.drop(1)
         } else member.name
+
+    fun getParameters(method: Method, command: com.google.protobuf.Any, context: CommandContext): Array<Any> {
+        command.typeUrl
+        command.value
+        var args= arrayOf<Any>()
+        for (Parameter in method.parameters)
+        method.parameters.forEach { param ->
+            if (param.type.isAssignableFrom(Context::class.java)) {
+                args
+
+            }
+        }
+        return listOf<Any>("").toTypedArray()
+    }
 
 }

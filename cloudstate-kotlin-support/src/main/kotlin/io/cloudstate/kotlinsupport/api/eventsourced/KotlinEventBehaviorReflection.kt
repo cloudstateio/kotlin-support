@@ -14,17 +14,17 @@ class KotlinEventBehaviorReflection(private val entityClass: Class<*>, private v
     private val reflectionHelper: ReflectionHelper = ReflectionHelper()
     private val allMethods = reflectionHelper.getAllDeclaredMethods(entityClass)
 
-    private val snapshotInvoker = getSnapshotInvoker()
-    private val eventHandlers = getEventHandlers()
-    private val commandHandlers = getCommandHandlers()
-    private val snapshotHandlers  = getSnapshotHandlers()
+    val snapshotInvoker = findSnapshotInvoker()
+    val eventHandlers = findEventHandlers()
+    val commandHandlers = findCommandHandlers()
+    val snapshotHandlers  = findSnapshotHandlers()
 
     fun getCachedEventHandlerForClass(clazz: Class<*>): Optional<KotlinAnnotationBasedEventSourced.EventHandlerInvoker> {
         //Todo: Get EventHandlerInvoker for type of event
         return Optional.empty<KotlinAnnotationBasedEventSourced.EventHandlerInvoker>()
     }
 
-    private fun getEventHandlers(): Map<Class<*>, KotlinAnnotationBasedEventSourced.EventHandlerInvoker> =
+    private fun findEventHandlers(): Map<Class<*>, KotlinAnnotationBasedEventSourced.EventHandlerInvoker> =
         allMethods
                 .filter { it.isAnnotationPresent(EventHandler::class.java)  }
                 .map { method -> Pair(
@@ -32,7 +32,7 @@ class KotlinEventBehaviorReflection(private val entityClass: Class<*>, private v
                         KotlinAnnotationBasedEventSourced.EventHandlerInvoker(reflectionHelper.ensureAccessible(method), reflectionHelper)) }
                 .toMap()
 
-    private fun getCommandHandlers(): Map<String, KotlinAnnotationBasedEventSourced.CommandHandlerInvoker> =
+    private fun findCommandHandlers(): Map<String, KotlinAnnotationBasedEventSourced.CommandHandlerInvoker> =
         allMethods
                 .filter { it.isAnnotationPresent(CommandHandler::class.java) }
                 .map { method ->
@@ -49,7 +49,7 @@ class KotlinEventBehaviorReflection(private val entityClass: Class<*>, private v
                             KotlinAnnotationBasedEventSourced.CommandHandlerInvoker(reflectionHelper.ensureAccessible(method),serviceMethod, reflectionHelper))
                 }.toMap()
 
-    private fun getSnapshotHandlers(): Map<Class<*>, KotlinAnnotationBasedEventSourced.SnapshotHandlerInvoker> =
+    private fun findSnapshotHandlers(): Map<Class<*>, KotlinAnnotationBasedEventSourced.SnapshotHandlerInvoker> =
         allMethods
                 .filter { it.isAnnotationPresent(SnapshotHandler::class.java) }
                 .map { method -> Pair(
@@ -57,7 +57,7 @@ class KotlinEventBehaviorReflection(private val entityClass: Class<*>, private v
                         KotlinAnnotationBasedEventSourced.SnapshotHandlerInvoker(reflectionHelper.ensureAccessible(method), reflectionHelper)) }
                 .toMap()
 
-    private fun getSnapshotInvoker(): Optional<KotlinAnnotationBasedEventSourced.SnapshotInvoker> {
+    private fun findSnapshotInvoker(): Optional<KotlinAnnotationBasedEventSourced.SnapshotInvoker> {
         val map = allMethods
                 .filter { it.isAnnotationPresent(Snapshot::class.java) }
                 .map { method -> KotlinAnnotationBasedEventSourced.SnapshotInvoker(reflectionHelper.ensureAccessible(method), reflectionHelper) }

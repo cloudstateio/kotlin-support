@@ -10,7 +10,6 @@ import io.cloudstate.javasupport.impl.ResolvedServiceMethod
 import io.cloudstate.javasupport.impl.eventsourced.EntityConstructorInvoker
 import io.cloudstate.kotlinsupport.ReflectionHelper
 import scala.collection.immutable.Map
-import java.lang.reflect.Field
 import java.lang.reflect.Method
 import java.util.*
 
@@ -39,7 +38,7 @@ class KotlinAnnotationBasedEventSourced(
 
         private val reflectionHelper: ReflectionHelper = ReflectionHelper()
         private val entity = {
-            context?.let { DelegatingEventSourcedContext(it) }?.let { constructor(it) }
+            context?.let { DelegatingEventSourcedContext(it) }?.let { entityConstructor(it) }
         }
 
         override fun handleEvent(anyEvent: Any?, eventContext: EventContext?) {
@@ -54,13 +53,10 @@ class KotlinAnnotationBasedEventSourced(
                 false -> throw RuntimeException(
                     "No event handler found for event ${event.javaClass} on ${entity.javaClass.name}")
             }
-
         }
 
-        override fun handleCommand(command: Any?, context: CommandContext?): Optional<Any> {
-            val reflectBehaviorCommandHandlers: Field = behavior.javaClass.getDeclaredField("commandHandlers")
-            val commandHandlers = (reflectionHelper.ensureAccessible(reflectBehaviorCommandHandlers)
-                    as Map<String, io.cloudstate.javasupport.impl.ReflectionHelper.CommandHandlerInvoker<CommandContext>>)
+        override fun handleCommand(command: Any?, context: CommandContext?): Optional<Any>? {
+            val commandHandlers = behavior.commandHandlers
 
             if (!commandHandlers.contains(context?.commandName())) {
                 throw RuntimeException(
@@ -68,9 +64,7 @@ class KotlinAnnotationBasedEventSourced(
                 )
             }
 
-            return commandHandlers.get(context?.commandName()).map { handler ->
-                handler.invoke(entity, command, context)
-            }.get();
+            return commandHandlers[context?.commandName().toString()]?.invoke(entity, command!!, context!!)
         }
 
         override fun handleSnapshot(snapshot: Any?, context: SnapshotContext?) {
@@ -81,13 +75,11 @@ class KotlinAnnotationBasedEventSourced(
             TODO("Not yet implemented")
         }
 
-        private fun constructor(context: EventSourcedEntityCreationContext): kotlin.Any {
+        private fun entityConstructor(context: EventSourcedEntityCreationContext): kotlin.Any {
             val constructors = entityClass.constructors
-
             if (constructors?.isNotEmpty()!! && constructors.size == 1) {
                 return EntityConstructorInvoker(reflectionHelper.ensureAccessible(constructors[0]))
             }
-
             throw RuntimeException("Only a single constructor is allowed on event sourced entities: $entityClass")
         }
 
@@ -105,6 +97,19 @@ class KotlinAnnotationBasedEventSourced(
             private val method: Method,
             private val serviceMethod: ResolvedServiceMethod<*, *>,
             private val reflectionHelper: ReflectionHelper){
+
+        private val name = serviceMethod.method().fullName
+        private val outputType = serviceMethod.method().outputType
+
+        fun invoke(entityInstance: kotlin.Any?, command: Any, context: CommandContext): Optional<Any>  {
+            val parameters = reflectionHelper.getParameters(method, command, context);
+            val result = method.invoke(entityInstance, parameters)
+            return handleResult(result, outputType)
+        }
+
+        private fun handleResult(result: kotlin.Any?, outputType: Descriptors.Descriptor): Optional<Any> {
+            TODO("Not yet implemented")
+        }
 
     }
 

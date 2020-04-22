@@ -6,6 +6,8 @@ import io.cloudstate.javasupport.crdt.*
 import io.cloudstate.javasupport.impl.AnySupport
 import io.cloudstate.javasupport.impl.ResolvedEntityFactory
 import io.cloudstate.javasupport.impl.ResolvedServiceMethod
+import io.cloudstate.javasupport.impl.eventsourced.EntityConstructorInvoker
+import io.cloudstate.kotlinsupport.ReflectionHelper
 import scala.collection.immutable.Map
 import java.util.*
 
@@ -17,6 +19,8 @@ class KotlinAnnotationBasedCrdt(
     constructor(entityClass: Class<*>, anySupport: AnySupport, serviceDescriptor: Descriptors.ServiceDescriptor):
         this(entityClass, anySupport, anySupport.resolveServiceDescriptor(serviceDescriptor))
 
+    private val reflectionHelper: ReflectionHelper = ReflectionHelper()
+
     override fun create(context: CrdtCreationContext?): CrdtEntityHandler = EntityHandler(entityConstructor(context))
 
     override fun resolvedMethods(): Map<String, ResolvedServiceMethod<*, *>> {
@@ -24,7 +28,13 @@ class KotlinAnnotationBasedCrdt(
     }
 
     private fun entityConstructor(context: CrdtCreationContext?): kotlin.Any {
-        TODO("Not yet implemented")
+        val constructors = entityClass.constructors
+
+        if (constructors?.isNotEmpty()!! && constructors.size == 1) {
+            return EntityConstructorInvoker(reflectionHelper.ensureAccessible(constructors[0]))
+        }
+
+        throw RuntimeException("Only a single constructor is allowed on Crdt entities: $entityClass")
     }
 
     class EntityHandler(private val entity: kotlin.Any) : CrdtEntityHandler {
