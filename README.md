@@ -2,6 +2,18 @@
 
 User Language Support for the Kotlin Programming Language
 
+## Install the Kotlin Support Library to the local Maven repository
+
+`mvn install -pl cloudstate-kotlin-support`
+
+## Examples: build and push container images to a container registry
+
+`mvn deploy -pl examples/kotlin-chat`
+
+`mvn deploy -pl examples/kotlin-pingpong`
+
+`mvn deploy -pl examples/shopping-cart`
+
 ## EventSourcing example of use
 
 ### Define your proto
