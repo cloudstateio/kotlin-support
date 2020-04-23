@@ -7,10 +7,13 @@ import io.cloudstate.kotlinsupport.annotations.eventsourced.CommandHandler
 import io.cloudstate.kotlinsupport.annotations.eventsourced.EventHandler
 import io.cloudstate.kotlinsupport.annotations.eventsourced.Snapshot
 import io.cloudstate.kotlinsupport.annotations.eventsourced.SnapshotHandler
+import io.cloudstate.kotlinsupport.logger
 import java.lang.reflect.Method
 import java.util.*
+import kotlin.reflect.KClass
 
-class KotlinEventBehaviorReflection(private val entityClass: Class<*>, private val resolvedMethods: scala.collection.immutable.Map<String, ResolvedServiceMethod<*, *>>) {
+class KotlinEventBehaviorReflection(private val entityClass: KClass<*>, private val resolvedMethods: scala.collection.immutable.Map<String, ResolvedServiceMethod<*, *>>) {
+    private val log = logger()
     private val reflectionHelper: ReflectionHelper = ReflectionHelper()
     private val allMethods = reflectionHelper.getAllDeclaredMethods(entityClass)
 
@@ -41,7 +44,7 @@ class KotlinEventBehaviorReflection(private val entityClass: Class<*>, private v
                         reflectionHelper.getCapitalizedName(method)
                     } else annotation.name
 
-                    val serviceMethod = resolvedMethods.getOrElse(name) {
+                    val serviceMethod: ResolvedServiceMethod<*,*> = resolvedMethods.getOrElse(name) {
                         throw RuntimeException("Command handler method ${method.name} for command $name found, but the service has no command by that name.")
                     }
 
@@ -58,6 +61,9 @@ class KotlinEventBehaviorReflection(private val entityClass: Class<*>, private v
                 .toMap()
 
     private fun findSnapshotInvoker(): Optional<KotlinAnnotationBasedEventSourced.SnapshotInvoker> {
+        allMethods.forEach {
+            log.debug("AllMethods::Method -> ${it.name}")
+        }
         val map = allMethods
                 .filter { it.isAnnotationPresent(Snapshot::class.java) }
                 .map { method -> KotlinAnnotationBasedEventSourced.SnapshotInvoker(reflectionHelper.ensureAccessible(method), reflectionHelper) }

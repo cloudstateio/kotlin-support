@@ -2,6 +2,7 @@ package io.cloudstate.kotlinsupport.api.eventsourced
 
 import com.google.protobuf.Any
 import com.google.protobuf.Descriptors
+import com.google.protobuf.Message
 import io.cloudstate.javasupport.ServiceCallFactory
 import io.cloudstate.javasupport.eventsourced.*
 import io.cloudstate.javasupport.impl.AnySupport
@@ -9,37 +10,40 @@ import io.cloudstate.javasupport.impl.ResolvedEntityFactory
 import io.cloudstate.javasupport.impl.ResolvedServiceMethod
 import io.cloudstate.javasupport.impl.eventsourced.EntityConstructorInvoker
 import io.cloudstate.kotlinsupport.ReflectionHelper
+import io.cloudstate.kotlinsupport.logger
 import scala.collection.immutable.Map
+import java.lang.reflect.Constructor
 import java.lang.reflect.Method
 import java.util.*
+import kotlin.reflect.KClass
 
 class KotlinAnnotationBasedEventSourced(
-        private val entityClass: Class<*>,
+        private val entityClass: KClass<*>,
         private val anySupport: AnySupport,
         private val resolvedMethods: Map<String, ResolvedServiceMethod<*, *>>)
     : EventSourcedEntityFactory, ResolvedEntityFactory {
 
-    constructor(entityClass: Class<*>,
+    private val log = logger()
+    private val behavior = KotlinEventBehaviorReflection(entityClass, resolvedMethods)
+
+    constructor(entityClass: KClass<*>,
                 anySupport: AnySupport,
                 serviceDescriptor: Descriptors.ServiceDescriptor)
             : this(entityClass, anySupport, anySupport.resolveServiceDescriptor(serviceDescriptor))
-
-    private val behavior = KotlinEventBehaviorReflection(entityClass, resolvedMethods)
 
     override fun resolvedMethods(): Map<String, ResolvedServiceMethod<*, *>> = resolvedMethods
     override fun create(context: EventSourcedContext?): EventSourcedEntityHandler =
             EntityHandler(entityClass, context, anySupport, behavior)
 
     class EntityHandler(
-            private val entityClass: Class<*>,
+            private val entityClass: KClass<*>,
             private val context: EventSourcedContext?,
             private val anySupport: AnySupport,
             private val behavior: KotlinEventBehaviorReflection) : EventSourcedEntityHandler {
 
+        private val log = logger()
         private val reflectionHelper: ReflectionHelper = ReflectionHelper()
-        private val entity = {
-            context?.let { DelegatingEventSourcedContext(it) }?.let { entityConstructor(it) }
-        }
+        private val entity = entityConstructor(DelegatingEventSourcedContext(context!!))
 
         override fun handleEvent(anyEvent: Any?, eventContext: EventContext?) {
             val event = anySupport.decode(anyEvent)
@@ -64,6 +68,7 @@ class KotlinAnnotationBasedEventSourced(
                 )
             }
 
+            log.debug("Calling CommandHandlerInvoker in Entity: $entity")
             return commandHandlers[context?.commandName().toString()]?.invoke(entity, command!!, context!!)
         }
 
@@ -76,12 +81,28 @@ class KotlinAnnotationBasedEventSourced(
         }
 
         private fun entityConstructor(context: EventSourcedEntityCreationContext): kotlin.Any {
-            val constructors = entityClass.constructors
+            log.debug("Call constructor in ${entityClass.qualifiedName}")
+            val constructors = entityClass.java.constructors
             if (constructors?.isNotEmpty()!! && constructors.size == 1) {
                 return EntityConstructorInvoker(reflectionHelper.ensureAccessible(constructors[0]))
             }
             throw RuntimeException("Only a single constructor is allowed on event sourced entities: $entityClass")
         }
+
+    }
+
+    class EntityConstructorInvoker(constructor: Constructor<*>)  {
+        /*private val parameters = ReflectionHelper.getParameterHandlers[EventSourcedEntityCreationContext](constructor)()
+        parameters.foreach {
+            case MainArgumentParameterHandler(clazz) =>
+            throw new RuntimeException(s"Don't know how to handle argument of type $clazz in constructor")
+            case _ =>
+        }
+
+        def apply(context: EventSourcedEntityCreationContext): AnyRef = {
+            val ctx = InvocationContext("", context)
+            constructor.newInstance(parameters.map(_.apply(ctx)): _*).asInstanceOf[AnyRef]
+        }*/
 
     }
 
@@ -97,19 +118,26 @@ class KotlinAnnotationBasedEventSourced(
             private val method: Method,
             private val serviceMethod: ResolvedServiceMethod<*, *>,
             private val reflectionHelper: ReflectionHelper){
+        private val log = logger()
 
         private val name = serviceMethod.method().fullName
         private val outputType = serviceMethod.method().outputType
 
         fun invoke(entityInstance: kotlin.Any?, command: Any, context: CommandContext): Optional<Any>  {
+            log.debug("Invoke method ${method.name} in ${entityInstance?.javaClass?.name} in Declared Class Method: ${method.declaringClass}")
             val parameters = reflectionHelper.getParameters(method, command, context);
-            val result = method.invoke(entityInstance, parameters)
+            log.debug("Parameters: $parameters")
+            var result: kotlin.Any? = null
+            if (parameters.isEmpty()) {
+                log.debug("Invoke method ${method.name} with empty params")
+                result = method.invoke(entityInstance, null)
+            }
+            result = method.invoke(entityInstance, parameters)
             return handleResult(result, outputType)
         }
 
-        private fun handleResult(result: kotlin.Any?, outputType: Descriptors.Descriptor): Optional<Any> {
-            TODO("Not yet implemented")
-        }
+        private fun handleResult(result: kotlin.Any?, outputType: Descriptors.Descriptor): Optional<Any> =
+                Optional.of(Any.pack(result as Message))
 
     }
 

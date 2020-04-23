@@ -2,7 +2,7 @@ package io.cloudstate.kotlinsupport.initializers
 
 import io.cloudstate.kotlinsupport.StatefulServiceDescriptor
 import io.cloudstate.kotlinsupport.logger
-import net.bytebuddy.agent.ByteBuddyAgent
+import kotlin.reflect.KClass
 
 class CloudStateInitializer {
     private val log = logger()
@@ -13,11 +13,6 @@ class CloudStateInitializer {
     internal var crdtSourcedInit = CrdtEntityInitializer()
     internal var eventSourcedInit = EventSourcedEntityInitializer()
 
-    init {
-        log.debug("Initializing ByteBuddy Agent....")
-        ByteBuddyAgent.install()
-    }
-
     fun config(configInitializer: ConfigIntializer.() -> Unit) {
         configInit.configInitializer()
     }
@@ -26,7 +21,7 @@ class CloudStateInitializer {
         eventSourcedInit.eventSourcedInitializer()
 
         // This cast prevent 'smart cast is impossible' error
-        val entityServiceType: Class<*> = eventSourcedInit.entityService!!.java as Class<*>
+        val entityServiceType: KClass<*> = eventSourcedInit.entityService!! //.java as Class<*>
 
         statefulServiceDescriptors.add(
                 StatefulServiceDescriptor(
@@ -45,7 +40,7 @@ class CloudStateInitializer {
         crdtSourcedInit.crdtInitializer()
 
         // This cast prevent 'smart cast is impossible' error
-        val entityServiceType: Class<*> = crdtSourcedInit.entityService!!.java as Class<*>
+        val entityServiceType: KClass<*> = crdtSourcedInit.entityService!!//.java as Class<*>
 
         statefulServiceDescriptors.add(
                 StatefulServiceDescriptor(

@@ -32,7 +32,7 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                     val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
 
                     engine.registerEventSourcedEntity(
-                            KotlinAnnotationBasedEventSourced(descriptor.serviceClass!!.javaClass, anySupport!!, descriptor.descriptor!!),
+                            KotlinAnnotationBasedEventSourced(descriptor!!.serviceClass!!, anySupport!!, descriptor.descriptor!!),
                             descriptor.descriptor,
                             descriptor.persistenceId,
                             descriptor.snapshotEvery,
@@ -42,10 +42,10 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                 EntityType.Crdt -> {
                     val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
 
-                    engine.registerCrdtEntity(
+                    /*engine.registerCrdtEntity(
                             KotlinAnnotationBasedCrdt(descriptor.serviceClass!!.javaClass, anySupport!!, descriptor.descriptor!!),
                             descriptor.descriptor,
-                            *descriptor.additionalDescriptors)
+                            *descriptor.additionalDescriptors)*/
                 }
 
             }

@@ -4,7 +4,7 @@ import com.example.shoppingcart.persistence.Domain
 import com.google.protobuf.Empty
 import io.cloudstate.javasupport.EntityId
 import io.cloudstate.javasupport.eventsourced.CommandContext
-import io.cloudstate.kotlinsupport.api.eventsourced.*
+import io.cloudstate.kotlinsupport.annotations.eventsourced.*
 
 import java.util.stream.Collectors
 

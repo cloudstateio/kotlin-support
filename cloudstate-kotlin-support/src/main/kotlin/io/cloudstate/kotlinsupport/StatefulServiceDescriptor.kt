@@ -1,10 +1,11 @@
 package io.cloudstate.kotlinsupport
 
 import com.google.protobuf.Descriptors
+import kotlin.reflect.KClass
 
 data class StatefulServiceDescriptor(
         val entityType: EntityType,
-        val serviceClass: Class<*>?,
+        val serviceClass: KClass<*>?,
         val descriptor: Descriptors.ServiceDescriptor?,
         val additionalDescriptors: Array<Descriptors.FileDescriptor> = arrayOf(),
         val persistenceId: String? = "",

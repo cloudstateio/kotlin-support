@@ -1,10 +1,12 @@
 package io.cloudstate.kotlinsupport
 
+import com.google.protobuf.GeneratedMessageV3
 import io.cloudstate.javasupport.Context
 import io.cloudstate.javasupport.eventsourced.CommandContext
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Member
 import java.lang.reflect.Method
+import kotlin.reflect.KClass
 
 class ReflectionHelper {
 
@@ -31,12 +33,10 @@ class ReflectionHelper {
         return accessible
     }
 
-    fun getAllDeclaredMethods(clazz: Class<*>): Set<Method>  =
-        if (clazz.superclass == null ) {
-            clazz.declaredMethods.toSet()
-        } else {
-            clazz.declaredMethods.toSet().union(getAllDeclaredMethods(clazz.superclass))
-        }
+    fun getAllDeclaredMethods(clazz: KClass<*>): Set<Method> {
+        log.debug("Process Runtime class ${clazz.qualifiedName} type: ${clazz.java}")
+        return clazz.java.declaredMethods.toSet()
+    }
 
     fun getCapitalizedName(member: Member): String =
         if (member.name[0].isLowerCase()) {
@@ -44,17 +44,23 @@ class ReflectionHelper {
         } else member.name
 
     fun getParameters(method: Method, command: com.google.protobuf.Any, context: CommandContext): Array<Any> {
-        command.typeUrl
-        command.value
-        var args= arrayOf<Any>()
-        for (Parameter in method.parameters)
-        method.parameters.forEach { param ->
-            if (param.type.isAssignableFrom(Context::class.java)) {
-                args
+        var args = mutableListOf<Any>()
 
+        if (method.parameters.isEmpty()) {
+            return arrayOf()
+        }
+
+        method.parameters.forEach { param ->
+            if (param.type.isAssignableFrom(CommandContext::class.java)) {
+                args.add(context)
+            }
+
+            if (param.type.isAssignableFrom(GeneratedMessageV3::class.java)) {
+                val message = com.google.protobuf.Any.parseFrom(command.value)
+                args.add(message)
             }
         }
-        return listOf<Any>("").toTypedArray()
+        return args.toTypedArray()
     }
 
 }

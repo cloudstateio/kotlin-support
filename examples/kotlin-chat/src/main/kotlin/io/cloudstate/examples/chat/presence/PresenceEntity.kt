@@ -7,8 +7,8 @@ import io.cloudstate.examples.chat.presence.PresenceProtos.OnlineStatus
 import io.cloudstate.javasupport.EntityId
 import io.cloudstate.javasupport.crdt.*
 
-import io.cloudstate.kotlinsupport.api.crdt.CommandHandler
-import io.cloudstate.kotlinsupport.api.crdt.CrdtEntity
+import io.cloudstate.kotlinsupport.annotations.crdt.CrdtEntity
+import io.cloudstate.kotlinsupport.annotations.crdt.CommandHandler
 
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
