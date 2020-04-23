@@ -9,7 +9,7 @@ import io.cloudstate.kotlinsupport.annotations.eventsourced.*
 import java.util.stream.Collectors
 
 @EventSourcedEntity
-class ShoppingCartEntity(@param:EntityId private val entityId: String) {
+class ShoppingCartEntity(/*@param:EntityId private val entityId: String*/) {
     private val cart: MutableMap<String, Shoppingcart.LineItem?> = mutableMapOf<String, Shoppingcart.LineItem?>()
 
     @Snapshot

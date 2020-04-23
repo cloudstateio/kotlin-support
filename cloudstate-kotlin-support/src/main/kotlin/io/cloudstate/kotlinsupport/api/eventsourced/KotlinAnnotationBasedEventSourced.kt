@@ -8,7 +8,6 @@ import io.cloudstate.javasupport.eventsourced.*
 import io.cloudstate.javasupport.impl.AnySupport
 import io.cloudstate.javasupport.impl.ResolvedEntityFactory
 import io.cloudstate.javasupport.impl.ResolvedServiceMethod
-import io.cloudstate.javasupport.impl.eventsourced.EntityConstructorInvoker
 import io.cloudstate.kotlinsupport.ReflectionHelper
 import io.cloudstate.kotlinsupport.logger
 import scala.collection.immutable.Map
@@ -84,14 +83,22 @@ class KotlinAnnotationBasedEventSourced(
             log.debug("Call constructor in ${entityClass.qualifiedName}")
             val constructors = entityClass.java.constructors
             if (constructors?.isNotEmpty()!! && constructors.size == 1) {
-                return EntityConstructorInvoker(reflectionHelper.ensureAccessible(constructors[0]))
+                return EntityConstructorInvoker(reflectionHelper.ensureAccessible(constructors[0])).invoke()
             }
             throw RuntimeException("Only a single constructor is allowed on event sourced entities: $entityClass")
         }
 
     }
 
-    class EntityConstructorInvoker(constructor: Constructor<*>)  {
+    class EntityConstructorInvoker(private val constructr: Constructor<*>)  {
+        val params = constructr.parameters
+
+        fun invoke(): kotlin.Any {
+            params.forEach { param ->
+
+            }
+            return constructr.newInstance()
+        }
         /*private val parameters = ReflectionHelper.getParameterHandlers[EventSourcedEntityCreationContext](constructor)()
         parameters.foreach {
             case MainArgumentParameterHandler(clazz) =>
@@ -128,10 +135,13 @@ class KotlinAnnotationBasedEventSourced(
             val parameters = reflectionHelper.getParameters(method, command, context);
             log.debug("Parameters: $parameters")
             var result: kotlin.Any? = null
-            if (parameters.isEmpty()) {
-                log.debug("Invoke method ${method.name} with empty params")
-                result = method.invoke(entityInstance, null)
+            log.debug("Invoke method ${method.name} with ${method.parameterCount} params")
+
+            if (method.parameterCount == 0) {
+                result = method.invoke(entityInstance)
+                return handleResult(result, outputType)
             }
+
             result = method.invoke(entityInstance, parameters)
             return handleResult(result, outputType)
         }
