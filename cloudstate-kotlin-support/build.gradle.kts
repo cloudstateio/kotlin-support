@@ -21,6 +21,14 @@ dependencies {
     testImplementation("org.testcontainers:testcontainers:1.12.5")
 }
 
+tasks {
+    processResources {
+        filesMatching("**/version.prop") {
+            expand("version" to version)
+        }
+    }
+}
+
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
