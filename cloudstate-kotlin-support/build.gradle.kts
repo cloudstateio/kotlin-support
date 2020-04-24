@@ -11,7 +11,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
-    implementation("io.cloudstate:cloudstate-java-support:0.4.3")
+    api("io.cloudstate:cloudstate-java-support:0.4.3")
     implementation("net.bytebuddy:byte-buddy:1.10.7")
     implementation("net.bytebuddy:byte-buddy-agent:1.10.7")
     implementation("org.slf4j:slf4j-api:1.7.25")
