@@ -15,11 +15,10 @@ dependencies {
     implementation("net.bytebuddy:byte-buddy:1.10.7")
     implementation("net.bytebuddy:byte-buddy-agent:1.10.7")
     implementation("org.slf4j:slf4j-api:1.7.25")
-    implementation("ch.qos.logback:logback-classic:1.2.3")
-    implementation("ch.qos.logback:logback-core:1.2.3")
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
     testImplementation("org.testcontainers:testcontainers:1.12.5")
+    testImplementation("ch.qos.logback:logback-classic:1.2.3")
 }
 
 tasks {
