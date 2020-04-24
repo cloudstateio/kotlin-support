@@ -26,6 +26,17 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
+// TODO Remove this workaround when https://github.com/akka/akka-grpc/issues/786 is fixed
+tasks.named("printProtocLogs") {
+    doFirst {
+        val logFile = file(buildDir.toPath().resolve("akka-grpc-gradle-plugin.log"))
+        if (!logFile.exists()) {
+            mkdir("$buildDir")
+            logFile.writeText("")
+        }
+    }
+}
+
 akkaGrpc {
     language = "Java"
     generateClient = true
