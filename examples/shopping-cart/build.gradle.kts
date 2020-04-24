@@ -1,3 +1,5 @@
+import com.google.protobuf.gradle.*
+
 plugins {
     kotlin("jvm") version "1.3.72"
     id("com.google.protobuf") version "0.8.12"
@@ -15,6 +17,12 @@ dependencies {
     implementation("com.google.api.grpc:proto-google-common-protos:1.17.0")
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.11.4"
+    }
 }
 
 java {
