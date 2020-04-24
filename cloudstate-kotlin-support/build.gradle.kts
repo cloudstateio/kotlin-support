@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.3.72"
     id("com.lightbend.akka.grpc.gradle") version "0.8.4"
+    `maven-publish`
 }
 
 repositories {
@@ -50,4 +51,12 @@ akkaGrpc {
     generateClient = true
     generateServer = false
     serverPowerApis = true
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+        }
+    }
 }
