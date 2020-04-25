@@ -1,11 +1,10 @@
 package io.cloudstate.kotlinsupport
 
 import com.google.protobuf.GeneratedMessageV3
-import io.cloudstate.javasupport.Context
 import io.cloudstate.javasupport.eventsourced.CommandContext
-import java.lang.reflect.AccessibleObject;
-import java.lang.reflect.Member
-import java.lang.reflect.Method
+import io.cloudstate.javasupport.impl.AnySupport
+import io.cloudstate.kotlinsupport.api.eventsourced.KotlinAnnotationBasedEventSourced
+import java.lang.reflect.*
 import kotlin.reflect.KClass
 
 class ReflectionHelper {
@@ -35,7 +34,7 @@ class ReflectionHelper {
 
     fun getAllDeclaredMethods(clazz: KClass<*>): Set<Method> {
         log.debug("Process Runtime class ${clazz.qualifiedName} type: ${clazz.java}")
-        return clazz.java.declaredMethods.toSet()
+        return clazz.java.declaredMethods.filter { method -> Modifier.isPublic(method.modifiers) }.toSet()
     }
 
     fun getCapitalizedName(member: Member): String =
@@ -43,24 +42,57 @@ class ReflectionHelper {
             member.name[0].toUpperCase() + member.name.drop(1)
         } else member.name
 
-    fun getParameters(method: Method, command: com.google.protobuf.Any, context: CommandContext): Array<Any> {
-        var args = mutableListOf<Any>()
-
+    fun getParameters(method: Method, command: com.google.protobuf.Any, context: CommandContext, anySupport: AnySupport): Array<Any?> {
         if (method.parameters.isEmpty()) {
             return arrayOf()
         }
 
-        method.parameters.forEach { param ->
-            if (param.type.isAssignableFrom(CommandContext::class.java)) {
-                args.add(context)
+        val args:List<kotlin.Any?> = method.parameters.map {
+            getMethodArgs(it, command, context, anySupport)
+        }.toList()
+
+        return args.toTypedArray()
+    }
+
+    fun getParameters(method: Method, event: kotlin.Any, context: KotlinAnnotationBasedEventSourced.DelegatingEventContext): Array<Any?> {
+        if (method.parameters.isEmpty()) {
+            return arrayOf()
+        }
+
+        val args:List<kotlin.Any?> = method.parameters.map {
+            getMethodArgs(it, event, context)
+        }.toList()
+
+        return args.toTypedArray()
+    }
+
+    private fun getMethodArgs(it: Parameter, event: kotlin.Any, context: KotlinAnnotationBasedEventSourced.DelegatingEventContext): kotlin.Any? = when {
+        it.type.isAssignableFrom(context.javaClass) -> {
+             context
+        }
+
+        it.type.isAssignableFrom(GeneratedMessageV3::class.java) -> {
+            event
+        }
+        else -> null
+    }
+
+    private fun getMethodArgs(it: Parameter, command: com.google.protobuf.Any, context: CommandContext, anySupport: AnySupport): kotlin.Any? {
+        log.debug("Parameter $it")
+        return when {
+            it.type.isAssignableFrom(context.javaClass) -> {
+                log.debug("Found parameter type context.")
+                context
             }
 
-            if (param.type.isAssignableFrom(GeneratedMessageV3::class.java)) {
-                val message = com.google.protobuf.Any.parseFrom(command.value)
-                args.add(message)
+            GeneratedMessageV3::class.java.isAssignableFrom(it.type) -> {
+                log.debug("Found parameter type Object.")
+                anySupport.decode(command)
+                //val unpack = command.unpack(clazz)
+                //com.google.protobuf.Any.parseFrom(command.value)
             }
+            else -> null
         }
-        return args.toTypedArray()
     }
 
 }

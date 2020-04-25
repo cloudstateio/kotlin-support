@@ -19,7 +19,7 @@ fun main() {
             entityService = ShoppingCartEntity::class
 
             descriptor = Shoppingcart.getDescriptor().findServiceByName("ShoppingCart")
-            additionalDescriptors = arrayOf( Domain.getDescriptor() )
+            additionalDescriptors = arrayOf(Shoppingcart.getDescriptor(), Domain.getDescriptor() )
 
             snapshotEvery = 1
             persistenceId = "shopping-cart"
