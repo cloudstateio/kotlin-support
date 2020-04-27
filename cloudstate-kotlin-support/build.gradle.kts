@@ -1,6 +1,8 @@
+import com.google.protobuf.gradle.*
+
 plugins {
     kotlin("jvm") version "1.3.72"
-    id("com.lightbend.akka.grpc.gradle") version "0.8.4"
+    id("com.google.protobuf") version "0.8.12"
     `maven-publish`
 }
 
@@ -18,6 +20,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
     testImplementation("org.testcontainers:testcontainers:1.12.5")
+    testImplementation("com.google.api.grpc:proto-google-common-protos:1.17.0")
     testImplementation("ch.qos.logback:logback-classic:1.2.3")
 }
 
@@ -34,22 +37,10 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-// TODO Remove this workaround when https://github.com/akka/akka-grpc/issues/786 is fixed
-tasks.named("printProtocLogs") {
-    doFirst {
-        val logFile = file(buildDir.toPath().resolve("akka-grpc-gradle-plugin.log"))
-        if (!logFile.exists()) {
-            mkdir("$buildDir")
-            logFile.writeText("")
-        }
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.9.0"
     }
-}
-
-akkaGrpc {
-    language = "Java"
-    generateClient = true
-    generateServer = false
-    serverPowerApis = true
 }
 
 publishing {
