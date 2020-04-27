@@ -191,12 +191,20 @@ class KotlinAnnotationBasedEventSourced(
             parameters.forEach {
                 log.debug("CommandHandlerInvoker invoke with param name ${it?.javaClass?.typeName}. Value $it")
             }
-            result = method.invoke(entityInstance, *parameters)
+            try{
+                result = method.invoke(entityInstance, *parameters)
+            }catch (e: Throwable) {
+                log.warn("Handle FailInvoke (CommandContext.fail(...)) or Generic Failure occurred")
+                if (log.isDebugEnabled){
+                    e.printStackTrace()
+                }
+                return handleResult(result, outputType)
+            }
             return handleResult(result, outputType)
         }
 
         private fun handleResult(result: kotlin.Any?, outputType: Descriptors.Descriptor): Optional<Any> =
-                Optional.of(Any.pack(result as Message))
+                if (result == null) Optional.empty() else Optional.of(Any.pack(result as Message))
 
     }
 
