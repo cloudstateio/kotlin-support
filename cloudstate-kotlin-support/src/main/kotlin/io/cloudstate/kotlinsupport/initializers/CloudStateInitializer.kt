@@ -2,16 +2,13 @@ package io.cloudstate.kotlinsupport.initializers
 
 import io.cloudstate.kotlinsupport.StatefulServiceDescriptor
 import io.cloudstate.kotlinsupport.api.transcoding.CrdtTranscoder
-import io.cloudstate.kotlinsupport.logger
 import kotlin.reflect.KClass
 
 class CloudStateInitializer {
-    private val log = logger()
-
     internal val statefulServiceDescriptors: MutableList<StatefulServiceDescriptor> = mutableListOf<StatefulServiceDescriptor>()
 
     internal var configInit = ConfigIntializer()
-    internal var crdtSourcedInit = CrdtEntityInitializer()
+    private var crdtSourcedInit = CrdtEntityInitializer()
     internal var eventSourcedInit = EventSourcedEntityInitializer()
 
     fun config(configInitializer: ConfigIntializer.() -> Unit) {
