@@ -6,15 +6,13 @@ import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
 import io.cloudstate.javasupport.CloudState
 import io.cloudstate.javasupport.impl.AnySupport
-import io.cloudstate.kotlinsupport.api.crdt.KotlinAnnotationBasedCrdt
+import io.cloudstate.javasupport.impl.crdt.AnnotationBasedCrdtSupport
 import io.cloudstate.kotlinsupport.api.eventsourced.KotlinAnnotationBasedEventSourced
 import io.cloudstate.kotlinsupport.initializers.CloudStateInitializer
 import java.util.*
 import java.util.concurrent.CompletionStage
 
 class CloudStateRunner(private val initializer: CloudStateInitializer) {
-    private val log = logger()
-
     private val engine = CloudState()
     private val prefer: AnySupport.Prefer = AnySupport.PREFER_JAVA()
     private val typeUrlPrefix: String = AnySupport.DefaultTypeUrlPrefix()
@@ -41,11 +39,12 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
 
                 EntityType.Crdt -> {
                     val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
+                    val clazz: Class<*>? = descriptor.transcoder!!.transcode()
 
-                    /*engine.registerCrdtEntity(
-                            KotlinAnnotationBasedCrdt(descriptor.serviceClass!!.javaClass, anySupport!!, descriptor.descriptor!!),
+                    engine.registerCrdtEntity(
+                            AnnotationBasedCrdtSupport(descriptor.serviceClass!!::class.java, anySupport!!, descriptor.descriptor!!),
                             descriptor.descriptor,
-                            *descriptor.additionalDescriptors)*/
+                            *descriptor.additionalDescriptors)
                 }
 
             }

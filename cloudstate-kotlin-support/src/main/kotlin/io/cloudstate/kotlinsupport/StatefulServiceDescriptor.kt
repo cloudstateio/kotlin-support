@@ -1,11 +1,13 @@
 package io.cloudstate.kotlinsupport
 
 import com.google.protobuf.Descriptors
+import io.cloudstate.kotlinsupport.api.transcoding.Transcoder
 import kotlin.reflect.KClass
 
 data class StatefulServiceDescriptor(
         val entityType: EntityType,
         val serviceClass: KClass<*>?,
+        var transcoder: Transcoder? = null,
         val descriptor: Descriptors.ServiceDescriptor?,
         val additionalDescriptors: Array<Descriptors.FileDescriptor> = arrayOf(),
         val persistenceId: String? = "",
@@ -19,6 +21,7 @@ data class StatefulServiceDescriptor(
 
         if (entityType != other.entityType) return false
         if (serviceClass != other.serviceClass) return false
+        if (transcoder != other.transcoder) return false
         if (descriptor != other.descriptor) return false
         if (!additionalDescriptors.contentEquals(other.additionalDescriptors)) return false
         if (persistenceId != other.persistenceId) return false
@@ -30,6 +33,7 @@ data class StatefulServiceDescriptor(
     override fun hashCode(): Int {
         var result = entityType.hashCode()
         result = 31 * result + (serviceClass?.hashCode() ?: 0)
+        result = 31 * result + (transcoder?.hashCode() ?: 0)
         result = 31 * result + (descriptor?.hashCode() ?: 0)
         result = 31 * result + additionalDescriptors.contentHashCode()
         result = 31 * result + (persistenceId?.hashCode() ?: 0)
