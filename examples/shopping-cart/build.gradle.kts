@@ -36,7 +36,7 @@ jib {
         image = "openjdk:8u242-jdk"
     }
     to {
-        image = "vkorenev/shopping-cart"
+        image = "sleipnir/shopping-cart"
         tags = setOf(project.version.toString())
     }
     container {
