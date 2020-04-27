@@ -35,6 +35,9 @@ class KotlinEventBehaviorReflection(
     fun getCachedEventHandlerForClass(clazz: Class<*>): Optional<KotlinAnnotationBasedEventSourced.EventHandlerInvoker> =
         Optional.ofNullable(eventHandlers[clazz])
 
+    fun getCachedSnapshotHandlerForClass(clazz: Class<*>): Optional<KotlinAnnotationBasedEventSourced.SnapshotHandlerInvoker> =
+        Optional.ofNullable(snapshotHandlers[clazz])
+
     private fun findEventHandlers(): Map<Class<*>, KotlinAnnotationBasedEventSourced.EventHandlerInvoker> =
         allMethods
             .filter { it.isAnnotationPresent(EventHandler::class.java)  }
@@ -96,7 +99,8 @@ class KotlinEventBehaviorReflection(
         if ((parameter.javaClass != evtAnn.eventClass.java) && (evtAnn.eventClass.java != Object::class.java) ) {
             return evtAnn.eventClass.java
         }
-        return parameter.javaClass
+        log.debug("EventHandler for method $method found. Parameter: $parameter.  Class: ${parameter.type}")
+        return parameter.type
     }
 
     private fun getSnapshotHandlerClass(method: Method, annotation: Annotation): Class<*> {
@@ -109,7 +113,8 @@ class KotlinEventBehaviorReflection(
         }
 
         val parameter = method.parameters.filter { param -> !param.type.isInstance(Context::class.java) }[0]
-        return parameter.javaClass
+        log.debug("SnapshotHandler for method $method found. Parameter: $parameter.  Class: ${parameter.type}")
+        return parameter.type
     }
 
     private fun getSnapshotClass(method: Method, annotation: Annotation): Class<*> {
@@ -122,7 +127,8 @@ class KotlinEventBehaviorReflection(
         }
 
         val parameter = method.parameters.filter { param -> !param.type.isInstance(Context::class.java) }[0]
-        return parameter.javaClass
+        log.debug("Snapshot for method $method found. Parameter: $parameter.  Class: ${parameter.type}")
+        return parameter.type
     }
 
 }

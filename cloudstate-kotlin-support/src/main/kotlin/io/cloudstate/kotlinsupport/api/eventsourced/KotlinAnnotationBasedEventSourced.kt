@@ -61,6 +61,7 @@ class KotlinAnnotationBasedEventSourced(
         }
 
         override fun handleCommand(command: Any?, context: CommandContext?): Optional<Any>? {
+            val payload = anySupport.decode(command)
             val commandHandlers = behavior.commandHandlers
 
             if (!commandHandlers.contains(context?.commandName())) {
@@ -70,16 +71,30 @@ class KotlinAnnotationBasedEventSourced(
             }
 
             log.debug("Calling CommandHandlerInvoker in Entity: $entity")
-            return commandHandlers[context?.commandName().toString()]?.invoke(entity, command!!, context!!)
+            return commandHandlers[context?.commandName().toString()]?.invoke(entity, payload!!, context!!)
         }
 
         override fun handleSnapshot(snapshot: Any?, context: SnapshotContext?) {
-            TODO("Not yet implemented")
+            val payload = anySupport.decode(snapshot)
+            val handler = behavior.getCachedSnapshotHandlerForClass(payload.javaClass)
+            when (handler.isPresent) {
+                true -> {
+                    handler.get().invoke(entity, payload!!, context!!)
+                }
+                false -> throw RuntimeException(
+                        "No snapshot handler found for event ${payload.javaClass} on ${entity.javaClass.name}")
+            }
         }
 
-        override fun snapshot(context: SnapshotContext?): Optional<Any> {
-            TODO("Not yet implemented")
-        }
+        override fun snapshot(context: SnapshotContext?): Optional<Any> =
+            when(behavior.snapshotInvoker.isPresent){
+                true -> {
+                    behavior.snapshotInvoker.get().invoke(entity, context!!)
+                }
+                false -> throw RuntimeException(
+                        "No snapshot invoker found for entity ${entity.javaClass.name}")
+            }
+
 
         private fun entityConstructor(context: EventSourcedEntityCreationContext): kotlin.Any {
             //todo: Verified if this is a single factory or prototype
@@ -158,7 +173,7 @@ class KotlinAnnotationBasedEventSourced(
         private val name = serviceMethod.method().fullName
         private val outputType = serviceMethod.method().outputType
 
-        fun invoke(entityInstance: kotlin.Any?, command: Any, context: CommandContext): Optional<Any>  {
+        fun invoke(entityInstance: kotlin.Any?, command: kotlin.Any, context: CommandContext): Optional<Any>  {
             log.debug("CommandHandlerInvoker service method $name with Entity method ${method.name} " +
                     "in ${entityInstance?.javaClass?.name}. " +
                     "Declared Class Method: ${method.declaringClass}")
@@ -186,11 +201,22 @@ class KotlinAnnotationBasedEventSourced(
     }
 
     class SnapshotHandlerInvoker(private val method: Method, private val reflectionHelper: ReflectionHelper) {
-
+        fun invoke(entityInstance: kotlin.Any, payload: kotlin.Any?, context: SnapshotContext) {
+            val parameters = reflectionHelper.getParameters(method, payload, context)
+            if (parameters.isNotEmpty()){
+                method.invoke(entityInstance, *parameters)
+            }
+        }
     }
 
     class SnapshotInvoker(private val method: Method, private val reflectionHelper: ReflectionHelper) {
-
+        fun invoke(entityInstance: kotlin.Any?, context: SnapshotContext): Optional<Any> {
+            val parameters = reflectionHelper.getParameters(method, null, context)
+            if (parameters.isEmpty()){
+                return Optional.of(Any.pack(method.invoke(entityInstance) as Message))
+            }
+            return Optional.of(Any.pack(method.invoke(entityInstance, parameters) as Message))
+        }
     }
 
     class DelegatingEventContext(private val delegate: EventContext) : EventContext, EventBehaviorContext {

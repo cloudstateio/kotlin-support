@@ -2,6 +2,7 @@ package io.cloudstate.kotlinsupport
 
 import com.google.protobuf.GeneratedMessageV3
 import io.cloudstate.javasupport.eventsourced.CommandContext
+import io.cloudstate.javasupport.eventsourced.SnapshotContext
 import io.cloudstate.javasupport.impl.AnySupport
 import io.cloudstate.kotlinsupport.api.eventsourced.KotlinAnnotationBasedEventSourced
 import java.lang.reflect.*
@@ -42,7 +43,7 @@ class ReflectionHelper {
             member.name[0].toUpperCase() + member.name.drop(1)
         } else member.name
 
-    fun getParameters(method: Method, command: com.google.protobuf.Any, context: CommandContext, anySupport: AnySupport): Array<Any?> {
+    fun getParameters(method: Method, command: kotlin.Any, context: CommandContext, anySupport: AnySupport): Array<Any?> {
         if (method.parameters.isEmpty()) {
             return arrayOf()
         }
@@ -66,18 +67,47 @@ class ReflectionHelper {
         return args.toTypedArray()
     }
 
-    private fun getMethodArgs(it: Parameter, event: kotlin.Any, context: KotlinAnnotationBasedEventSourced.DelegatingEventContext): kotlin.Any? = when {
-        it.type.isAssignableFrom(context.javaClass) -> {
-             context
+    fun getParameters(method: Method, payload: kotlin.Any?, context: SnapshotContext): Array<Any?> {
+        if (method.parameters.isEmpty()) {
+            return arrayOf()
         }
 
-        it.type.isAssignableFrom(GeneratedMessageV3::class.java) -> {
-            event
+        val args:List<kotlin.Any?> = method.parameters.map {
+            getMethodArgs(it, payload, context)
+        }.toList()
+
+        return args.toTypedArray()
+    }
+
+    private fun getMethodArgs(it: Parameter, snapshot: kotlin.Any?, context: SnapshotContext): kotlin.Any? = when {
+        it.type.isAssignableFrom(context.javaClass) -> {
+            log.debug("Set context $context")
+            context
+        }
+        GeneratedMessageV3::class.java.isAssignableFrom(it.type) && snapshot != null -> {
+            log.debug("Set snapshot $snapshot")
+            snapshot
         }
         else -> null
     }
 
-    private fun getMethodArgs(it: Parameter, command: com.google.protobuf.Any, context: CommandContext, anySupport: AnySupport): kotlin.Any? {
+    private fun getMethodArgs(it: Parameter, event: kotlin.Any, context: KotlinAnnotationBasedEventSourced.DelegatingEventContext): kotlin.Any? = when {
+        it.type.isAssignableFrom(context.javaClass) -> {
+            log.debug("Set context $context")
+            context
+        }
+
+        GeneratedMessageV3::class.java.isAssignableFrom(it.type) -> {
+            log.debug("Set event $event")
+            event
+        }
+        else -> {
+            log.debug("No matches found for parameters")
+            null
+        }
+    }
+
+    private fun getMethodArgs(it: Parameter, command: kotlin.Any, context: CommandContext, anySupport: AnySupport): kotlin.Any? {
         log.debug("Parameter $it")
         return when {
             it.type.isAssignableFrom(context.javaClass) -> {
@@ -87,11 +117,12 @@ class ReflectionHelper {
 
             GeneratedMessageV3::class.java.isAssignableFrom(it.type) -> {
                 log.debug("Found parameter type Object.")
-                anySupport.decode(command)
-                //val unpack = command.unpack(clazz)
-                //com.google.protobuf.Any.parseFrom(command.value)
+                command
             }
-            else -> null
+            else -> {
+                log.debug("No matches found for parameters")
+                null
+            }
         }
     }
 
