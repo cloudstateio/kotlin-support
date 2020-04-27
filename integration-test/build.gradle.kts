@@ -35,5 +35,4 @@ akkaGrpc {
     language = "Java"
     generateClient = true
     generateServer = false
-    serverPowerApis = true
 }
