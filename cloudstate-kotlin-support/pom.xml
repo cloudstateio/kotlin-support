@@ -16,7 +16,6 @@
         <grpc.version>1.22.1</grpc.version>
         <akka.version>2.6.0-M7</akka.version>
         <akka.grpc.version>0.7.1</akka.grpc.version>
-
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -37,6 +36,19 @@
             <groupId>io.cloudstate</groupId>
             <artifactId>cloudstate-java-support</artifactId>
             <version>0.4.3</version>
+        </dependency>
+
+        <!-- Remove Bytebuddy when issue https://github.com/cloudstateio/kotlin-support/issues/6 is fixed -->
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>1.10.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy-agent</artifactId>
+            <version>1.10.7</version>
         </dependency>
 
         <!-- Logging -->
