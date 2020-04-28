@@ -36,7 +36,7 @@ jib {
         image = "openjdk:8u242-jdk"
     }
     to {
-        image = "sleipnir/shopping-cart"
+        image = "sleipnir/kotlin-shoppingcart"
         tags = setOf(project.version.toString())
     }
     container {
