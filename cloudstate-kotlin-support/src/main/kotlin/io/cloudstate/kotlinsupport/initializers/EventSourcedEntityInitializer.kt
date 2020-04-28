@@ -9,7 +9,7 @@ class EventSourcedEntityInitializer: Initializer {
     val type: EntityType = EntityType.EventSourced
     var entityService: KClass<*>? = null
     var descriptor: Descriptors.ServiceDescriptor? = null
-    lateinit var additionalDescriptors: Array<Descriptors.FileDescriptor>
+    lateinit var additionalDescriptors: List<Descriptors.FileDescriptor>
     var persistenceId: String? = null
     var snapshotEvery: Int = 0
 

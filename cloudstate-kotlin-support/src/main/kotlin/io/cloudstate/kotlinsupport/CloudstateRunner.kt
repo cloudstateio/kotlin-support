@@ -34,7 +34,7 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                             descriptor.descriptor,
                             descriptor.persistenceId,
                             descriptor.snapshotEvery,
-                            *descriptor.additionalDescriptors)
+                            *descriptor.additionalDescriptors.toTypedArray())
                 }
 
                 EntityType.Crdt -> {
@@ -44,7 +44,7 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                     engine.registerCrdtEntity(
                             AnnotationBasedCrdtSupport(descriptor.serviceClass!!::class.java, anySupport!!, descriptor.descriptor!!),
                             descriptor.descriptor,
-                            *descriptor.additionalDescriptors)
+                            *descriptor.additionalDescriptors.toTypedArray())
                 }
 
             }
@@ -72,7 +72,7 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                 .resolve()
     }
 
-    private fun newAnySupport(descriptors: Array<Descriptors.FileDescriptor>): AnySupport? =
-            AnySupport(descriptors, this.javaClass.classLoader, typeUrlPrefix, prefer)
+    private fun newAnySupport(descriptors: List<Descriptors.FileDescriptor>): AnySupport? =
+            AnySupport(descriptors.toTypedArray(), this.javaClass.classLoader, typeUrlPrefix, prefer)
 
 }

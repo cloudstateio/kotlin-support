@@ -7,7 +7,7 @@ fun main() {
         eventsourced {
             entityService = PingPongEntity::class
             descriptor = Pingpong.getDescriptor().findServiceByName("PingPongService")
-            additionalDescriptors = arrayOf( Pingpong.getDescriptor() )
+            additionalDescriptors = mutableListOf( Pingpong.getDescriptor() )
         }
     }.start()
             .toCompletableFuture()

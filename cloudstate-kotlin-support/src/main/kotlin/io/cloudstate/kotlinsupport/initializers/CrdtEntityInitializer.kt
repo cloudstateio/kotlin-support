@@ -8,7 +8,7 @@ class CrdtEntityInitializer: Initializer {
     val type: EntityType = EntityType.Crdt
     var entityService: KClass<*>? = null
     var descriptor: Descriptors.ServiceDescriptor? = null
-    var additionalDescriptors: Array<Descriptors.FileDescriptor> = arrayOf()
+    var additionalDescriptors: List<Descriptors.FileDescriptor> = mutableListOf()
 
     override fun getEntityType(): EntityType = this.type
 
