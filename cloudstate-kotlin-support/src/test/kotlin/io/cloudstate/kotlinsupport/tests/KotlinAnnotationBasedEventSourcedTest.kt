@@ -9,6 +9,7 @@ import io.cloudstate.javasupport.ServiceCallFactory
 import io.cloudstate.javasupport.eventsourced.CommandContext
 import io.cloudstate.javasupport.eventsourced.EventContext
 import io.cloudstate.javasupport.eventsourced.EventSourcedContext
+import io.cloudstate.javasupport.eventsourced.SnapshotContext
 import io.cloudstate.javasupport.impl.AnySupport
 import io.cloudstate.kotlinsupport.annotations.EntityId
 import io.cloudstate.kotlinsupport.annotations.eventsourced.*
@@ -16,6 +17,7 @@ import io.cloudstate.kotlinsupport.api.eventsourced.KotlinAnnotationBasedEventSo
 import io.cloudstate.kotlinsupport.logger
 import org.junit.Test
 import java.util.*
+import java.util.stream.Collectors
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
@@ -42,11 +44,11 @@ class KotlinAnnotationBasedEventSourcedTest {
         val handler = annotationHandler.create(creationContext)
 
         val expectResult = Optional.of(
-                params.first.encodeJava(
-                    ShoppingCartProto.Cart.newBuilder()
-                    .addAllItems(mutableMapOf<String, ShoppingCartProto.LineItem?>().values)
-                    .build())
-                )
+            params.first.encodeJava(
+                ShoppingCartProto.Cart.newBuilder()
+                .addAllItems(mutableMapOf<String, ShoppingCartProto.LineItem?>().values)
+                .build())
+            )
 
         val command = params.first.encodeJava(Empty.getDefaultInstance())
 
@@ -99,12 +101,37 @@ class KotlinAnnotationBasedEventSourcedTest {
         log.info("Result of Call GetCart is: ${result.get()}")
     }
 
+    @Test
     fun `Validate SnapshotInvoker Calls`() {
-        TODO()
+        val annotationHandler = params.second
+        val creationContext = createCreationContext()
+        val snapshotContext: SnapshotContext = createSnapshotContext()
+        val handler = annotationHandler.create(creationContext)
+
+        val expectResult = Optional.of(
+            params.first.encodeJava(
+                Domain.Cart.newBuilder()
+                    .addAllItems(mutableMapOf<String, Domain.LineItem?>().values)
+                    .build())
+        )
+
+        val result = handler.snapshot(snapshotContext)
+        assertTrue(result.isPresent)
+        assertEquals(expectResult.get(), result.get())
+        log.info("Result of Call Snapshot is: ${result.get()}")
     }
 
-    fun `Validate SnapshotHandlers Calls`() {
-        TODO()
+    private fun createSnapshotContext(): SnapshotContext = object: SnapshotContext{
+        override fun entityId(): String = "test:1"
+
+        override fun serviceCallFactory(): ServiceCallFactory {
+            TODO("Not yet implemented")
+        }
+
+        override fun sequenceNumber(): Long {
+            TODO("Not yet implemented")
+        }
+
     }
 
     private fun createItemAddedEventContext(): EventContext? = object: EventContext{
@@ -181,7 +208,14 @@ class TestEntity(@EntityId private val entityId: String) {
     private val cart: MutableMap<String, ShoppingCartProto.LineItem?> = mutableMapOf<String, ShoppingCartProto.LineItem?>()
 
     @Snapshot
-    fun snapshot() {}
+    fun snapshot(): Domain.Cart =
+        Domain.Cart.newBuilder()
+            .addAllItems(
+                cart.values.stream()
+                    .map { item: ShoppingCartProto.LineItem? -> this.convert(item) }
+                    .collect(Collectors.toList())
+            )
+            .build()
 
     @SnapshotHandler
     fun handleSnapshot(cart: Domain.Cart) {}
@@ -194,8 +228,8 @@ class TestEntity(@EntityId private val entityId: String) {
             convert(itemAdded.item)
         } else {
             item.toBuilder()
-                    .setQuantity(item.quantity + itemAdded.item.quantity)
-                    .build()
+                .setQuantity(item.quantity + itemAdded.item.quantity)
+                .build()
         }
         cart[item!!.productId] = item
     }
@@ -213,9 +247,16 @@ class TestEntity(@EntityId private val entityId: String) {
     fun removeItem() {}
 
     private fun convert(item: Domain.LineItem): ShoppingCartProto.LineItem =
-            ShoppingCartProto.LineItem.newBuilder()
-                    .setProductId(item.productId)
-                    .setName(item.name)
-                    .setQuantity(item.quantity)
-                    .build()
+        ShoppingCartProto.LineItem.newBuilder()
+            .setProductId(item.productId)
+            .setName(item.name)
+            .setQuantity(item.quantity)
+            .build()
+
+    private fun convert(item: ShoppingCartProto.LineItem?): Domain.LineItem =
+        Domain.LineItem.newBuilder()
+            .setProductId(item!!.productId)
+            .setName(item.name)
+            .setQuantity(item.quantity)
+            .build()
 }
