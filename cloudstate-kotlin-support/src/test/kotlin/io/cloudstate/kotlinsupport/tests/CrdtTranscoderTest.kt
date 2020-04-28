@@ -1,10 +1,11 @@
 package io.cloudstate.kotlinsupport.tests
 
 import io.cloudstate.javasupport.EntityId
+import io.cloudstate.kotlinsupport.annotations.crdt.CommandHandler
+import io.cloudstate.kotlinsupport.annotations.crdt.CrdtEntity
+import io.cloudstate.kotlinsupport.api.transcoding.CrdtTranscoder
 
 import io.cloudstate.kotlinsupport.logger
-import io.cloudstate.kotlinsupport.api.crdt.*
-import io.cloudstate.kotlinsupport.transcoding.CrdtTranscoder
 import net.bytebuddy.agent.ByteBuddyAgent
 
 import org.junit.Test

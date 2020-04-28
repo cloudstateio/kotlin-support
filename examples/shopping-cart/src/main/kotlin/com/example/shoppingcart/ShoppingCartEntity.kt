@@ -4,23 +4,25 @@ import com.example.shoppingcart.persistence.Domain
 import com.google.protobuf.Empty
 import io.cloudstate.javasupport.EntityId
 import io.cloudstate.javasupport.eventsourced.CommandContext
-import io.cloudstate.kotlinsupport.api.eventsourced.*
+import io.cloudstate.javasupport.eventsourced.EventSourcedEntityCreationContext
+import io.cloudstate.kotlinsupport.annotations.eventsourced.*
 
 import java.util.stream.Collectors
 
 @EventSourcedEntity
-class ShoppingCartEntity(@param:EntityId private val entityId: String) {
+class ShoppingCartEntity(@EntityId entityId: String,
+                         context: EventSourcedEntityCreationContext) {
     private val cart: MutableMap<String, Shoppingcart.LineItem?> = mutableMapOf<String, Shoppingcart.LineItem?>()
 
     @Snapshot
     fun snapshot(): Domain.Cart =
-            Domain.Cart.newBuilder()
-                    .addAllItems(
-                            cart.values.stream()
-                                    .map { item: Shoppingcart.LineItem? -> this.convert(item) }
-                                    .collect(Collectors.toList())
-                    )
-                    .build()
+        Domain.Cart.newBuilder()
+            .addAllItems(
+                cart.values.stream()
+                    .map { item: Shoppingcart.LineItem? -> this.convert(item) }
+                    .collect(Collectors.toList())
+            )
+            .build()
 
     @SnapshotHandler
     fun handleSnapshot(cart: Domain.Cart) {
@@ -53,17 +55,17 @@ class ShoppingCartEntity(@param:EntityId private val entityId: String) {
     @CommandHandler
     fun addItem(item: Shoppingcart.AddLineItem, ctx: CommandContext): Empty {
         if (item.quantity <= 0) {
-            ctx.fail("Cannot add negative quantity of to item ${item.productId}" )
+            ctx.fail("Cannot add negative quantity of to item ${item.productId}")
         }
         ctx.emit(
-                Domain.ItemAdded.newBuilder()
-                        .setItem(
-                                Domain.LineItem.newBuilder()
-                                        .setProductId(item.productId)
-                                        .setName(item.name)
-                                        .setQuantity(item.quantity)
-                                        .build())
+            Domain.ItemAdded.newBuilder()
+                .setItem(
+                    Domain.LineItem.newBuilder()
+                        .setProductId(item.productId)
+                        .setName(item.name)
+                        .setQuantity(item.quantity)
                         .build())
+                .build())
         return Empty.getDefaultInstance()
     }
 
@@ -73,26 +75,26 @@ class ShoppingCartEntity(@param:EntityId private val entityId: String) {
             ctx.fail("Cannot remove item ${item.productId} because it is not in the cart.")
         }
         ctx.emit(
-                Domain.ItemRemoved.newBuilder()
-                        .setProductId(item.productId)
-                        .build())
+            Domain.ItemRemoved.newBuilder()
+                    .setProductId(item.productId)
+                    .build())
         return Empty.getDefaultInstance()
     }
 
     private fun convert(item: Domain.LineItem): Shoppingcart.LineItem =
-            Shoppingcart.LineItem.newBuilder()
-                    .setProductId(item.productId)
-                    .setName(item.name)
-                    .setQuantity(item.quantity)
-                    .build()
+        Shoppingcart.LineItem.newBuilder()
+                .setProductId(item.productId)
+                .setName(item.name)
+                .setQuantity(item.quantity)
+                .build()
 
 
     private fun convert(item: Shoppingcart.LineItem?): Domain.LineItem =
-            Domain.LineItem.newBuilder()
-                    .setProductId(item!!.productId)
-                    .setName(item.name)
-                    .setQuantity(item.quantity)
-                    .build()
+        Domain.LineItem.newBuilder()
+                .setProductId(item!!.productId)
+                .setName(item.name)
+                .setQuantity(item.quantity)
+                .build()
 
 }
 // #example-shopping-cart-kotlin

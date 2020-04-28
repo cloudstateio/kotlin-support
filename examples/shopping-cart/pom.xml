@@ -10,7 +10,7 @@
 
     <properties>
         <main.class>com.example.shoppingcart.MainKt</main.class>
-        <repo.name>sleipnir/shopping-cart</repo.name>
+        <repo.name>sleipnir/kotlin-shoppingcart</repo.name>
         <tag.version>${project.version}</tag.version>
 
         <kotlin.version>1.3.61</kotlin.version>

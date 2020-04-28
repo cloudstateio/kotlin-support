@@ -7,15 +7,12 @@ import com.typesafe.config.ConfigFactory
 import io.cloudstate.javasupport.CloudState
 import io.cloudstate.javasupport.impl.AnySupport
 import io.cloudstate.javasupport.impl.crdt.AnnotationBasedCrdtSupport
-import io.cloudstate.javasupport.impl.eventsourced.AnnotationBasedEventSourcedSupport
+import io.cloudstate.kotlinsupport.api.eventsourced.KotlinAnnotationBasedEventSourced
 import io.cloudstate.kotlinsupport.initializers.CloudStateInitializer
-import net.bytebuddy.agent.ByteBuddyAgent
 import java.util.*
 import java.util.concurrent.CompletionStage
 
 class CloudStateRunner(private val initializer: CloudStateInitializer) {
-    private val log = logger()
-
     private val engine = CloudState()
     private val prefer: AnySupport.Prefer = AnySupport.PREFER_JAVA()
     private val typeUrlPrefix: String = AnySupport.DefaultTypeUrlPrefix()
@@ -31,14 +28,13 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
 
                 EntityType.EventSourced -> {
                     val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
-                    val clazz: Class<*>? = descriptor.transcoder!!.transcode()
 
                     engine.registerEventSourcedEntity(
-                            AnnotationBasedEventSourcedSupport(descriptor.serviceClass, anySupport, descriptor.descriptor),
+                            KotlinAnnotationBasedEventSourced(descriptor!!.serviceClass!!, anySupport!!, descriptor.descriptor!!),
                             descriptor.descriptor,
                             descriptor.persistenceId,
                             descriptor.snapshotEvery,
-                            *descriptor.additionalDescriptors)
+                            *descriptor.additionalDescriptors.toTypedArray())
                 }
 
                 EntityType.Crdt -> {
@@ -46,15 +42,9 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                     val clazz: Class<*>? = descriptor.transcoder!!.transcode()
 
                     engine.registerCrdtEntity(
-                            AnnotationBasedCrdtSupport(clazz, anySupport, descriptor.descriptor),
+                            AnnotationBasedCrdtSupport(descriptor.serviceClass!!::class.java, anySupport!!, descriptor.descriptor!!),
                             descriptor.descriptor,
-                            *descriptor.additionalDescriptors)
-
-                }
-
-                else -> {
-                    log.warn("Unknown type of Entity")
-                    throw IllegalStateException("Unknown type of Entity")
+                            *descriptor.additionalDescriptors.toTypedArray())
                 }
 
             }
@@ -82,7 +72,7 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                 .resolve()
     }
 
-    private fun newAnySupport(descriptors: Array<Descriptors.FileDescriptor>): AnySupport? =
-            AnySupport(descriptors, this.javaClass.classLoader, typeUrlPrefix, prefer)
+    private fun newAnySupport(descriptors: List<Descriptors.FileDescriptor>): AnySupport? =
+            AnySupport(descriptors.toTypedArray(), this.javaClass.classLoader, typeUrlPrefix, prefer)
 
 }

@@ -1,7 +1,8 @@
-package io.cloudstate.kotlinsupport.transcoding
+package io.cloudstate.kotlinsupport.api.transcoding
 
 import io.cloudstate.kotlinsupport.ReflectionHelper
-import io.cloudstate.kotlinsupport.api.crdt.*
+import io.cloudstate.kotlinsupport.annotations.crdt.CommandHandler
+import io.cloudstate.kotlinsupport.annotations.crdt.CrdtEntity
 import io.cloudstate.kotlinsupport.logger
 import io.cloudstate.kotlinsupport.transcoding.crdt.CommandHandlerImpl
 import io.cloudstate.kotlinsupport.transcoding.crdt.CrdtEntityImpl
@@ -11,11 +12,17 @@ import net.bytebuddy.asm.MemberAttributeExtension
 import net.bytebuddy.dynamic.DynamicType
 import net.bytebuddy.dynamic.loading.ClassReloadingStrategy
 import net.bytebuddy.matcher.ElementMatchers
+
 import io.cloudstate.javasupport.crdt.CrdtEntity as JCrdtEntity
 
 class CrdtTranscoder(private val clazz: Class<*>) : Transcoder {
     private val log = logger()
     private val helper = ReflectionHelper()
+
+    init {
+        log.debug("Initializing ByteBuddy Agent....")
+        ByteBuddyAgent.install()
+    }
 
     override fun transcode(): Class<*>? = transcode(clazz)
 
@@ -75,3 +82,4 @@ class CrdtTranscoder(private val clazz: Class<*>) : Transcoder {
     }
 
 }
+

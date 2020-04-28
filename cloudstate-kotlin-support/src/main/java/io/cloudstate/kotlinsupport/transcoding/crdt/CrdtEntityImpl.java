@@ -4,7 +4,7 @@ import io.cloudstate.javasupport.crdt.CrdtEntity;
 
 import java.lang.annotation.Annotation;
 
-public final class CrdtEntityImpl implements CrdtEntity {
+public class CrdtEntityImpl implements CrdtEntity {
     public Class<? extends Annotation> annotationType() {
         return CrdtEntity.class;
     }

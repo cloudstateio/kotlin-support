@@ -4,7 +4,7 @@ import io.cloudstate.javasupport.crdt.CommandHandler;
 
 import java.lang.annotation.Annotation;
 
-public final class CommandHandlerImpl implements CommandHandler {
+public class CommandHandlerImpl implements CommandHandler {
 
     private final String name;
 
