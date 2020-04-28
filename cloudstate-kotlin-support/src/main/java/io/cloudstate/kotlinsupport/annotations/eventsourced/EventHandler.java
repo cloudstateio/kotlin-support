@@ -1,7 +1,6 @@
 package io.cloudstate.kotlinsupport.annotations.eventsourced;
 
 import io.cloudstate.javasupport.eventsourced.EventContext;
-import io.cloudstate.javasupport.impl.CloudStateAnnotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -18,7 +17,6 @@ import java.lang.annotation.Target;
  *
  * <p>Methods annotated with this may take an {@link EventContext}.
  */
-@CloudStateAnnotation
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface EventHandler {

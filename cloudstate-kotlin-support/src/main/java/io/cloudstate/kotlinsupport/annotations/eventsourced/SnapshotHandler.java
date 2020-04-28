@@ -1,7 +1,6 @@
 package io.cloudstate.kotlinsupport.annotations.eventsourced;
 
 import io.cloudstate.javasupport.eventsourced.SnapshotContext;
-import io.cloudstate.javasupport.impl.CloudStateAnnotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -21,7 +20,6 @@ import java.lang.annotation.Target;
  * <p>The snapshot handler method may additionally accept a {@link SnapshotContext} parameter,
  * allowing it to access context for the snapshot, if required.
  */
-@CloudStateAnnotation
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface SnapshotHandler {}
