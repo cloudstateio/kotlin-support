@@ -6,9 +6,9 @@ import akka.stream.ActorMaterializer
 import akka.stream.Materializer
 import com.example.shoppingcart.ShoppingCartClient
 import com.example.shoppingcart.ShoppingCartProto
-import io.cloudstate.kotlinsupport.logger
 import org.junit.Rule
 import org.junit.Test
+import org.slf4j.LoggerFactory.getLogger
 import org.testcontainers.containers.FixedHostPortGenericContainer
 import org.testcontainers.containers.output.Slf4jLogConsumer
 import org.testcontainers.containers.wait.strategy.Wait
@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.test.assertEquals
 
 class IntegrationTest {
-    private val log = logger()
+    private val log = getLogger(javaClass)
 
     private val sys: ActorSystem = ActorSystem.create("GrpcTestClientSys")
     private val mat: Materializer = ActorMaterializer.create(sys)
