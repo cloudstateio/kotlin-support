@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm") version "1.3.72"
     id("com.google.protobuf") version "0.8.12"
     id("com.google.cloud.tools.jib") version "2.2.0"
+    idea
 }
 
 repositories {

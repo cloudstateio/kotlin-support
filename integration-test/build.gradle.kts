@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.3.72"
     id("com.lightbend.akka.grpc.gradle") version "0.8.4"
+    idea
 }
 
 repositories {
