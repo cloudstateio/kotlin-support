@@ -37,8 +37,6 @@ tasks {
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-    withJavadocJar()
-    withSourcesJar()
 }
 
 protobuf {
@@ -47,10 +45,24 @@ protobuf {
     }
 }
 
+val javadocJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("javadoc")
+    from(tasks.javadoc)
+}
+
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
+
+            artifact(javadocJar.get())
+            artifact(sourcesJar.get())
+
             pom {
                 name.set("Cloudstate Kotlin")
                 description.set("Cloudstate Kotlin Support Library")
@@ -71,19 +83,26 @@ publishing {
     }
     repositories {
         maven {
-            val releasesRepoUrl = uri("$buildDir/repos/releases")
-            val snapshotsRepoUrl = uri("$buildDir/repos/snapshots")
-            url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+            name = "sonatype"
+            url = if (isSnapshot) {
+                uri("https://oss.sonatype.org/content/repositories/snapshots/")
+            } else {
+                uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
+            }
+            credentials {
+                username = project.findProperty("ossrhUsername") as? String
+                password = project.findProperty("ossrhPassword") as? String
+            }
         }
     }
 }
 
-/*signing {
+signing {
+    setRequired({
+        !isSnapshot && gradle.taskGraph.hasTask("publish")
+    })
     sign(publishing.publications["maven"])
-}*/
-
-tasks.javadoc {
-    if (JavaVersion.current().isJava9Compatible) {
-        (options as StandardJavadocDocletOptions).addBooleanOption("html5", true)
-    }
 }
+
+inline val Project.isSnapshot
+    get() = version.toString().endsWith("-SNAPSHOT")
