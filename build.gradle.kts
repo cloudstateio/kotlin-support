@@ -5,7 +5,7 @@ allprojects {
     configurations.all {
         resolutionStrategy {
             dependencySubstitution {
-                substitute(module("io.cloudstate:cloudstate-kotlin-support"))
+                substitute(module("io.cloudstate:kotlin-support"))
                         .with(project(":cloudstate-kotlin-support"))
             }
         }
