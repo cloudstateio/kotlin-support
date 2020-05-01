@@ -5,6 +5,7 @@ plugins {
     id("com.google.protobuf") version "0.8.12"
     `maven-publish`
     idea
+    signing
 }
 
 repositories {
@@ -44,10 +45,64 @@ protobuf {
     }
 }
 
+val javadocJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("javadoc")
+    from(tasks.javadoc)
+}
+
+val sourcesJar by tasks.registering(Jar::class) {
+    archiveClassifier.set("sources")
+    from(sourceSets.main.get().allSource)
+}
+
 publishing {
     publications {
         create<MavenPublication>("maven") {
             from(components["java"])
+
+            artifact(javadocJar.get())
+            artifact(sourcesJar.get())
+
+            pom {
+                name.set("Cloudstate Kotlin")
+                description.set("Cloudstate Kotlin Support Library")
+                url.set("https://cloudstate.io/docs/user/lang/kotlin/index.html")
+                licenses {
+                    license {
+                        name.set("The Apache License, Version 2.0")
+                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                    }
+                }
+                scm {
+                    connection.set("scm:git:git://github.com/cloudstateio/kotlin-support.git")
+                    developerConnection.set("scm:git:ssh://github.com/cloudstateio/kotlin-support.git")
+                    url.set("https://github.com/cloudstateio/kotlin-support")
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "sonatype"
+            url = if (isSnapshot) {
+                uri("https://oss.sonatype.org/content/repositories/snapshots/")
+            } else {
+                uri("https://oss.sonatype.org/content/repositories/releases/")
+            }
+            credentials {
+                username = project.findProperty("ossrhUsername") as? String
+                password = project.findProperty("ossrhPassword") as? String
+            }
         }
     }
 }
+
+signing {
+    setRequired({
+        !isSnapshot && gradle.taskGraph.hasTask("publish")
+    })
+    sign(publishing.publications["maven"])
+}
+
+inline val Project.isSnapshot
+    get() = version.toString().endsWith("-SNAPSHOT")
