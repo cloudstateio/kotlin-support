@@ -8,8 +8,15 @@ plugins {
 }
 
 repositories {
+    // This repository is needed to find cloudstate-kotlin-support installed to the local Maven repository
+    // TODO remove local repository when cloudstate-kotlin-support is published to a public repository
     mavenLocal()
     mavenCentral()
+    // This repository is needed for a snapshot version of akka-grpc which cloudstate-java-support depends on
+    // TODO remove this repository when cloudstate-java-support upgrades its dependency
+    maven {
+        url = uri("https://dl.bintray.com/akka/maven")
+    }
 }
 
 dependencies {
@@ -23,7 +30,7 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.9.0"
+        artifact = "com.google.protobuf:protoc:3.11.4"
     }
 }
 
