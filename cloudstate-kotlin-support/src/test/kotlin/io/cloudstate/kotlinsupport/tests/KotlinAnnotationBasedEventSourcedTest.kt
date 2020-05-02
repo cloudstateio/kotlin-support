@@ -16,6 +16,7 @@ import io.cloudstate.kotlinsupport.annotations.eventsourced.*
 import io.cloudstate.kotlinsupport.api.eventsourced.KotlinAnnotationBasedEventSourced
 import io.cloudstate.kotlinsupport.logger
 import org.junit.Test
+import java.lang.RuntimeException
 import java.util.*
 import java.util.stream.Collectors
 import kotlin.test.assertEquals
@@ -165,7 +166,7 @@ class KotlinAnnotationBasedEventSourcedTest {
 
         override fun entityId(): String = "test:1"
 
-        override fun fail(errorMessage: String?) {
+        override fun fail(errorMessage: String): RuntimeException? {
             TODO("Not yet implemented")
         }
 
