@@ -227,11 +227,8 @@ class KotlinAnnotationBasedEventSourced(
         }
     }
 
-    class DelegatingEventContext(private val delegate: EventContext) : EventContext, EventBehaviorContext {
+    class DelegatingEventContext(private val delegate: EventContext) : EventContext {
         override fun entityId(): String = delegate.entityId()
-        override fun become(vararg behaviors: kotlin.Any?) {
-            TODO("Not yet implemented")
-        }
 
         override fun serviceCallFactory(): ServiceCallFactory = delegate.serviceCallFactory()
 
@@ -241,10 +238,6 @@ class KotlinAnnotationBasedEventSourced(
 
     class DelegatingEventSourcedContext(private val delegate: EventSourcedContext) : EventSourcedEntityCreationContext {
         override fun entityId(): String = delegate.entityId()
-        override fun become(vararg behaviors: kotlin.Any?) {
-            TODO("Not yet implemented")
-        }
-
         override fun serviceCallFactory(): ServiceCallFactory = delegate.serviceCallFactory()
     }
 }

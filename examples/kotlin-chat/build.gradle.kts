@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("io.cloudstate:kotlin-support:0.4.3")
+    implementation("io.cloudstate:kotlin-support:0.5.0")
     implementation("ch.qos.logback:logback-classic:1.2.3")
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
@@ -22,7 +22,7 @@ dependencies {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:3.9.0"
+        artifact = "com.google.protobuf:protoc:3.11.4"
     }
 }
 
