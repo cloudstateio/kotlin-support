@@ -13,15 +13,13 @@ import java.util.*
 import java.util.concurrent.CompletionStage
 
 class CloudStateRunner(private val initializer: CloudStateInitializer) {
+    private val log = logger()
     private val engine = CloudState()
     private val prefer: AnySupport.Prefer = AnySupport.PREFER_JAVA()
     private val typeUrlPrefix: String = AnySupport.DefaultTypeUrlPrefix()
     private lateinit var conf: Config
 
     fun withAllRegisters(): CloudStateRunner {
-
-        conf = getConfig()
-
         initializer.statefulServiceDescriptors.forEach{ descriptor ->
 
             when(descriptor.entityType) {
@@ -53,23 +51,38 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
         return this
     }
 
-    fun start(): CompletionStage<Done> = engine.start()
+    fun start(): CompletionStage<Done> = engine.start(getConfig())
 
-    //fun start(): CompletionStage<Done> = engine.start(conf)
+    fun start(conf: Config): CompletionStage<Done> = engine.start(conf)
 
     private fun getConfig(): Config {
+        log.info("Loading Config...")
         setEnv(
-                mapOf("SUPPORT_LIBRARY_NAME" to "cloudstate-kotlin-support",
+                mapOf("SUPPORT_LIBRARY_NAME" to "kotlin-support",
                         "SUPPORT_LIBRARY_VERSION" to getProjectVersion()))
 
-        val properties: Properties = Properties()
+        val properties = Properties()
         properties.setProperty("cloudstate.system.akka.loglevel", initializer.configInit.loglevel)
+        properties.setProperty("cloudstate.system.akka.actor.provider", "local")
+        properties.setProperty("cloudstate.system.akka.coordinated-shutdown.exit-jvm", "on")
+        properties.setProperty("cloudstate.system.akka.http.server.preview.enable-http2", "on")
+        properties.setProperty("cloudstate.system.akka.http.server.idle-timeout", "infinite")
+        properties.setProperty("cloudstate.eventsourced.snapshot-every", "100")
+        properties.setProperty("cloudstate.library.name", "kotlin-support")
+        properties.setProperty("cloudstate.library.version", getProjectVersion())
         properties.setProperty("cloudstate.user-function-interface", initializer.configInit.host)
         properties.setProperty("cloudstate.user-function-port", initializer.configInit.port.toString())
 
-        return ConfigFactory.parseProperties(properties)
-                .withFallback(ConfigFactory.defaultApplication())
+        val conf = ConfigFactory.load()
+        conf.getConfig("cloudstate.system").withFallback(conf)
+        val appConf = ConfigFactory.parseProperties(properties)
+                //.withFallback(conf)
                 .resolve()
+        log.info("Load config library.name: ${appConf.getString("cloudstate.library.name")}")
+        log.info("Load config library.version: ${appConf.getString("cloudstate.library.version")}")
+        log.info("Load config user-function-port: ${appConf.getString("cloudstate.user-function-port")}")
+        log.info("Load config user-function-interface: ${appConf.getString("cloudstate.user-function-interface")}")
+        return appConf
     }
 
     private fun newAnySupport(descriptors: List<Descriptors.FileDescriptor>): AnySupport? =
