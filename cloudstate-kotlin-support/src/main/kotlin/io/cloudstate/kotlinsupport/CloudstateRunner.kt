@@ -13,15 +13,13 @@ import java.util.*
 import java.util.concurrent.CompletionStage
 
 class CloudStateRunner(private val initializer: CloudStateInitializer) {
+    private val log = logger()
     private val engine = CloudState()
     private val prefer: AnySupport.Prefer = AnySupport.PREFER_JAVA()
     private val typeUrlPrefix: String = AnySupport.DefaultTypeUrlPrefix()
     private lateinit var conf: Config
 
     fun withAllRegisters(): CloudStateRunner {
-
-        conf = getConfig()
-
         initializer.statefulServiceDescriptors.forEach{ descriptor ->
 
             when(descriptor.entityType) {
@@ -53,23 +51,26 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
         return this
     }
 
-    fun start(): CompletionStage<Done> = engine.start()
+    fun start(): CompletionStage<Done> = engine.start(getConfig())
 
-    //fun start(): CompletionStage<Done> = engine.start(conf)
+    fun start(conf: Config): CompletionStage<Done> = engine.start(conf)
 
     private fun getConfig(): Config {
-        setEnv(
-                mapOf("SUPPORT_LIBRARY_NAME" to "cloudstate-kotlin-support",
-                        "SUPPORT_LIBRARY_VERSION" to getProjectVersion()))
-
-        val properties: Properties = Properties()
+        log.info("Loading Config...")
+        val properties = Properties()
         properties.setProperty("cloudstate.system.akka.loglevel", initializer.configInit.loglevel)
+        properties.setProperty("cloudstate.library.name", "kotlin-support")
+        properties.setProperty("cloudstate.library.version", getProjectVersion())
         properties.setProperty("cloudstate.user-function-interface", initializer.configInit.host)
         properties.setProperty("cloudstate.user-function-port", initializer.configInit.port.toString())
 
-        return ConfigFactory.parseProperties(properties)
-                .withFallback(ConfigFactory.defaultApplication())
-                .resolve()
+        val conf = ConfigFactory.load(ConfigFactory.parseProperties(properties))
+        log.debug("Load config library.name: ${conf.getString("cloudstate.library.name")}")
+        log.debug("Load config library.version: ${conf.getString("cloudstate.library.version")}")
+        log.debug("Load config user-function-port: ${conf.getString("cloudstate.user-function-port")}")
+        log.debug("Load config user-function-interface: ${conf.getString("cloudstate.user-function-interface")}")
+        return conf.getConfig("cloudstate.system").withFallback(conf)
+        return conf
     }
 
     private fun newAnySupport(descriptors: List<Descriptors.FileDescriptor>): AnySupport? =

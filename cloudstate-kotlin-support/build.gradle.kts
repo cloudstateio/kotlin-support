@@ -87,7 +87,7 @@ publishing {
             url = if (isSnapshot) {
                 uri("https://oss.sonatype.org/content/repositories/snapshots/")
             } else {
-                uri("https://oss.sonatype.org/content/repositories/releases/")
+                uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
             }
             credentials {
                 username = project.findProperty("ossrhUsername") as? String
