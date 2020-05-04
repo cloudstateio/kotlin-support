@@ -57,10 +57,6 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
 
     private fun getConfig(): Config {
         log.info("Loading Config...")
-        setEnv(
-                mapOf("SUPPORT_LIBRARY_NAME" to "kotlin-support",
-                        "SUPPORT_LIBRARY_VERSION" to getProjectVersion()))
-
         val properties = Properties()
         properties.setProperty("cloudstate.system.akka.loglevel", initializer.configInit.loglevel)
         properties.setProperty("cloudstate.library.name", "kotlin-support")

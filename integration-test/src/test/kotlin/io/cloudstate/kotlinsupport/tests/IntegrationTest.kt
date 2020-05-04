@@ -83,7 +83,7 @@ class IntegrationTest {
                         withExposedPorts(8080)
                         withLogConsumer(Slf4jLogConsumer(log))
                         waitingFor(
-                                Wait.forLogMessage(".*Successfully bound to .*", 1)
+                                Wait.forListeningPort()
                         )
                     }
 
@@ -96,7 +96,7 @@ class IntegrationTest {
                         withEnv("USER_FUNCTION_PORT", userFunctionPort)
                         withLogConsumer(Slf4jLogConsumer(log))
                         waitingFor(
-                                Wait.forLogMessage(".*CloudState proxy online at.*", 2)
+                                Wait.forListeningPort()
                         )
                     }
 
