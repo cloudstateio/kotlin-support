@@ -22,7 +22,6 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
     testImplementation("org.testcontainers:testcontainers:1.12.5")
-    testImplementation("com.google.api.grpc:proto-google-common-protos:1.17.0")
     testImplementation("ch.qos.logback:logback-classic:1.2.3")
 }
 
