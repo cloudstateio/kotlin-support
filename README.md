@@ -1,6 +1,6 @@
 # kotlin-support
 
-User Language Support for the Kotlin Programming Language
+Cloudstate Kotlin Support
 
 ## Install the Kotlin Support Library to the local Maven repository
 
