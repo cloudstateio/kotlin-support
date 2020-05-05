@@ -13,6 +13,9 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
     testImplementation("org.testcontainers:testcontainers:1.12.5")
+    // TODO replace with a jar with cloudstate protobuf definitions when it is released
+    // https://github.com/cloudstateio/cloudstate/issues/285#issuecomment-622056221
+    testImplementation("io.cloudstate:cloudstate-java-support:0.4.7")
     testImplementation("ch.qos.logback:logback-classic:1.2.3")
 }
 
