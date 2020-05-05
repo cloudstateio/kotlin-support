@@ -45,7 +45,7 @@ class CloudStateInitializer {
                 StatefulServiceDescriptor(
                         entityType = crdtSourcedInit.type,
                         serviceClass = entityServiceType,
-                        transcoder = entityServiceType?.let { CrdtTranscoder(it.java as Class<*>) },
+                        transcoder = entityServiceType.let { CrdtTranscoder(it.java as Class<*>) },
                         descriptor = crdtSourcedInit.descriptor,
                         additionalDescriptors = crdtSourcedInit.additionalDescriptors)
         )

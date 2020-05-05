@@ -25,10 +25,10 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
             when(descriptor.entityType) {
 
                 EntityType.EventSourced -> {
-                    val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
+                    val anySupport = descriptor.additionalDescriptors.let { newAnySupport(it) }
 
                     engine.registerEventSourcedEntity(
-                            KotlinAnnotationBasedEventSourced(descriptor!!.serviceClass!!, anySupport!!, descriptor.descriptor!!),
+                            KotlinAnnotationBasedEventSourced(descriptor.serviceClass!!, anySupport!!, descriptor.descriptor!!),
                             descriptor.descriptor,
                             descriptor.persistenceId,
                             descriptor.snapshotEvery,
@@ -36,7 +36,7 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                 }
 
                 EntityType.Crdt -> {
-                    val anySupport = descriptor.additionalDescriptors?.let { newAnySupport(it) }
+                    val anySupport = newAnySupport(descriptor.additionalDescriptors)
                     val clazz: Class<*>? = descriptor.transcoder!!.transcode()
 
                     engine.registerCrdtEntity(
@@ -70,7 +70,6 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
         log.debug("Load config user-function-port: ${conf.getString("cloudstate.user-function-port")}")
         log.debug("Load config user-function-interface: ${conf.getString("cloudstate.user-function-interface")}")
         return conf.getConfig("cloudstate.system").withFallback(conf)
-        return conf
     }
 
     private fun newAnySupport(descriptors: List<Descriptors.FileDescriptor>): AnySupport? =
