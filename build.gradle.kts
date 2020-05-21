@@ -1,6 +1,6 @@
 allprojects {
     group = "io.cloudstate"
-    version = "0.5.0"
+    version = "0.5.1"
 
     configurations.all {
         resolutionStrategy {
