@@ -22,13 +22,14 @@ import java.util.concurrent.atomic.AtomicBoolean
  * us how many nodes have voted, and if at least one of them voted true, we know the user is online.
  */
 @CrdtEntity
-class PresenceEntity(vote: Optional<Vote>, ctx: CrdtCreationContext,
-                     @param:EntityId private val username: String) {
+class PresenceEntity(vote: Vote,
+                     ctx: CrdtCreationContext,
+                     @EntityId private val username: String) {
 
     /**
      * The vote CRDT.
      */
-    private val vote: Vote = vote.orElseGet { ctx.newVote() }
+    private val vote: Vote = ctx.newVote()
 
 
     /**

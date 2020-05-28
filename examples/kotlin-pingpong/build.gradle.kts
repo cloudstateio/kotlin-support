@@ -36,7 +36,7 @@ jib {
         image = "openjdk:8u242-jdk"
     }
     to {
-        image = "sleipnir/cloudstate-pingpong"
+        image = "cloudstateio/samples-kotlin-pingpong"
         tags = setOf(project.version.toString())
     }
     container {
