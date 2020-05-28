@@ -35,6 +35,8 @@ class IntegrationTest {
         val proxy: FixedHostPortGenericContainer<*> = getProxy(userFunctionPort)
                 .also(FixedHostPortGenericContainer<*>::start)
 
+        Thread.sleep(3000L)
+
         log.info("Port bindings ${proxy.getPortBindings().size}")
         proxy.getPortBindings().forEach{ binding -> log.info("Port Binding -> $binding")}
 
@@ -45,7 +47,7 @@ class IntegrationTest {
 
         client.addItem( addLineItem() )
                 .toCompletableFuture()
-                .get(30, TimeUnit.SECONDS)
+                .get(120, TimeUnit.SECONDS)
 
         val cartItems: ShoppingCartProto.Cart = client.getCart( getCart() )
                 .whenComplete { res, throwable ->
