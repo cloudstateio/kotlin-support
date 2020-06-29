@@ -2,6 +2,11 @@ dist: bionic
 
 language: java
 
+arch:
+  - amd64
+  - arm64
+os: linux
+
 jdk:
   - openjdk8
   - openjdk11
