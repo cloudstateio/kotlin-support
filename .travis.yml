@@ -2,10 +2,10 @@
 
 language: java
 
-#arch:
-#  - amd64
-#  - arm64
-#os: linux
+arch:
+  - amd64
+  - arm64
+os: linux
 
 jdk:
   - openjdk8

@@ -1,5 +1,8 @@
+import com.google.protobuf.gradle.*
+
 plugins {
     kotlin("jvm") version "1.3.72"
+    id("com.google.protobuf") version "0.8.12"
     id("com.lightbend.akka.grpc.gradle") version "0.8.4"
     idea
 }
@@ -22,6 +25,12 @@ dependencies {
 java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.11.4"
+    }
 }
 
 // TODO Remove this workaround when https://github.com/akka/akka-grpc/issues/786 is fixed
