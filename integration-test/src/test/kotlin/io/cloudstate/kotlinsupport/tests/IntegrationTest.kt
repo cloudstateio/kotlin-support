@@ -35,7 +35,7 @@ class IntegrationTest {
         val proxy: FixedHostPortGenericContainer<*> = getProxy(userFunctionPort)
                 .also(FixedHostPortGenericContainer<*>::start)
 
-        Thread.sleep(3000L)
+        Thread.sleep(6000L)
 
         log.info("Port bindings ${proxy.getPortBindings().size}")
         proxy.getPortBindings().forEach{ binding -> log.info("Port Binding -> $binding")}
