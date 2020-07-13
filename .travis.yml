@@ -4,12 +4,31 @@ language: java
 
 arch:
   - amd64
-  - arm64
+  # - arm64
 os: linux
 
 jdk:
   - openjdk8
   - openjdk11
+
+deploy:
+  provider: script
+  script: ./gradlew bintrayUpload
+  skip_cleanup: true
+  on:
+    tags: true
+    jdk: openjdk8
+
+env:
+  global:
+  # Bintray username; encrypted with: travis encrypt --pro -r cloudstateio/kotlin-support BINTRAY_USER=<bintray.username>
+  - secure: "rnxYAbFirxyfb5jatfljyiZKoJ2GLJVz540YK6oidmuXiQhAIDM8TrWbg8zIeB285CR+EAszkankK2g7enzPo4BjHaZUrbl4UUJY9zkYlJgTMymn0XYSm2xCGJQIYUJYPgTSKDZCNqLb2UZTShUjN5o/FEFoe2H2vhK7Nqi+NBZtRlP39DmGgK2xH/PAepA4BaqV4SD3SDcC+itovnFmy5kHS1rVcPqognG/N1gguIgJkyabClzaB7zzg/ZF5H/f0R1vKyf7aFkI7lng7zNb2ctV0fiTTQqsEGRCUosSF2/N8GoDG0JrdD4yGRrgDHDQj7KLDvOR+XalF5qKHX6jIxck5VsTjFcbMpaXdm0LjmQ98pj7ygrzqMYAWPNH1F0Q4y/ocAC+vcRL5mHqspBYdKJi5kybJMqfWs9mBvjjGepcPc/qpBVX8DX9SzeZzD7qLLW9NaFdwVqBIH4ZibgKsOUFjyNEJiB659i64CvHYNKdNKLSTiRXbu1rSb3891EWqWAgxsPmTI165qJt7B3P8Z3nePw4Detnx1mgEBdqfxSzWIV2qr31LTFaTsnKPctO/jrvqXRCh5WfrQLnpOZeaTj1EU4y9EM3ze+UcUR9VUWBSeHB2SoKn+x4aK1KwMTedv4z0eUYRohY3YrJ9Qb3B/DAjFhG0Nwq8GeYlNotKlY="
+  # Bintray API key; encrypted with: travis encrypt --pro -r cloudstateio/kotlin-support BINTRAY_KEY=<bintray.apikey>
+  - secure: "OvIaEjRw0WjAKtK2fLtulOtFcLOd6xxJ4AfCN6Q1rkatXzo8Ss4+Bo0uzQp+rqMX9J7B606YJ9EglF445aOvqZgmnZuWEltTK6pnu3b/TvzYDx/lIIac6kGNsnfuWheUJYKZYfEU+pFkJfROODKleEpUlsr5XrtniIODdF+0y+Mtyxix6PIVFDj8+hUqKsG178CQEE3G6z0Klsg8zhWGh22/+0RbEdaadxmWsYrsFT/mUpmscbhKtqSmTnrTreUwvuKBzAybGDnMg53HE1aZczL0JCkpUjhu9vwf6kyghClRiaoJvxuY2RacyERdG0b5SHrN87wfiQJIHfQaACW3VsserPdFG97nBK+XFf/UWxJIOvhBMw1fR3rRtrkpfPjfLSJcf+E+FWtGiNASTaUmgYrr52kVsFucbH4mVSi+te3+ippJNmRPFJVpJJ1wN8cG/+T59XOTL2Y1irqjdE6GtPQkpTQKZgIY1wx5vuW2siUEd2JKiNUUVHCYgYYDMObwM7NHh5hc0TEcwzVykzAb7VXPcJSrrQ3eO2iiLU6LELBxTiBbwS2RnIHj/44HxFYHchWRETlQbQp9wADAbZbMkTzu8PAO4o3zj7DHL+4079MSMWP9UtOELs9aMPJTMiO2xqdRWTksZ0ZJvnSv4C6kqLjIZxydQ4S8fRY8RsEu6p4="
+  # Sonatype user token username; encrypted with: travis encrypt --pro -r cloudstateio/kotlin-support SONATYPE_USER=<sonatype.token.username>
+  - secure: "U5hRDjBDUkCG6ZeldXdEXAZxYauYUs4ytAWQZJA7spUmvoZVvtCgm817mty9WBi0a31jryuyIu592Wnq8XToxOQZDCctvIt0Zg2siMZ8gqMw0GnefPkw/p8GQTTgTtvMyXKXPn1+JIPjfpQY+8XpYSFhK79IFhG8i5vnqN0z0wYbGBgxR45uVO2vLmWOik5WCgKL0zDvoKJcqA6XIIPShgDcrgTruwEovEwlbvi5q739c8OOPyc9Dm5sQIpmbVsRc5/jF8Fs7eR9Kyh8JdXiSA+NSyhaK4TlPhxKBrKewflNdxKwRPHmhqS0JyoPhOL2l/mY4RYb0nSU1u6OkGGLtzmS9mpNExUhi+XdQxXYi6xAOXg9FXFhq75HuoIoXzMzycE0YDzOeSQ0IWvR9vJYex+RT2C7BCyVAq7paaHiwa3Qs+02N4anwuAsyWUIqAHVVZ+2+/UEUIjpo/pc/giNW6a3lyEfWGa1mhv8IcJr2iL/ZtPkYHs38N8ME1LgHASAedp0iZRDDs8BPc9u+GWOexy2q/symyLNRJau9X5aaP+nImRJEPUgrkgrC9s2Xu73FavYuGgfv4una29nhRej58wfbPQtZ8NBErMgORDGUzNVuQfcvtItys/mW9gpukMpq3uuLuhjukUDGRRVzhgXqjRBaaSOVWO8RyU+IvHZ8dg="
+  # Sonatype user token password; encrypted with: travis encrypt --pro -r cloudstateio/kotlin-support SONATYPE_PASSWORD=<sonatype.token.username>
+  - secure: "f58hT6jDTAugGNgsC9nTVBxePCq+v9L3b3rD88meM+HcgbWXoCIghHWyjN7Hj7tmMDGAOoFcSmtfPd5FB3Ird7W3nh/ksxKLWPbw2mbMyBqLyUxMQPIQyKhEBM9qEgAgSX12tzen6kQHQiPp1PPUZtSKCdz4IIs1jje1t9PN3ZSxvCbCSlr7rWuUYXHoP2U+4LlJvfy29jTk19fq0wsf/W6lCa2bKFNF2ML4QFhWMY6TKhm0N0Hgpva/r0L1kcQvevqyJ2NISuUwOJqTM8GWFP9gHmvhbzBUOaGgCTj/K3dbudfZv5YxYiL9mtNFeIBiStS7HEEcO9es5WAB6rKyTWKDx1ElKCFJpy1h/+EtTa6RcVrIvFzuItwf5sY95SzgsHth7zPBYkmpvxIA8PSZHFLfh8tqrHhD1YKA11GwM23GhOXUglC53bITNXimhpHJ3vnadZTXqM67IFrEEME7J0DibZlyvG1oM/kxc7A+oJVpgHxJjo1zPYu1eH3wxjMcTx3tpOOPI5wBRQpn451S77tFGZAgMJf4NYQbBIIC5/+nQtTmQF9v9cMoyWNivNz9RYw78mv2dXTp31CaNgqdqjK/zW96DPGLxhAw7WACSDYt3aW2FJUetTPhFk3hGFlGqb9CUXBDvQcjUatCqzlTdfOoU5PEDgJC0XQdolmf3lg="
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/*/*.lock

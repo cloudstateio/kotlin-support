@@ -4,8 +4,8 @@ plugins {
     kotlin("jvm") version "1.3.72"
     id("com.google.protobuf") version "0.8.12"
     `maven-publish`
+    id("com.jfrog.bintray") version "1.8.5"
     idea
-    signing
 }
 
 repositories {
@@ -72,6 +72,13 @@ publishing {
                         url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
+                developers {
+                    developer {
+                        id.set("cloudstate-contributors")
+                        name.set("Cloudstate Contributors")
+                        email.set("contributors@cloudstate.io")
+                    }
+                }
                 scm {
                     connection.set("scm:git:git://github.com/cloudstateio/kotlin-support.git")
                     developerConnection.set("scm:git:ssh://github.com/cloudstateio/kotlin-support.git")
@@ -80,28 +87,29 @@ publishing {
             }
         }
     }
-    repositories {
-        maven {
-            name = "sonatype"
-            url = if (isSnapshot) {
-                uri("https://oss.sonatype.org/content/repositories/snapshots/")
-            } else {
-                uri("https://oss.sonatype.org/service/local/staging/deploy/maven2/")
-            }
-            credentials {
-                username = project.findProperty("ossrhUsername") as? String
-                password = project.findProperty("ossrhPassword") as? String
+}
+
+val gitVersion: groovy.lang.Closure<String> by extra
+val versionDetails: groovy.lang.Closure<com.palantir.gradle.gitversion.VersionDetails> by extra
+
+bintray {
+    user = System.getenv("BINTRAY_USER")
+    key = System.getenv("BINTRAY_KEY")
+    setPublications("maven")
+    publish = true
+    with(pkg) {
+        userOrg = "cloudstateio"
+        name = "cloudstate-kotlin-support"
+        repo = if (versionDetails().isCleanTag) "releases" else "snapshots"
+        setLicenses("Apache-2.0")
+        vcsUrl = "https://github.com/cloudstatio/kotlin-support"
+        with(version) {
+            name = gitVersion()
+            with(mavenCentralSync) {
+                sync = versionDetails().isCleanTag
+                user = System.getenv("SONATYPE_USER")
+                password = System.getenv("SONATYPE_PASSWORD")
             }
         }
     }
 }
-
-signing {
-    setRequired({
-        !isSnapshot && gradle.taskGraph.hasTask("publish")
-    })
-    sign(publishing.publications["maven"])
-}
-
-inline val Project.isSnapshot
-    get() = version.toString().endsWith("-SNAPSHOT")
