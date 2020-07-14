@@ -1,506 +1,238 @@
 
-* __Update project version to new release__
+* __Remove unnecessary file__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 28 Apr 2020 14:51:01 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 14 Jul 2020 10:15:07 -0300
     
-    EAD -&gt; refs/heads/master, tag: refs/tags/0.5.0, refs/remotes/upstream/master, refs/remotes/origin/master, refs/remotes/origin/HEAD
-    
-
-* __Update image name__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 28 Apr 2020 14:39:52 -0300
-    
-    efs/remotes/origin/vkorenev-gradle-kotlin-dsl, refs/heads/vkorenev-gradle-kotlin-dsl
     
 
-* __Add snapshot test__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 28 Apr 2020 14:13:50 -0300
+* __Fix.Don&#39;t know how to handle argument of type class java.lang.Class in constructor. Closes https://github.com/cloudstateio/kotlin-support/issues/46 https://github.com/cloudstateio/kotlin-support/pull/47__
+
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 14 Jul 2020 10:01:06 -0300
     
-    efs/remotes/upstream/wip-kotlin-factory, refs/remotes/origin/wip-kotlin-factory, refs/heads/wip-kotlin-factory
+    efs/remotes/origin/fix-chat-example, refs/heads/fix-chat-example
     
 
-* __Change array to list in register api__
+* __Add git versioning and bintray publish__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 28 Apr 2020 10:43:24 -0300
+    [Peter Vlugter](mailto:pvlugter@gmail.com) - Mon, 13 Jul 2020 14:14:10 +1200
     
     
     
 
-* __Remove Cloudstate annotation__
+* __Remove arm stage__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 28 Apr 2020 10:42:58 -0300
-    
-    
-    
-
-* __Remove serverPowerApis__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Mon, 27 Apr 2020 14:38:03 -0700
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Thu, 9 Jul 2020 13:59:28 -0300
     
     
     
 
-* __Substitue bytebuddy classes to kotlin handlers ref issue https://github.com/cloudstateio/kotlin-support/issues/6__
+* __Remove properties__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 27 Apr 2020 17:41:38 -0300
-    
-    
-    
-
-* __Workaround for CRDT continue works__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 27 Apr 2020 17:30:59 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Thu, 9 Jul 2020 11:07:49 -0300
     
     
     
 
-* __Workaround for CRDT continue works__
+* __Added developers section to POM so that Maven central deploy works__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 27 Apr 2020 17:30:41 -0300
-    
-    
-    
-
-* __Workaround for CRDT continue works__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 27 Apr 2020 17:30:21 -0300
+    [James Roper](mailto:james@jazzy.id.au) - Thu, 9 Jul 2020 15:00:10 +1000
     
     
     
 
-* __Revert image name change__
+* __Update time sleep__
 
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Mon, 27 Apr 2020 12:34:17 -0700
-    
-    
-    
-
-* __Downgrade protoc version to 3.9.0__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Mon, 27 Apr 2020 12:27:47 -0700
-    
-    
-    Downgrade protoc version to 3.9.0 for consistency with akka-grpc 0.7.1 
-    dependencies.
-    
-
-* __Move IntegrationTest to a separate module to avoid akka-grpc version conflict__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Mon, 27 Apr 2020 12:25:57 -0700
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 30 Jun 2020 14:45:21 -0300
     
     
     
 
-* __Add tests to validate new EventSourcedEntityFactory__
+* __Try ARM compilation__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 27 Apr 2020 15:42:36 -0300
-    
-    
-    
-
-* __Handling FailInvoke. 100% of TCK passed__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 27 Apr 2020 01:12:44 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 30 Jun 2020 14:37:22 -0300
     
     
     
 
-* __Add initial eventsourced implementation 90% of TCK passed__
+* __Comment arm target__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 27 Apr 2020 00:17:37 -0300
-    
-    
-    
-
-* __Add commandHandlers support with params and Fix AnySupport load descriptors__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Sat, 25 Apr 2020 09:53:01 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 29 Jun 2020 16:14:26 -0300
     
     
     
 
-* __Let users select logger implementation__
+* __Remove dist__
 
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Fri, 24 Apr 2020 10:48:09 -0700
-    
-    
-    
-
-* __Update README__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Fri, 24 Apr 2020 10:29:42 -0700
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 29 Jun 2020 15:42:34 -0300
     
     
     
 
-* __Expose cloudstate-java-support API to cloudstate-kotlin-support clients__
+* __Add ARM architecture support__
 
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Thu, 23 Apr 2020 21:35:31 -0700
-    
-    
-    
-
-* __Substitute dependency on &#34;io.cloudstate:cloudstate-kotlin-support&#34;__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Thu, 23 Apr 2020 21:34:11 -0700
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 29 Jun 2020 15:33:16 -0300
     
     
     
 
-* __Travis CI: cache Gradle-specific files__
+* __Waiting for proxy__
 
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Thu, 23 Apr 2020 21:28:43 -0700
-    
-    
-    
-
-* __Use downloaded protobuf compiler__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Thu, 23 Apr 2020 19:51:42 -0700
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Thu, 28 May 2020 14:14:29 -0300
     
     
     
 
-* __Support publishing to local Maven repo__
+* __Adjusts in gradle and exemples__
 
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Thu, 23 Apr 2020 19:25:26 -0700
-    
-    
-    
-
-* __Substitute version in version.prop__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Thu, 23 Apr 2020 19:24:01 -0700
-    
-    
-    
-
-* __Work around https://github.com/akka/akka-grpc/issues/786__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Thu, 23 Apr 2020 17:11:34 -0700
-    
-    
-    
-
-* __Replace Maven build with Gradle (Kotlin DSL)__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Thu, 23 Apr 2020 14:01:20 -0700
-    
-    
-    
-
-* __Add Travis CI config__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Thu, 23 Apr 2020 10:16:15 -0700
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Thu, 28 May 2020 12:13:31 -0300
     
     
     
 
 * __Adjusts__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Wed, 22 Apr 2020 23:52:07 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Thu, 21 May 2020 14:56:28 -0300
     
     
     
 
-* __Fix in commandHandler__
+* __Add tck suppot__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Wed, 22 Apr 2020 23:51:56 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Thu, 21 May 2020 14:55:58 -0300
     
     
     
 
-* __Rename docker image__
+* __Remole all lock files and gradle-kotlin-dsl dirs__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Wed, 22 Apr 2020 22:51:47 -0300
+    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Tue, 5 May 2020 22:32:32 -0700
     
     
     
 
-* __Various adjusts__
+* __Refactor. Fix some lints__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Wed, 22 Apr 2020 22:50:22 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 5 May 2020 12:13:20 -0300
     
     
     
 
-* __Rename IntegrationTests to IntegrationTest__
+* __Remove changing files before creating Travis CI cache__
 
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Wed, 22 Apr 2020 18:45:38 -0700
+    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Mon, 4 May 2020 16:29:13 -0700
     
     
     
 
-* __Add command invoker implementation__
+* __Remove proto-google-common-protos from dependencies__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Wed, 22 Apr 2020 19:18:28 -0300
+    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Mon, 4 May 2020 15:44:01 -0700
     
     
     
 
-* __Add initial structure for crdt services__
+* __Remove Google and Cloudstate proto files__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Wed, 22 Apr 2020 13:23:48 -0300
+    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Mon, 4 May 2020 15:43:36 -0700
     
     
     
 
-* __Move pushing containers to the deploy phase__
+* __Fix description__
 
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Tue, 21 Apr 2020 10:55:32 -0700
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 4 May 2020 12:07:46 -0300
     
     
     
 
-* __Fix compilation: remove dependency on incompatible protobuf-java__
+* __Fix. IntegrationTest waitFor strategy__
 
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Mon, 20 Apr 2020 20:35:18 -0700
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 4 May 2020 11:58:24 -0300
     
+    efs/remotes/origin/use-external-config, refs/heads/use-external-config
     
-    
-
-* __Add snapshots mappings__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 20 Apr 2020 17:59:39 -0300
-    
-    
-    
-
-* __Remove bytebuddy agent__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 20 Apr 2020 17:33:47 -0300
-    
-    
-    
-
-* __Remove transcode calls__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 20 Apr 2020 17:23:14 -0300
-    
-    
-    
-
-* __Remove Bytebuddy dependency__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 20 Apr 2020 17:19:02 -0300
-    
-    
-    
-
-* __Add helper methods__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Sun, 19 Apr 2020 20:49:53 -0300
-    
-    
-    
-
-* __Regression of propertyAccess__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Sun, 19 Apr 2020 20:21:14 -0300
-    
-    
-    
-
-* __Get Constructor__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Sun, 19 Apr 2020 20:20:21 -0300
-    
-    
-    
-
-* __Add handlers and factories for register functions__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Sat, 18 Apr 2020 23:29:18 -0300
-    
-    
-    
-
-* __Minor changes__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Sat, 18 Apr 2020 22:11:32 -0300
-    
-    
-    
-
-* __Fixe issue #13 and minor changes__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Sat, 18 Apr 2020 20:20:41 -0300
-    
-    
-    
-
-* __Refactor. Property access__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Sat, 18 Apr 2020 20:19:49 -0300
-    
-    
-    
-
-* __Remove generated Protobuf files from cloudstate-kotlin-support__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Sat, 18 Apr 2020 13:26:27 -0700
-    
-    
-    
-
-* __Remove generated Protobuf files from examples__
-
-    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Sat, 18 Apr 2020 12:13:54 -0700
-    
-    
-    
-
-* __Default INFO level__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Thu, 19 Mar 2020 16:12:34 -0300
-    
-    
-    
-
-* __Add new line__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Thu, 19 Mar 2020 14:31:10 -0300
-    
-    
-    
-
-* __Update examples/shopping-cart/src/main/kotlin/com/example/shoppingcart/Shoppingcart.java__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 17 Mar 2020 20:13:24 -0300
-    
-    
-    Co-Authored-By: Viktor Klang (√) &lt;viktor.klang@gmail.com&gt;
-
-* __Reduce bytebuddy agent install calls__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 16 Mar 2020 00:16:04 -0300
-    
-    efs/remotes/upstream/wip-register-dsl, refs/remotes/origin/wip-register-dsl, refs/heads/wip-register-dsl
-    
-
-* __Remove comment__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Wed, 11 Mar 2020 18:15:20 -0300
-    
-    
-    
 
-* __Add distroless example__
+* __Fix. Pass correct Config to start method__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Wed, 11 Mar 2020 14:01:17 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 4 May 2020 11:31:42 -0300
     
     
     
 
-* __Reduce calls to install bytebuddy agent__
+* __Use config to start services with kotlin library params__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Wed, 11 Mar 2020 11:25:25 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Sat, 2 May 2020 00:31:51 -0300
     
     
     
 
-* __Reduce calls to install bytebuddy agent. Ref issue #6__
+* __Migrate to java-support 0.4.7. Closes https://github.com/cloudstateio/kotlin-support/issues/35__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Wed, 11 Mar 2020 10:43:01 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Fri, 1 May 2020 22:00:30 -0300
     
+    efs/remotes/origin/upgrade-java-support-0.4.7, refs/heads/upgrade-java-support-0.4.7
     
-    
-
-* __New DSL proposal__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 10 Mar 2020 18:25:37 -0300
-    
-    
-    
-
-* __Add new line__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 10 Mar 2020 14:25:34 -0300
-    
-    
-    
-
-* __Add new line__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 10 Mar 2020 14:24:55 -0300
-    
-    
-    
-
-* __Fixes @viktorklang review. Missing new lines and others__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 10 Mar 2020 14:19:37 -0300
-    
-    
-    
-
-* __Fixes @viktorklang review. Missing new lines and others__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 10 Mar 2020 14:18:35 -0300
-    
-    
-    
-
-* __Fixes @viktorklang review__
+* __Change to release__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 10 Mar 2020 14:10:51 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Thu, 30 Apr 2020 12:14:42 -0300
     
+    efs/remotes/origin/wip-kotlin-factory, refs/heads/wip-kotlin-factory
     
-    
 
-* __Add measured time__
+* __merge gradle__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 10 Mar 2020 13:47:16 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Thu, 30 Apr 2020 11:29:53 -0300
     
     
     
 
-* __Add paradox snip__
+* __doc: Rename final jar name__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 10 Mar 2020 13:47:02 -0300
-    
+    [acasado](mailto:acasadoquijada@gmail.com) - Thu, 30 Apr 2020 15:57:03 +0200
     
     
-
-* __Refactor__
-
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 9 Mar 2020 18:47:01 -0300
+    The jar name has been changed from cloudstate-kotlin-support to kotlin-support
+    as explained in the issue.
     
+    The commit changes the name in all the files needed.
     
+    Fix: #29
     
 
-* __Fix. Bug in Crdt Entity__
+* __Upload artifacts to Central. issue https://github.com/cloudstateio/kotlin-support/issues/10__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 9 Mar 2020 18:29:23 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Wed, 29 Apr 2020 22:39:31 -0300
     
     
     
 
-* __Complete initial example on Readme__
+* __Add simple configuration for publish maven artifacts to Central Repository__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 9 Mar 2020 12:08:48 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 28 Apr 2020 17:36:54 -0300
     
     
     
 
-* __Remove unascessary cast to javaClass in user API__
+* __Add changelog__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Mon, 9 Mar 2020 11:55:18 -0300
+    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 28 Apr 2020 15:00:07 -0300
     
     
     
 
-* __Fix comments by @marcellanz__
+* __Add idea gradle plugin__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Tue, 3 Mar 2020 10:31:40 -0300
+    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Tue, 28 Apr 2020 10:57:31 -0700
     
     
+    Otherwise IDEA does not find generated sources
     
 
-* __Fix NPE in EventTranscoder__
+* __Fix build: add missing proto files__
 
-    [Adriano Santos](mailto:sleipnir@bsd.com.br) - Fri, 28 Feb 2020 16:08:53 -0300
+    [Vladimir Korenev](mailto:vkorenev@gmail.com) - Tue, 28 Apr 2020 10:56:30 -0700
     
     
 
