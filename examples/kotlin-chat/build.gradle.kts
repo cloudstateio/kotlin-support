@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
-    implementation("io.cloudstate:kotlin-support:0.5.1")
+    implementation("io.cloudstate:cloudstate-kotlin-support:0.5.1")
     implementation("ch.qos.logback:logback-classic:1.2.3")
     testImplementation(kotlin("test"))
     testImplementation(kotlin("test-junit"))
