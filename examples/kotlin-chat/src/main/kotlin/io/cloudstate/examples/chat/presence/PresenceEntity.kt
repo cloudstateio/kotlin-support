@@ -8,7 +8,6 @@ import io.cloudstate.javasupport.EntityId
 import io.cloudstate.javasupport.crdt.*
 
 import io.cloudstate.kotlinsupport.annotations.crdt.CrdtEntity
-import io.cloudstate.kotlinsupport.annotations.crdt.CommandHandler
 
 import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean

@@ -40,7 +40,7 @@ class CloudStateRunner(private val initializer: CloudStateInitializer) {
                     val clazz: Class<*>? = descriptor.transcoder!!.transcode()
 
                     engine.registerCrdtEntity(
-                            AnnotationBasedCrdtSupport(descriptor.serviceClass!!::class.java, anySupport!!, descriptor.descriptor!!),
+                            AnnotationBasedCrdtSupport(descriptor.serviceClass!!.java, anySupport!!, descriptor.descriptor!!),
                             descriptor.descriptor,
                             *descriptor.additionalDescriptors.toTypedArray())
                 }
