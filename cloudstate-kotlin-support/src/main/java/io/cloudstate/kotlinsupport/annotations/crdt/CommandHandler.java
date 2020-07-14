@@ -22,7 +22,6 @@ import java.lang.annotation.Target;
  * <p>The method may also take a {@link CommandContext}, and/or a {@link
  * io.cloudstate.javasupport.EntityId} annotated {@link String} parameter.
  */
-@CloudStateAnnotation
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CommandHandler {

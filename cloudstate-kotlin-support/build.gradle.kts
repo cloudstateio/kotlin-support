@@ -84,6 +84,11 @@ publishing {
                     developerConnection.set("scm:git:ssh://github.com/cloudstateio/kotlin-support.git")
                     url.set("https://github.com/cloudstateio/kotlin-support")
                 }
+                developers {
+                    developer {
+                        name.set("Adriano Santos")
+                    }
+                }
             }
         }
     }
