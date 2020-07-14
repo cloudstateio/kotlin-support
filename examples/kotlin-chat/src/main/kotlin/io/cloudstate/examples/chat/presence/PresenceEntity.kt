@@ -3,8 +3,8 @@ package io.cloudstate.examples.chat.presence
 import com.google.protobuf.Empty
 
 import io.cloudstate.examples.chat.presence.PresenceProtos.OnlineStatus
+import io.cloudstate.examples.chat.presence.PresenceProtos.User
 
-import io.cloudstate.javasupport.EntityId
 import io.cloudstate.javasupport.crdt.*
 
 import io.cloudstate.kotlinsupport.annotations.crdt.CrdtEntity
@@ -22,9 +22,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * us how many nodes have voted, and if at least one of them voted true, we know the user is online.
  */
 @CrdtEntity
-class PresenceEntity(vote: Vote,
-                     ctx: CrdtCreationContext,
-                     @EntityId private val username: String) {
+class PresenceEntity(ctx: CrdtCreationContext) {
 
     /**
      * The vote CRDT.
@@ -73,7 +71,7 @@ class PresenceEntity(vote: Vote,
      * Handler for the monitor command.
      */
     @CommandHandler
-    fun monitor(ctx: StreamedCommandContext<OnlineStatus>): OnlineStatus {
+    fun monitor(user: User, ctx: StreamedCommandContext<OnlineStatus>): OnlineStatus {
         val lastStatus = AtomicBoolean(vote.isAtLeastOne)
 
         // Register a callback so that whenever the vote changes, we can handle it.
@@ -84,9 +82,11 @@ class PresenceEntity(vote: Vote,
             when {
                 lastStatus.get() != vote.isAtLeastOne -> {
                     lastStatus.set(vote.isAtLeastOne)
+                    println("monitor: ${user.name} return {${vote.isAtLeastOne}}")
                     Optional.of<OnlineStatus>(statusMessage())
                 }
                 else -> {
+                    println("monitor: ${user.name} status unchanged")
                     Optional.empty<OnlineStatus>()
                 }
             }
