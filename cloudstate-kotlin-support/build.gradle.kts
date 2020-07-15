@@ -107,7 +107,7 @@ bintray {
         name = "cloudstate-kotlin-support"
         repo = if (versionDetails().isCleanTag) "releases" else "snapshots"
         setLicenses("Apache-2.0")
-        vcsUrl = "https://github.com/cloudstatio/kotlin-support"
+        vcsUrl = "https://github.com/cloudstateio/kotlin-support"
         with(version) {
             name = gitVersion()
             with(mavenCentralSync) {
