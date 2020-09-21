@@ -11,9 +11,16 @@ jdk:
   - openjdk8
   - openjdk11
 
+jobs:
+  include:
+    - stage: validate docs
+      script: make -C docs
+
 deploy:
   provider: script
-  script: ./gradlew bintrayUpload
+  script:
+    - ./gradlew bintrayUpload
+    - make -C docs deploy
   skip_cleanup: true
   on:
     tags: true
@@ -29,6 +36,8 @@ env:
   - secure: "U5hRDjBDUkCG6ZeldXdEXAZxYauYUs4ytAWQZJA7spUmvoZVvtCgm817mty9WBi0a31jryuyIu592Wnq8XToxOQZDCctvIt0Zg2siMZ8gqMw0GnefPkw/p8GQTTgTtvMyXKXPn1+JIPjfpQY+8XpYSFhK79IFhG8i5vnqN0z0wYbGBgxR45uVO2vLmWOik5WCgKL0zDvoKJcqA6XIIPShgDcrgTruwEovEwlbvi5q739c8OOPyc9Dm5sQIpmbVsRc5/jF8Fs7eR9Kyh8JdXiSA+NSyhaK4TlPhxKBrKewflNdxKwRPHmhqS0JyoPhOL2l/mY4RYb0nSU1u6OkGGLtzmS9mpNExUhi+XdQxXYi6xAOXg9FXFhq75HuoIoXzMzycE0YDzOeSQ0IWvR9vJYex+RT2C7BCyVAq7paaHiwa3Qs+02N4anwuAsyWUIqAHVVZ+2+/UEUIjpo/pc/giNW6a3lyEfWGa1mhv8IcJr2iL/ZtPkYHs38N8ME1LgHASAedp0iZRDDs8BPc9u+GWOexy2q/symyLNRJau9X5aaP+nImRJEPUgrkgrC9s2Xu73FavYuGgfv4una29nhRej58wfbPQtZ8NBErMgORDGUzNVuQfcvtItys/mW9gpukMpq3uuLuhjukUDGRRVzhgXqjRBaaSOVWO8RyU+IvHZ8dg="
   # Sonatype user token password; encrypted with: travis encrypt --pro -r cloudstateio/kotlin-support SONATYPE_PASSWORD=<sonatype.token.username>
   - secure: "f58hT6jDTAugGNgsC9nTVBxePCq+v9L3b3rD88meM+HcgbWXoCIghHWyjN7Hj7tmMDGAOoFcSmtfPd5FB3Ird7W3nh/ksxKLWPbw2mbMyBqLyUxMQPIQyKhEBM9qEgAgSX12tzen6kQHQiPp1PPUZtSKCdz4IIs1jje1t9PN3ZSxvCbCSlr7rWuUYXHoP2U+4LlJvfy29jTk19fq0wsf/W6lCa2bKFNF2ML4QFhWMY6TKhm0N0Hgpva/r0L1kcQvevqyJ2NISuUwOJqTM8GWFP9gHmvhbzBUOaGgCTj/K3dbudfZv5YxYiL9mtNFeIBiStS7HEEcO9es5WAB6rKyTWKDx1ElKCFJpy1h/+EtTa6RcVrIvFzuItwf5sY95SzgsHth7zPBYkmpvxIA8PSZHFLfh8tqrHhD1YKA11GwM23GhOXUglC53bITNXimhpHJ3vnadZTXqM67IFrEEME7J0DibZlyvG1oM/kxc7A+oJVpgHxJjo1zPYu1eH3wxjMcTx3tpOOPI5wBRQpn451S77tFGZAgMJf4NYQbBIIC5/+nQtTmQF9v9cMoyWNivNz9RYw78mv2dXTp31CaNgqdqjK/zW96DPGLxhAw7WACSDYt3aW2FJUetTPhFk3hGFlGqb9CUXBDvQcjUatCqzlTdfOoU5PEDgJC0XQdolmf3lg="
+  # Deploy docs token; encrypted with: travis encrypt --pro -r cloudstateio/kotlin-support DEPLOY_DOCS_TOKEN=<cloudstate-bot.github.token>
+  - secure: "x/2ZuTCKRAd1hq54Znl0vsZBZs/1Iy+q1BlFHlOFLgkERF18HKb1jsRMKjCtNw0Nx0mUfgCschbrbIrU/GTYI+tDNRAGY6yDDp9QtssNw+dSCLUpn6yqxVMFooq7RSPhdRFf2bwiwYGR3hpxLa8W5hIoYSoPj5MPVBIn4QfxwkmF+/bshYfMvPpG7CWioFdCGGjbvE/MFPxihXpvv+rAAmOlj3UmuYShW81QGSEfXl3YLt2qer2EHUDCaFOuG1B1HTZbaFCHG29YHpYT0uVDfdFYZTylM1DWlrMTHOEUAQVgVR1p81xzcsF/CbHOHvUjrK+VKMUbP3Yp6Oj8BBXyxL8pEbTPrTNhAX29vTlgmbHiC6s97VrR/Z5dYNhERfxqT7rJhzjZ0QPoQthPZpplaB56kXgpnj+I+bYhLfYHM0ttSH8K1GuhW6MH5ONl5L51ZOn5DNaR+846VQMtOBCZ19lADP4xjhpcV+yqUlR8li4oct+giTvVEML3CIqmoZ6IhsM96xr+A8wDW8ABfe3QmguQxJk4ELDFJgN4G1ccFwlao6MsMGJBrQCxlGnXB42x3UMuUNGfpE2nd279htoLwFblcav+8fF2XjqTRItom37cmQAXDzlvbRTcgzw+TgsaRNJGknFvlUi/DoEkd7sD9SbUBHhXi1AE+ImobyeMS2c="
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/*/*.lock
