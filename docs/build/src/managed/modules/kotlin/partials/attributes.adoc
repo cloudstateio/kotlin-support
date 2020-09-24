@@ -1,0 +1,1 @@
+:cloudstate-kotlin-support-version: 0.5.2
